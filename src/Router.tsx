@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router";
-export const router = createBrowserRouter([
+export const Router = createBrowserRouter([
   {
     path: "/",
 
