@@ -12,6 +12,7 @@
   "dependencies": {
     "@digi/arbetsformedlingen": "^30.0.1",
     "@digi/arbetsformedlingen-react": "^30.0.1",
+    "axios": "^1.11.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
