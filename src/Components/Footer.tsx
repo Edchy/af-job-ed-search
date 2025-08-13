@@ -92,9 +92,7 @@ export const Footer = () => {
             <a href="#">Instagram</a>
           </div>
         </DigiFooter>
-        ;
       </footer>
-      ;
     </>
   );
 };
