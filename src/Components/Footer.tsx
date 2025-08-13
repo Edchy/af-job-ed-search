@@ -3,14 +3,11 @@ import { DigiFooter } from "@digi/arbetsformedlingen-react";
 import { DigiFooterCard } from "@digi/arbetsformedlingen-react";
 import { FooterCardVariation } from "@digi/arbetsformedlingen";
 import { DigiIconAccessibilityUniversal } from "@digi/arbetsformedlingen-react";
-import { DigiLogo } from "@digi/arbetsformedlingen-react";
 import { DigiIconSign } from "@digi/arbetsformedlingen-react";
 import { Link } from "react-router";
 import { DigiIconGlobe } from "@digi/arbetsformedlingen-react";
 import { DigiIconEnvelope } from "@digi/arbetsformedlingen-react";
 import { FooterVariation } from "@digi/arbetsformedlingen";
-import { LogoVariation } from "@digi/arbetsformedlingen";
-import { LogoColor } from "@digi/arbetsformedlingen";
 
 export const Footer = () => {
   return (
@@ -67,10 +64,13 @@ export const Footer = () => {
           </div>
           <div slot="content-bottom-left">
             <Link to="/">
-              <DigiLogo
-                afVariation={LogoVariation.LARGE}
-                afColor={LogoColor.SECONDARY}
-              ></DigiLogo>
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 40 40"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              ></svg>
             </Link>
           </div>
           <div slot="content-bottom-right">
