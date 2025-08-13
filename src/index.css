@@ -2,6 +2,6 @@
 @import "@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css";
 
 
-.digi-logo-large {
-  /* display: none; */
+.digi-logo__img {
+  display: none !important;
 }
