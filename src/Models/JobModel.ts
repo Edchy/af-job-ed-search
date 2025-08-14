@@ -1,8 +1,10 @@
-export interface JobAd {
+export interface IJobAd {
   id: string;
   headline: string;
   description: JobAdDescription;
   workplace_address: JobAdWorkplaceAddress;
+  occupation: JobTechTaxonomyItem;
+  publication_date: string;
 }
 type JobAdWorkplaceAddress = {
   municipality: string;
@@ -26,6 +28,12 @@ type JobAdDescription = {
   needs: string;
   requirements: string;
   conditions: string;
+};
+
+type JobTechTaxonomyItem = {
+  concept_id: string;
+  label: string;
+  legacy_ams_taxonomy_id: string;
 };
 
 // export interface Job {

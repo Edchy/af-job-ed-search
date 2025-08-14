@@ -1,25 +1,34 @@
 import {
   FormInputSearchVariation,
   FormInputType,
+  LayoutBlockContainer,
   LayoutBlockVariation,
+  LayoutColumnsElement,
+  LayoutColumnsVariation,
   LoaderSkeletonVariation,
 } from "@digi/arbetsformedlingen";
 import {
   DigiFormInputSearch,
   DigiLayoutBlock,
+  DigiLayoutColumns,
   DigiLayoutContainer,
   DigiLoaderSkeleton,
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 
-import type { JobAd } from "../Models/JobModel";
+import type { IJobAd } from "../Models/JobModel";
 import { useState } from "react";
+import JobAd from "../Components/JobAd";
+
+type SearchMeta = {
+  total: number;
+  positions: number;
+};
 
 export default function ContactPage() {
-  const [searchResults, setSearchResults] = useState<JobAd[]>([]);
-  const [searchMeta, setSearchMeta] = useState({ total: 0, positions: 0 });
+  const [searchResults, setSearchResults] = useState<IJobAd[]>([]);
+  const [searchMeta, setSearchMeta] = useState<SearchMeta | null>(null);
   const [loading, setLoading] = useState(false);
-  const [hasSearched, setHasSearched] = useState(false);
 
   async function handleSearch(e: CustomEvent<string>) {
     const searchQuery = e.detail;
@@ -30,7 +39,7 @@ export default function ContactPage() {
     }
 
     setLoading(true);
-    setHasSearched(true);
+    setSearchMeta(null); // reset meta while loading
     try {
       const res = await fetch(
         `https://jobsearch.api.jobtechdev.se/search?q=${searchQuery}&offset=0&limit=10`
@@ -38,8 +47,8 @@ export default function ContactPage() {
       const data = await res.json();
       setSearchResults(data.hits);
       setSearchMeta({
-        total: data.total.value,
-        positions: data.positions,
+        total: data?.total?.value ?? 0,
+        positions: data?.positions ?? 0,
       });
       console.log(data.positions);
       console.log(data.total.value);
@@ -49,56 +58,56 @@ export default function ContactPage() {
       setLoading(false);
     }
   }
+  console.log(searchResults);
 
   return (
     <DigiLayoutBlock
-      afVariation={LayoutBlockVariation.PRIMARY}
+      afVariation={LayoutBlockVariation.SECONDARY}
       aria-busy={loading}
     >
-      <DigiTypography>
-        <h2>Sök efter jobb</h2>
-      </DigiTypography>
-      <DigiFormInputSearch
-        afLabel="Yrke, kompetens eller företag"
-        afVariation={FormInputSearchVariation.MEDIUM}
-        afType={FormInputType.SEARCH}
-        afButtonText="Sök"
-        onAfOnSubmitSearch={handleSearch}
-      ></DigiFormInputSearch>
-
-      {/* Loading skeleton (kept mounted; toggled via CSS to avoid DOM churn) */}
+      <DigiLayoutBlock afContainer={LayoutBlockContainer.STATIC}>
+        <DigiTypography>
+          <h2>Sök efter jobb</h2>
+        </DigiTypography>
+        <DigiFormInputSearch
+          afLabel="Sök ett eller flera ord"
+          afVariation={FormInputSearchVariation.MEDIUM}
+          afType={FormInputType.SEARCH}
+          afButtonText="Sök"
+          onAfOnSubmitSearch={handleSearch}
+        ></DigiFormInputSearch>
+      </DigiLayoutBlock>
       <div
         style={{ display: loading ? "block" : "none" }}
         aria-hidden={!loading}
       >
-        <DigiLayoutBlock>
+        <DigiLayoutContainer>
           <DigiLoaderSkeleton
             afVariation={LoaderSkeletonVariation.SECTION}
             afCount={4}
           ></DigiLoaderSkeleton>
-        </DigiLayoutBlock>
+        </DigiLayoutContainer>
       </div>
 
-      {/* Results list (hidden while loading) */}
       <div
         style={{ display: loading ? "none" : "block" }}
         aria-hidden={loading}
       >
-        {hasSearched && (
-          <DigiTypography role="status" aria-live="polite">
-            <p>
-              <strong>{searchMeta.total} annonser</strong> med{" "}
-              {searchMeta.positions} jobb
-            </p>
-          </DigiTypography>
-        )}
-        {searchResults.map((job, idx) => (
-          <DigiLayoutContainer key={job.id || `job-${idx}`}>
-            <DigiTypography>
-              <h3>{job.headline}</h3>
+        <DigiLayoutContainer>
+          {searchMeta !== null && (
+            <DigiTypography role="status" aria-live="polite">
+              <p>
+                <strong>{searchMeta.total} annonser</strong> med{" "}
+                {searchMeta.positions} jobb
+              </p>
             </DigiTypography>
-          </DigiLayoutContainer>
-        ))}
+          )}
+        </DigiLayoutContainer>
+        <DigiLayoutBlock afContainer={LayoutBlockContainer.FLUID}>
+          {searchResults.map((job, idx) => (
+            <JobAd job={job} key={job.id || `job-${idx}`} />
+          ))}
+        </DigiLayoutBlock>
       </div>
     </DigiLayoutBlock>
   );
