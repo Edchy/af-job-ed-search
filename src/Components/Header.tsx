@@ -7,8 +7,8 @@ import {
 export default function Header() {
   return (
     <DigiHeader
-      afSystemName="Typ AF eller nåt"
-      afHideSystemName={true}
+      afSystemName="YobXplorer"
+      afHideSystemName={false}
       afMenuButtonText="Meny"
     >
       <a slot="header-logo" aria-label="Designsystemets startsida" href="/"></a>

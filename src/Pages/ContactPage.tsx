@@ -6,6 +6,8 @@ import {
   LayoutColumnsElement,
   LayoutColumnsVariation,
   LoaderSkeletonVariation,
+  FormSelectVariation,
+  FormCheckboxVariation,
 } from "@digi/arbetsformedlingen";
 import {
   DigiFormInputSearch,
@@ -14,6 +16,8 @@ import {
   DigiLayoutContainer,
   DigiLoaderSkeleton,
   DigiTypography,
+  DigiFormSelect,
+  DigiFormCheckbox,
 } from "@digi/arbetsformedlingen-react";
 
 import type { IJobAd } from "../Models/JobModel";
@@ -42,7 +46,7 @@ export default function ContactPage() {
     setSearchMeta(null); // reset meta while loading
     try {
       const res = await fetch(
-        `https://jobsearch.api.jobtechdev.se/search?q=${searchQuery}&offset=0&limit=10`
+        `https://jobsearch.api.jobtechdev.se/search?q=${searchQuery}&region=CifL_Rzy_Mku&offset=0&limit=10`
       );
       const data = await res.json();
       setSearchResults(data.hits);
@@ -62,53 +66,37 @@ export default function ContactPage() {
 
   return (
     <DigiLayoutBlock
+      // afMarginTop
+      afContainer={LayoutBlockContainer.FLUID}
       afVariation={LayoutBlockVariation.SECONDARY}
-      aria-busy={loading}
     >
-      <DigiLayoutBlock afContainer={LayoutBlockContainer.STATIC}>
+      <DigiLayoutContainer>
         <DigiTypography>
-          <h2>Sök efter jobb</h2>
+          <h1 style={{ fontWeight: 700 }}>Hitta ditt drömjobb</h1>
         </DigiTypography>
+      </DigiLayoutContainer>
+      <DigiLayoutContainer>
         <DigiFormInputSearch
-          afLabel="Sök ett eller flera ord"
-          afVariation={FormInputSearchVariation.MEDIUM}
+          afLabel="Titel, beskrivning eller företag"
+          afVariation={FormInputSearchVariation.LARGE}
           afType={FormInputType.SEARCH}
           afButtonText="Sök"
           onAfOnSubmitSearch={handleSearch}
         ></DigiFormInputSearch>
-      </DigiLayoutBlock>
-      <div
-        style={{ display: loading ? "block" : "none" }}
-        aria-hidden={!loading}
-      >
-        <DigiLayoutContainer>
-          <DigiLoaderSkeleton
-            afVariation={LoaderSkeletonVariation.SECTION}
-            afCount={4}
-          ></DigiLoaderSkeleton>
-        </DigiLayoutContainer>
-      </div>
-
-      <div
-        style={{ display: loading ? "none" : "block" }}
-        aria-hidden={loading}
-      >
-        <DigiLayoutContainer>
-          {searchMeta !== null && (
-            <DigiTypography role="status" aria-live="polite">
-              <p>
-                <strong>{searchMeta.total} annonser</strong> med{" "}
-                {searchMeta.positions} jobb
-              </p>
-            </DigiTypography>
-          )}
-        </DigiLayoutContainer>
-        <DigiLayoutBlock afContainer={LayoutBlockContainer.FLUID}>
-          {searchResults.map((job, idx) => (
-            <JobAd job={job} key={job.id || `job-${idx}`} />
-          ))}
-        </DigiLayoutBlock>
-      </div>
+      </DigiLayoutContainer>
+      <DigiLayoutContainer className="job-list">
+        {searchMeta !== null && (
+          <DigiTypography role="status" aria-live="polite">
+            <p>
+              <strong>{searchMeta.total} annonser</strong> med{" "}
+              {searchMeta.positions} jobb
+            </p>
+          </DigiTypography>
+        )}
+        {searchResults.map((job, idx) => (
+          <JobAd job={job} key={job.id || `job-${idx}`} />
+        ))}
+      </DigiLayoutContainer>
     </DigiLayoutBlock>
   );
 }

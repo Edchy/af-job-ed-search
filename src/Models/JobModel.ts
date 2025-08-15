@@ -1,6 +1,7 @@
 export interface IJobAd {
   id: string;
   headline: string;
+  number_of_vacancies: number;
   description: JobAdDescription;
   workplace_address: JobAdWorkplaceAddress;
   occupation: JobTechTaxonomyItem;

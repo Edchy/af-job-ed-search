@@ -1,0 +1,24 @@
+@import "@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/digi-arbetsformedlingen.css";
+@import "@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css" layer(components);
+@import "customTheme.css";
+
+.app-layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+
+}
+
+.digi-logo__img {
+  /* display: none !important; */
+}
+
+.x {
+  background-color: red !important;
+  margin-bottom: 1rem;
+}
+
+.job-list {
+  margin-top: var(--digi--margin--largest);
+  display: grid;
+}
