@@ -4,7 +4,7 @@ import { DigiFooterCard } from "@digi/arbetsformedlingen-react";
 import { FooterCardVariation } from "@digi/arbetsformedlingen";
 import { DigiIconAccessibilityUniversal } from "@digi/arbetsformedlingen-react";
 import { DigiIconSign } from "@digi/arbetsformedlingen-react";
-import { Link } from "react-router";
+// import { Link } from "react-router";
 import { DigiIconGlobe } from "@digi/arbetsformedlingen-react";
 import { DigiIconEnvelope } from "@digi/arbetsformedlingen-react";
 import { FooterVariation } from "@digi/arbetsformedlingen";
@@ -63,7 +63,7 @@ export const Footer = () => {
             </div>
           </div>
           <div slot="content-bottom-left">
-            <Link to="/">
+            {/* <Link to="/">
               <svg
                 width="40"
                 height="40"
@@ -82,7 +82,7 @@ export const Footer = () => {
                   fill="#FF4D00"
                 ></path>
               </svg>
-            </Link>
+            </Link> */}
           </div>
           <div slot="content-bottom-right">
             <p>Följ oss på</p>
