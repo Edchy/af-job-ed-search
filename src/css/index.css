@@ -1,5 +1,6 @@
 @import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/digi-arbetsformedlingen.css';
 @import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css';
+@import "./customTheme.css";
 
 .app-layout {
   display: grid;
@@ -11,4 +12,12 @@
   margin-top: 1rem;
   border-radius: var(--digi--border-radius--tertiary);
 
+}
+
+.digi-logo__img {
+  display: none !important;
+}
+
+.digi-logo__system-name::before {
+  display: none !important;
 }

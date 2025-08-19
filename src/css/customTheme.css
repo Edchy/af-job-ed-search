@@ -1,6 +1,6 @@
 :root {
   /* ===== Brand backgrounds ===== */
-  --digi--color--background--primary: #dd1717;
+  --digi--color--background--primary: #fdfdfd !important;
   /* Main background */
   --digi--color--background--secondary: #e5dddd;
   /* Light background */
@@ -8,7 +8,7 @@
   /* Lighter background */
 
   /* Inverted backgrounds (e.g., dark header, buttons) */
-  --digi--color--background--inverted-1: #320166 !important;
+  --digi--color--background--inverted-1: #05557e !important;
   /* Dark background */
   --digi--color--background--inverted-2: #007233;
   /* Alternate dark */
