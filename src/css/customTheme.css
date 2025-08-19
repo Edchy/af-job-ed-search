@@ -1,51 +1,49 @@
-@layer af-overrides {
-  :root {
-    /* ===== Brand backgrounds ===== */
-    --digi--color--background--primary: #FFF;
-    /* Main background */
-    --digi--color--background--secondary: #e5dddd;
-    /* Light background */
-    --digi--color--background--tertiary: #ccffcc;
-    /* Lighter background */
+:root {
+  /* ===== Brand backgrounds ===== */
+  --digi--color--background--primary: #dd1717;
+  /* Main background */
+  --digi--color--background--secondary: #e5dddd;
+  /* Light background */
+  --digi--color--background--tertiary: #ccffcc;
+  /* Lighter background */
 
-    /* Inverted backgrounds (e.g., dark header, buttons) */
-    --digi--color--background--inverted-1: #320166 !important;
-    /* Dark background */
-    --digi--color--background--inverted-2: #007233;
-    /* Alternate dark */
-    --digi--color--background--inverted-3: #222222;
-    /* Neutral dark */
+  /* Inverted backgrounds (e.g., dark header, buttons) */
+  --digi--color--background--inverted-1: #320166 !important;
+  /* Dark background */
+  --digi--color--background--inverted-2: #007233;
+  /* Alternate dark */
+  --digi--color--background--inverted-3: #222222;
+  /* Neutral dark */
 
-    /* ===== Text colors ===== */
-    --digi--color--text--primary: #111111;
-    /* Main text */
-    --digi--color--text--secondary: #333333;
-    /* Secondary text */
-    --digi--color--text--inverted: #ffffff;
-    /* Text on dark bg */
+  /* ===== Text colors ===== */
+  --digi--color--text--primary: #111111;
+  /* Main text */
+  --digi--color--text--secondary: #333333;
+  /* Secondary text */
+  --digi--color--text--inverted: #ffffff;
+  /* Text on dark bg */
 
-    /* ===== Links ===== */
-    --digi--color--text--link: #ff6600;
-    /* Link color */
-    --digi--color--text--link-hover: #cc5200;
-    /* Hover link */
-    --digi--color--text--link-visited: #aa4400;
-    /* Visited link */
+  /* ===== Links ===== */
+  --digi--color--text--link: #ff6600;
+  /* Link color */
+  --digi--color--text--link-hover: #cc5200;
+  /* Hover link */
+  --digi--color--text--link-visited: #aa4400;
+  /* Visited link */
 
-    /* ===== Borders ===== */
-    --digi--color--border--primary: #2ccd0c;
-    /* Main borders */
-    --digi--color--border--secondary: #ff6600;
-    /* Accent borders */
+  /* ===== Borders ===== */
+  --digi--color--border--primary: #2ccd0c;
+  /* Main borders */
+  --digi--color--border--secondary: #ff6600;
+  /* Accent borders */
 
-    /* ===== Status backgrounds ===== */
-    --digi--color--background--success-1: #2ccd0c;
-    /* Success green */
-    --digi--color--background--danger-1: #e63946;
-    /* Danger red */
-    --digi--color--background--warning-1: #ffb703;
-    /* Warning yellow */
-    --digi--color--background--informative: #219ebc;
-    /* Info blue */
-  }
+  /* ===== Status backgrounds ===== */
+  --digi--color--background--success-1: #2ccd0c;
+  /* Success green */
+  --digi--color--background--danger-1: #e63946;
+  /* Danger red */
+  --digi--color--background--warning-1: #ffb703;
+  /* Warning yellow */
+  --digi--color--background--informative: #219ebc;
+  /* Info blue */
 }

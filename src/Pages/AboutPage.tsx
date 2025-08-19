@@ -3,55 +3,38 @@ import {
   FormInputType,
   LayoutBlockContainer,
   LayoutBlockVariation,
-  LayoutColumnsElement,
-  LayoutColumnsVariation,
   LoaderSkeletonVariation,
 } from "@digi/arbetsformedlingen";
 import {
   DigiFormInputSearch,
   DigiLayoutBlock,
-  DigiLayoutColumns,
   DigiLayoutContainer,
   DigiLoaderSkeleton,
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 
-import type { IJobAd } from "../Models/JobModel";
 import { useState } from "react";
-import JobAd from "../Components/JobAd";
-
-type SearchMeta = {
-  total: number;
-  positions: number;
-};
+import EdAd from "../Components/EdAd";
 
 export default function ContactPage() {
-  const [searchResults, setSearchResults] = useState<IJobAd[]>([]);
-  const [searchMeta, setSearchMeta] = useState<SearchMeta | null>(null);
+  const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
 
   async function handleSearch(e: CustomEvent<string>) {
     const searchQuery = e.detail;
     console.log(searchQuery);
-    if (!searchQuery) {
-      console.log("Inga sökord angivna");
-      return;
-    }
+    // if (!searchQuery) {
+    //   console.log("Inga sökord angivna");
+    //   return;
+    // }
 
     setLoading(true);
-    setSearchMeta(null); // reset meta while loading
     try {
       const res = await fetch(
-        `https://jobsearch.api.jobtechdev.se/search?q=${searchQuery}&offset=0&limit=10`
+        `https://jobed-connect-api.jobtechdev.se/v1/educations?query=polis`
       );
       const data = await res.json();
-      setSearchResults(data.hits);
-      setSearchMeta({
-        total: data?.total?.value ?? 0,
-        positions: data?.positions ?? 0,
-      });
-      console.log(data.positions);
-      console.log(data.total.value);
+      setSearchResults(data.result);
     } catch (error) {
       console.error("Error fetching jobs:", error);
     } finally {
@@ -61,58 +44,28 @@ export default function ContactPage() {
   console.log(searchResults);
 
   return (
-    <DigiLayoutBlock
-      afVariation={LayoutBlockVariation.SECONDARY}
-      afContainer={LayoutBlockContainer.FLUID}
-      aria-busy={loading}
-    >
-      <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.PROFILE}
-        afContainer={LayoutBlockContainer.FLUID}
-      >
+    <DigiLayoutBlock aria-busy={loading}>
+      <DigiLayoutBlock>
         <DigiTypography>
-          <h2>Sök efter jobb</h2>
+          <h2>Sök utbildning</h2>
         </DigiTypography>
         <DigiFormInputSearch
           afLabel="Sök ett eller flera ord"
-          afVariation={FormInputSearchVariation.MEDIUM}
+          afVariation={FormInputSearchVariation.LARGE}
           afType={FormInputType.SEARCH}
-          afButtonText="Sök"
+          afButtonText={(loading && "laddar...") || "Sök"}
           onAfOnSubmitSearch={handleSearch}
         ></DigiFormInputSearch>
       </DigiLayoutBlock>
-      <div
-        style={{ display: loading ? "block" : "none" }}
-        aria-hidden={!loading}
-      >
-        <DigiLayoutContainer>
-          <DigiLoaderSkeleton
-            afVariation={LoaderSkeletonVariation.SECTION}
-            afCount={4}
-          ></DigiLoaderSkeleton>
-        </DigiLayoutContainer>
-      </div>
-
-      <div
-        style={{ display: loading ? "none" : "block" }}
-        aria-hidden={loading}
-      >
-        {searchMeta !== null && (
+      <DigiLayoutBlock>
+        {!loading && searchResults.length > 0 && (
           <DigiLayoutContainer>
-            <DigiTypography role="status" aria-live="polite">
-              <p>
-                <strong>{searchMeta.total} annonser</strong> med{" "}
-                {searchMeta.positions} jobb
-              </p>
-            </DigiTypography>
+            {searchResults.map((result) => (
+              <EdAd key={result.id} ed={result} />
+            ))}
           </DigiLayoutContainer>
         )}
-        <DigiLayoutBlock afContainer={LayoutBlockContainer.FLUID}>
-          {searchResults.map((job, idx) => (
-            <JobAd job={job} key={job.id || `job-${idx}`} />
-          ))}
-        </DigiLayoutBlock>
-      </div>
+      </DigiLayoutBlock>
     </DigiLayoutBlock>
   );
 }

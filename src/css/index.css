@@ -1,2 +1,14 @@
 @import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/digi-arbetsformedlingen.css';
 @import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css';
+
+.app-layout {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.x>* {
+  border: 1px solid black;
+  margin-top: 1rem;
+  border-radius: var(--digi--border-radius--tertiary);
+
+}
