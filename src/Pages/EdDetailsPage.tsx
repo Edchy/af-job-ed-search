@@ -4,7 +4,6 @@ import {
   DigiLayoutContainer,
   DigiLink,
 } from "@digi/arbetsformedlingen-react";
-import { LinkVariation } from "@digi/arbetsformedlingen";
 import type { IEdAd } from "../Models/EdModel";
 import React from "react";
 
@@ -29,10 +28,7 @@ export default function EdDetailsPage() {
     <>
       <DigiLayoutBlock afMarginTop>
         <DigiLayoutContainer>
-          <DigiLink
-            afHref={`/education${search}`}
-            afVariation={LinkVariation.SMALL}
-          >
+          <DigiLink afHref={`/education${search}`}>
             {React.createElement("digi-icon-chevron-left")}
             Sökresultat
           </DigiLink>

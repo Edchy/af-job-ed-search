@@ -4,11 +4,13 @@ import {
   DigiTypography,
   DigiButton,
   DigiExpandableAccordion,
+  DigiLoaderSpinner,
 } from "@digi/arbetsformedlingen-react";
 import {
   ButtonSize,
   ButtonVariation,
   LayoutBlockVariation,
+  LoaderSpinnerSize,
 } from "@digi/arbetsformedlingen";
 import type { IEdAd } from "../Models/EdModel";
 import {
@@ -21,17 +23,21 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
   const [relatedOccupations, setRelatedOccupations] = useState<
     RelatedOccupation[]
   >([]);
+  const [loading, setLoading] = useState(false);
 
   async function handleClick() {
-    console.log("Button clicked!");
+    if (relatedOccupations.length > 0) return;
+    setLoading(true);
     try {
       const res = await getRelatedOccupationsByEducationId(education.id);
       setRelatedOccupations(res.related_occupations);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   }
-  console.log(relatedOccupations[0].occupation_label);
+
   return (
     <DigiLayoutBlock
       afMarginTop
@@ -53,24 +59,34 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
           onClick={handleClick}
           afHeading="Relaterade yrken"
         >
-          {relatedOccupations.length > 0 ? (
-            <DigiTypography>
-              {relatedOccupations.map((occupation) => (
-                <div key={occupation.id}>{occupation.occupation_label}</div>
-              ))}
-            </DigiTypography>
-          ) : (
-            <DigiTypography>inga</DigiTypography>
-          )}
+          <div hidden={!loading}>
+            <DigiLoaderSpinner
+              afSize={LoaderSpinnerSize.MEDIUM}
+              afText="Laddar"
+            ></DigiLoaderSpinner>
+          </div>
+          <div hidden={loading}>
+            {relatedOccupations && relatedOccupations.length > 0 ? (
+              <DigiTypography>
+                <ul>
+                  {relatedOccupations.map((occupation) => (
+                    <li key={occupation.id}>{occupation.occupation_label}</li>
+                  ))}
+                </ul>
+              </DigiTypography>
+            ) : (
+              <DigiTypography>inga</DigiTypography>
+            )}
+          </div>
         </DigiExpandableAccordion>
-        <DigiButton
+        {/* <DigiButton
           afSize={ButtonSize.MEDIUM}
           afVariation={ButtonVariation.PRIMARY}
           afFullWidth={false}
           onAfOnClick={handleClick}
         >
           En knapp
-        </DigiButton>
+        </DigiButton> */}
       </DigiLayoutContainer>
     </DigiLayoutBlock>
   );
