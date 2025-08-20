@@ -13,76 +13,82 @@ import { taxonomyMap } from "../utils/helpers";
 import React from "react";
 import "./EdAd.css";
 
-const EdAd = ({ ed }: { ed: IEdAd }) => {
+const EdAd = ({ education }: { education: IEdAd }) => {
   return (
     <Link
-      className="ed-ad-wrapper-link"
-      to={`/education/${ed.id}${location.search}`}
-      state={{ education: ed }} // skicka hela objektet som state via router
+      className="education-ad-wrapper-link"
+      to={`/education/${education.id}${location.search}`}
+      state={{ education: education }} // skicka hela objektet som state via router
     >
       <DigiInfoCardMulti
         className="x"
-        afHeading={`${ed.education.title[0].content} `}
+        afHeading={`${education.education?.title?.[0]?.content || ""} `}
         afHeadingLevel={InfoCardMultiHeadingLevel.H3}
         afType={InfoCardMultiType.RELATED}
-        afLinkHref={`/education/${ed.id}`} // måste fixas
+        afLinkHref={`/education/${education.id}`} // måste fixas
       >
         <DigiTypography>
-          <div className="ed-ad-details">
-            <div>{ed.id}</div>
-            <div className="ed-ad-row">
+          <div className="education-ad-details">
+            <div>{education.id}</div>
+            <div className="education-ad-row">
               <div>
-                <em>{ed.providerSummary.providers.join(", ")}</em>
-                {ed.eventSummary.distance && <span> - Distans</span>}
+                <em>{education.providerSummary?.providers?.join(", ")}</em>
+                {education.eventSummary?.distance && <span> - Distans</span>}
               </div>
-              {ed.education.credits.credits && (
+              {education.education?.credits?.credits && (
                 <div>
-                  <span className="ed-ad-icon">
+                  <span className="education-ad-icon">
                     {React.createElement("digi-icon-education")}
                   </span>
                   <span>
                     <strong>
-                      {ed.education.credits.credits}{" "}
-                      {ed.education.credits.system.code.toUpperCase()}
+                      {education.education?.credits?.credits}{" "}
+                      {education.education?.credits?.system?.code?.toUpperCase()}
                     </strong>
                   </span>
                 </div>
               )}
             </div>
 
-            <div className="ed-ad-row">
-              <span className="ed-ad-icon">
+            <div className="education-ad-row">
+              <span className="education-ad-icon">
                 {React.createElement("digi-icon-clock")}
               </span>
-              <span className="ed-ad-label">Studietakt:</span>
-              <span>{ed.eventSummary.paceOfStudyPercentage.join(", ")}%</span>
+              <span className="education-ad-label">Studietakt:</span>
+              <span>
+                {education.eventSummary?.paceOfStudyPercentage?.join(", ")}%
+              </span>
             </div>
-            <div className="ed-ad-row">
-              <span className="ed-ad-icon">
+            <div className="education-ad-row">
+              <span className="education-ad-icon">
                 {React.createElement("digi-icon-book")}
               </span>
-              <span className="ed-ad-label">Typ:</span>
-              <span>{ed.education.configuration.code}</span>
+              <span className="education-ad-label">Typ:</span>
+              <span>{education.education?.configuration?.code}</span>
             </div>
-            <div className="ed-ad-row">
-              <span className="ed-ad-icon">
+            <div className="education-ad-row">
+              <span className="education-ad-icon">
                 {React.createElement("digi-icon-bell")}
               </span>
-              <span className="ed-ad-label">Form:</span>
-              <span>{ed.education.form.code}</span>
+              <span className="education-ad-label">Form:</span>
+              <span>{education.education?.form?.code}</span>
             </div>
 
-            {ed.eventSummary.municipalityCode[0] && (
-              <div className="ed-ad-row">
-                <span className="ed-ad-icon">
+            {education.eventSummary?.municipalityCode?.[0] && (
+              <div className="education-ad-row">
+                <span className="education-ad-icon">
                   {React.createElement("digi-icon-globe")}
                 </span>
                 <span>
                   {taxonomyMap(
-                    ed.eventSummary.municipalityCode[0],
+                    education.eventSummary?.municipalityCode?.[0],
                     "municipality"
                   )}
-                  , {taxonomyMap(ed.eventSummary.regionCode[0], "region")}
+                  ,{" "}
+                  {taxonomyMap(
+                    education.eventSummary?.regionCode?.[0],
+                    "region"
+                  )}
                 </span>
               </div>
             )}

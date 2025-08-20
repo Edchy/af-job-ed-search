@@ -131,7 +131,7 @@ export default function EducationPage() {
                 <h2>{educationAds.hits} Annonser</h2>
               </DigiTypography>
               {educationAds.result?.map((ed: IEdAd) => (
-                <EdAd key={ed.id} ed={ed} />
+                <EdAd key={ed.id} education={ed} />
               ))}
               <DigiLayoutContainer afVerticalPadding>
                 <DigiTypography>lägg till paginering</DigiTypography>

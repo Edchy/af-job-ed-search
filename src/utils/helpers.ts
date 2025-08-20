@@ -4,10 +4,10 @@ import regions from "../taxonomy/regions.json";
 export const formatSwedishDate = (dateString: string): string => {
   const date = new Date(dateString);
 
-  // Using Intl.DateTimeFormat for Swedish locale
-  const dayMonth = date.toLocaleDateString("sv-SE", {
+  const dayMonthYear = date.toLocaleDateString("sv-SE", {
     day: "numeric",
     month: "long",
+    year: "numeric",
   });
 
   const time = date.toLocaleTimeString("sv-SE", {
@@ -16,7 +16,7 @@ export const formatSwedishDate = (dateString: string): string => {
     hour12: false,
   });
 
-  return `${dayMonth}, kl. ${time}`;
+  return `${dayMonthYear}, kl. ${time}`;
 };
 
 /**

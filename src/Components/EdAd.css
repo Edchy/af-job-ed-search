@@ -1,9 +1,9 @@
-.ed-ad-wrapper-link {
+.education-ad-wrapper-link {
   text-decoration: none;
   color: inherit;
 }
 
-.ed-ad-details {
+.education-ad-details {
   display: flex;
   flex-direction: column;
   gap: 0.4rem;
@@ -14,7 +14,7 @@
 
 }
 
-.ed-ad-row {
+.education-ad-row {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -26,13 +26,13 @@
   }
 }
 
-.ed-ad-label {
+.education-ad-label {
   font-weight: 500;
   color: #555;
   min-width: 90px;
 }
 
-.ed-ad-icon {
+.education-ad-icon {
   display: flex;
   align-items: center;
 }
