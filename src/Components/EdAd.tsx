@@ -29,6 +29,7 @@ const EdAd = ({ ed }: { ed: IEdAd }) => {
       >
         <DigiTypography>
           <div className="ed-ad-details">
+            <div>{ed.id}</div>
             <div className="ed-ad-row">
               <div>
                 <em>{ed.providerSummary.providers.join(", ")}</em>

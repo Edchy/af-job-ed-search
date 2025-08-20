@@ -5,13 +5,13 @@ export interface EducationSearchResult {
   hits: number;
   result: IEdAd[];
 }
-const URL = "https://jobed-connect-api.jobtechdev.se/v1/educations";
+const BASE_URL = "https://jobed-connect-api.jobtechdev.se/v1/educations";
 
 export async function fetchEducations(
   query: string
 ): Promise<EducationSearchResult> {
   const data = await apiFetch<EducationSearchResult>(
-    `${URL}?query=${encodeURIComponent(query)}`
+    `${BASE_URL}?query=${encodeURIComponent(query)}`
   );
 
   return { hits: data.hits, result: data.result || [] };

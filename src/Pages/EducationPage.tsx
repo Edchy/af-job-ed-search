@@ -120,7 +120,8 @@ export default function EducationPage() {
             {/* Empty state */}
             <div hidden={!(!loading && q && (educationAds.hits ?? 0) === 0)}>
               <DigiTypography>
-                <p>Inga utbildningar hittades för "{q}".</p>
+                <h3>Inga utbildningar hittades för "{q}".</h3>
+                <p>Menade du (förslag här)</p>
               </DigiTypography>
             </div>
 
@@ -132,6 +133,9 @@ export default function EducationPage() {
               {educationAds.result?.map((ed: IEdAd) => (
                 <EdAd key={ed.id} ed={ed} />
               ))}
+              <DigiLayoutContainer afVerticalPadding>
+                <DigiTypography>lägg till paginering</DigiTypography>
+              </DigiLayoutContainer>
             </div>
           </div>
         </DigiLayoutContainer>
