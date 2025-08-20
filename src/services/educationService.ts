@@ -14,7 +14,7 @@ export async function fetchEducations(
     `${URL}?query=${encodeURIComponent(query)}`
   );
 
-  return { hits: data.hits, result: data.result };
+  return { hits: data.hits, result: data.result || [] };
 }
 
 // encodeURIComponent transforms input into a format that can be safely included in a URL

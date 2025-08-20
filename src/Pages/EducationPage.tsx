@@ -63,16 +63,7 @@ export default function EducationPage() {
   async function handleSearch(e: CustomEvent<string>) {
     const query = e.detail;
     if (!query) return;
-    // setLoading(true);
     setSearchParams({ q: query }, { replace: true });
-    // try {
-    //   const results = await fetchEducations(query);
-    //   setEducationAds(results);
-    // } catch (error) {
-    //   console.error("Error fetching educations:", error);
-    // } finally {
-    //   setLoading(false);
-    // }
   }
 
   console.log(educationAds);
@@ -87,8 +78,13 @@ export default function EducationPage() {
 
   return (
     <>
-      <DigiLayoutBlock afMarginBottom afMarginTop aria-busy={loading}>
-        <DigiLayoutContainer>
+      <DigiLayoutBlock
+        afVariation={LayoutBlockVariation.PROFILE}
+        afMarginBottom
+        afMarginTop
+        aria-busy={loading}
+      >
+        <DigiLayoutContainer afVerticalPadding className="search-container">
           <DigiTypography>
             <h2>Sök utbildning</h2>
           </DigiTypography>
@@ -103,20 +99,38 @@ export default function EducationPage() {
         </DigiLayoutContainer>
       </DigiLayoutBlock>
       <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.PROFILE}
+        afVariation={LayoutBlockVariation.SECONDARY}
         afMarginBottom
         afMarginTop
       >
-        {!loading && educationAds.result.length > 0 && (
-          <DigiLayoutContainer>
-            <DigiTypography>
-              <h2>{educationAds.hits} Annonser</h2>
-            </DigiTypography>
-            {educationAds.result.map((ed: IEdAd) => (
-              <EdAd key={ed.id} ed={ed} />
-            ))}
-          </DigiLayoutContainer>
-        )}
+        <DigiLayoutContainer afVerticalPadding>
+          {/* Keep exactly ONE stable child for the web component to slot */}
+          <div className="results-slot">
+            {/* Loading */}
+            <div aria-live="polite" hidden={!loading}>
+              <DigiTypography>
+                <p>Laddar utbildningar…</p>
+              </DigiTypography>
+            </div>
+
+            {/* Empty state */}
+            <div hidden={!(!loading && q && (educationAds.hits ?? 0) === 0)}>
+              <DigiTypography>
+                <p>Inga utbildningar hittades för "{q}".</p>
+              </DigiTypography>
+            </div>
+
+            {/* Results */}
+            <div hidden={!(!loading && (educationAds.hits ?? 0) > 0)}>
+              <DigiTypography>
+                <h2>{educationAds.hits} Annonser</h2>
+              </DigiTypography>
+              {educationAds.result?.map((ed: IEdAd) => (
+                <EdAd key={ed.id} ed={ed} />
+              ))}
+            </div>
+          </div>
+        </DigiLayoutContainer>
       </DigiLayoutBlock>
     </>
   );

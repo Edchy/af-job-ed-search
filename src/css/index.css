@@ -14,6 +14,10 @@
 
 }
 
+.search-container :is(h2, span) {
+  color: var(--digi--color--text--inverted) !important;
+}
+
 .digi-logo__img {
   display: none !important;
 }

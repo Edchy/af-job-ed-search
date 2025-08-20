@@ -9,12 +9,12 @@ import { ButtonSize, ButtonVariation } from "@digi/arbetsformedlingen";
 import type { IEdAd } from "../Models/EdModel";
 
 export default function EdDetailsPage() {
-  const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const education = location.state?.education as IEdAd;
-  console.log(education);
-  console.log(`Education ID: ${id}`);
-  console.log(location);
+  // const { id } = useParams<{ id: string }>();
+  // console.log(`Education ID: ${id}`);
+  // console.log(education);
+  // console.log(location);
 
   // If no education data is passed via state, redirect back to search
   if (!education) {
