@@ -2,11 +2,13 @@ import {
   FormInputSearchVariation,
   FormInputType,
   LayoutBlockVariation,
+  LoaderSkeletonVariation,
 } from "@digi/arbetsformedlingen";
 import {
   DigiFormInputSearch,
   DigiLayoutBlock,
   DigiLayoutContainer,
+  DigiLoaderSkeleton,
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 
@@ -108,9 +110,10 @@ export default function EducationPage() {
           <div className="results-slot">
             {/* Loading */}
             <div aria-live="polite" hidden={!loading}>
-              <DigiTypography>
-                <p>Laddar utbildningar…</p>
-              </DigiTypography>
+              <DigiLoaderSkeleton
+                afVariation={LoaderSkeletonVariation.SECTION}
+                afCount={10}
+              ></DigiLoaderSkeleton>
             </div>
 
             {/* Empty state */}

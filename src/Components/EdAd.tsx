@@ -17,7 +17,7 @@ const EdAd = ({ ed }: { ed: IEdAd }) => {
   return (
     <Link
       className="ed-ad-wrapper-link"
-      to={`/education/${ed.id}`}
+      to={`/education/${ed.id}${location.search}`}
       state={{ education: ed }} // skicka hela objektet som state via router
     >
       <DigiInfoCardMulti

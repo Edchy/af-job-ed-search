@@ -4,17 +4,26 @@ import {
   DigiLayoutContainer,
   DigiTypography,
   DigiButton,
+  DigiExpandableAccordion,
+  DigiLink,
 } from "@digi/arbetsformedlingen-react";
-import { ButtonSize, ButtonVariation } from "@digi/arbetsformedlingen";
+import {
+  ButtonSize,
+  ButtonVariation,
+  LinkVariation,
+} from "@digi/arbetsformedlingen";
 import type { IEdAd } from "../Models/EdModel";
+import React from "react";
 
 export default function EdDetailsPage() {
   const location = useLocation();
   const education = location.state?.education as IEdAd;
+  const search = location.search || "";
+  console.log(search);
   // const { id } = useParams<{ id: string }>();
   // console.log(`Education ID: ${id}`);
-  // console.log(education);
-  // console.log(location);
+  console.log(education);
+  console.log(location);
 
   // If no education data is passed via state, redirect back to search
   if (!education) {
@@ -22,18 +31,34 @@ export default function EdDetailsPage() {
   }
 
   return (
-    <DigiLayoutBlock>
-      <DigiLayoutContainer>
-        <DigiTypography>
-          <h1>{education.education.title[0].content}</h1>
-          <div
-            dangerouslySetInnerHTML={{
-              __html: education.education.description[0].content,
-            }}
-          />
-        </DigiTypography>
-      </DigiLayoutContainer>
-    </DigiLayoutBlock>
+    <>
+      <DigiLayoutBlock afMarginTop>
+        <DigiLayoutContainer>
+          <DigiLink
+            afHref={`/education${search}`}
+            afVariation={LinkVariation.SMALL}
+          >
+            {React.createElement("digi-icon-chevron-left")}
+            Sökresultat
+          </DigiLink>
+        </DigiLayoutContainer>
+      </DigiLayoutBlock>
+      <DigiLayoutBlock afMarginTop afMarginBottom>
+        <DigiLayoutContainer>
+          <DigiTypography>
+            <h1>{education.education.title[0].content}</h1>
+          </DigiTypography>
+          <DigiExpandableAccordion afHeading="Om utbildningen">
+            <p
+              dangerouslySetInnerHTML={{
+                __html: education.education.description[0].content,
+              }}
+            />
+          </DigiExpandableAccordion>
+        </DigiLayoutContainer>
+      </DigiLayoutBlock>
+    </>
+
     // <DigiLayoutBlock>
     //   <DigiLayoutContainer>
     //     <div style={{ marginBottom: "1rem" }}>
