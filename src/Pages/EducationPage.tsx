@@ -21,6 +21,7 @@ import {
   type EducationSearchResult,
 } from "../services/educationService";
 
+// todo maybe: cache search response in ls for faster acces when navigating back and forth
 export default function EducationPage() {
   const [educationAds, setEducationAds] = useState<EducationSearchResult>({
     hits: 0,

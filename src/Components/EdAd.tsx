@@ -30,7 +30,10 @@ const EdAd = ({ ed }: { ed: IEdAd }) => {
         <DigiTypography>
           <div className="ed-ad-details">
             <div className="ed-ad-row">
-              <em>{ed.providerSummary.providers.join(", ")}</em>
+              <div>
+                <em>{ed.providerSummary.providers.join(", ")}</em>
+                {ed.eventSummary.distance && <span> - Distans</span>}
+              </div>
               {ed.education.credits.credits && (
                 <div>
                   <span className="ed-ad-icon">

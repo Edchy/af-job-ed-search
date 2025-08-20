@@ -10,6 +10,7 @@ import {
 import {
   ButtonSize,
   ButtonVariation,
+  LayoutBlockVariation,
   LinkVariation,
 } from "@digi/arbetsformedlingen";
 import type { IEdAd } from "../Models/EdModel";
@@ -43,8 +44,12 @@ export default function EdDetailsPage() {
           </DigiLink>
         </DigiLayoutContainer>
       </DigiLayoutBlock>
-      <DigiLayoutBlock afMarginTop afMarginBottom>
-        <DigiLayoutContainer>
+      <DigiLayoutBlock
+        afMarginTop
+        afMarginBottom
+        afVariation={LayoutBlockVariation.SECONDARY}
+      >
+        <DigiLayoutContainer afVerticalPadding>
           <DigiTypography>
             <h1>{education.education.title[0].content}</h1>
           </DigiTypography>
