@@ -3,21 +3,12 @@ import {
   FormInputType,
   LayoutBlockContainer,
   LayoutBlockVariation,
-  LayoutColumnsElement,
-  LayoutColumnsVariation,
-  LoaderSkeletonVariation,
-  FormSelectVariation,
-  FormCheckboxVariation,
 } from "@digi/arbetsformedlingen";
 import {
   DigiFormInputSearch,
   DigiLayoutBlock,
-  DigiLayoutColumns,
   DigiLayoutContainer,
-  DigiLoaderSkeleton,
   DigiTypography,
-  DigiFormSelect,
-  DigiFormCheckbox,
 } from "@digi/arbetsformedlingen-react";
 
 import type { IJobAd } from "../Models/JobModel";
@@ -47,7 +38,7 @@ export default function ContactPage() {
     }
 
     setLoading(true);
-    setSearchMeta(null); // reset meta while loading
+    setSearchMeta(null);
     try {
       const res = await fetch(
         `https://jobsearch.api.jobtechdev.se/search?q=${searchQuery}&offset=0&limit=10`
@@ -68,12 +59,12 @@ export default function ContactPage() {
   }
   console.log(searchResults);
 
+  // If the component is mounted with a search query in the URL, perform the search (som t.ex när klickar på en länk från utbildningssidan)
   useEffect(() => {
     if (q) {
-      // Simulate a CustomEvent for your handleSearch
       handleSearch({ detail: q } as CustomEvent<string>);
+      console.log(q);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q]);
 
   return (
@@ -84,7 +75,7 @@ export default function ContactPage() {
     >
       <DigiLayoutContainer>
         <DigiTypography>
-          <h2 style={{ fontWeight: 700 }}>Sök jobb</h2>
+          <h2>Sök jobb</h2>
         </DigiTypography>
       </DigiLayoutContainer>
       <DigiLayoutContainer>
@@ -97,7 +88,7 @@ export default function ContactPage() {
           afValue={q}
         ></DigiFormInputSearch>
       </DigiLayoutContainer>
-      <DigiLayoutContainer className="job-list">
+      <DigiLayoutContainer afVerticalPadding className="job-list">
         {searchMeta !== null && (
           <DigiTypography role="status" aria-live="polite">
             <p>

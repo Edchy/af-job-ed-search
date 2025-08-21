@@ -170,14 +170,24 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
                 </DigiList>
               </DigiTypography>
             ) : null}
-            {matchedOccupations.related_occupations.length > 0 ? (
+            {matchedOccupations.related_occupations?.length > 0 ? (
               <DigiTypography>
-                <h4>Relaterade yrken:</h4>
+                <h4>Relaterade yrken på marknaden:</h4>
 
                 <DigiList afListType={ListType.BULLET}>
-                  {matchedOccupations.related_occupations.map((occupation) => (
-                    <li key={occupation.id}>{occupation?.occupation_label}</li>
-                  ))}
+                  {matchedOccupations.related_occupations.map(
+                    (occupation, i) => (
+                      <li key={i}>
+                        <Link
+                          to={`/jobb?q=${encodeURIComponent(
+                            occupation.occupation_label
+                          )}`}
+                        >
+                          {occupation?.occupation_label}
+                        </Link>
+                      </li>
+                    )
+                  )}
                 </DigiList>
                 <p>
                   <em>
@@ -191,6 +201,20 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
             )}
           </div>
         </DigiExpandableAccordion>
+        {/* <DigiExpandableAccordion
+          onClick={handleClick}
+          afHeading="Nyckelord (kompetenser)"
+        >
+          <DigiTypography>
+            <DigiList afListType={ListType.BULLET}>
+              {matchedOccupations.identified_keywords_for_input.competencies.map(
+                (keyword, i) => (
+                  <li key={i}>{keyword}</li>
+                )
+              )}
+            </DigiList>
+          </DigiTypography>
+        </DigiExpandableAccordion> */}
       </DigiLayoutContainer>
     </DigiLayoutBlock>
   );
