@@ -32,6 +32,8 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
   const [loading, setLoading] = useState(false);
 
   async function handleClick() {
+    // förhindra att körs för många gånger
+    if (matchedOccupations.related_occupations.length > 0 || loading) return;
     setLoading(true);
     try {
       const res = await getOccupationsMatchedByEducationId(education.id);
@@ -172,7 +174,7 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
             ) : null}
             {matchedOccupations.related_occupations?.length > 0 ? (
               <DigiTypography>
-                <h4>Relaterade yrken på marknaden:</h4>
+                <h4>Relaterade yrken:</h4>
 
                 <DigiList afListType={ListType.BULLET}>
                   {matchedOccupations.related_occupations.map(

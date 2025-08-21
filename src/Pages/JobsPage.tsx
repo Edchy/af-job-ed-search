@@ -23,49 +23,64 @@ type SearchMeta = {
 };
 
 export default function ContactPage() {
-  const [searchResults, setSearchResults] = useState<IJobAd[]>([]);
+  const [jobs, setJobs] = useState<IJobAd[]>([]);
   const [searchMeta, setSearchMeta] = useState<SearchMeta | null>(null);
   const [loading, setLoading] = useState(false);
-  const [searchParams] = useSearchParams();
-  const q = searchParams.get("q") || "";
+  const [searchParams, setSearchParams] = useSearchParams();
+  const initialQ = searchParams.get("q") ?? "";
+  const [query, setQuery] = useState<string>(initialQ);
 
-  async function handleSearch(e: CustomEvent<string>) {
-    const searchQuery = e.detail;
-    console.log(searchQuery);
+  // simple search handler that accepts either a CustomEvent<string> (from the component)
+  // or a plain string (when called programmatically)
+  async function handleSearch(eOrQ: CustomEvent<string> | string) {
+    const searchQuery =
+      typeof eOrQ === "string" ? eOrQ : (eOrQ as CustomEvent<string>).detail;
+
     if (!searchQuery) {
-      console.log("Inga sökord angivna");
+      // clear results if empty search
+      setJobs([]);
+      setSearchMeta(null);
+      setSearchParams({});
+      setQuery("");
       return;
     }
+
+    // keep input and URL in sync
+    setQuery(searchQuery);
+    setSearchParams({ q: searchQuery });
 
     setLoading(true);
     setSearchMeta(null);
     try {
       const res = await fetch(
-        `https://jobsearch.api.jobtechdev.se/search?q=${searchQuery}&offset=0&limit=10`
+        `https://jobsearch.api.jobtechdev.se/search?q=${encodeURIComponent(
+          searchQuery
+        )}&offset=0&limit=10`
       );
       const data = await res.json();
-      setSearchResults(data.hits);
+      setJobs(data.hits ?? []);
       setSearchMeta({
         total: data?.total?.value ?? 0,
         positions: data?.positions ?? 0,
       });
-      console.log(data.positions);
-      console.log(data.total.value);
     } catch (error) {
       console.error("Error fetching jobs:", error);
+      setJobs([]);
+      setSearchMeta(null);
     } finally {
       setLoading(false);
     }
   }
-  console.log(searchResults);
 
-  // If the component is mounted with a search query in the URL, perform the search (som t.ex när klickar på en länk från utbildningssidan)
+  // run search once on mount if URL has q
   useEffect(() => {
-    if (q) {
-      handleSearch({ detail: q } as CustomEvent<string>);
-      console.log(q);
+    if (initialQ) {
+      handleSearch(initialQ);
     }
-  }, [q]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // run once
+
+  console.log(jobs);
 
   return (
     <DigiLayoutBlock
@@ -85,7 +100,7 @@ export default function ContactPage() {
           afType={FormInputType.SEARCH}
           afButtonText="Sök"
           onAfOnSubmitSearch={handleSearch}
-          afValue={q}
+          afValue={query}
         ></DigiFormInputSearch>
       </DigiLayoutContainer>
       <DigiLayoutContainer afVerticalPadding className="job-list">
@@ -97,7 +112,7 @@ export default function ContactPage() {
             </p>
           </DigiTypography>
         )}
-        {searchResults.map((job, idx) => (
+        {jobs.map((job, idx) => (
           <JobAd job={job} key={job.id || `job-${idx}`} />
         ))}
       </DigiLayoutContainer>
