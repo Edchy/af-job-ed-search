@@ -23,6 +23,8 @@ import {
 import type { IJobAd } from "../Models/JobModel";
 import { useState } from "react";
 import JobAd from "../Components/JobAd";
+import { useEffect } from "react";
+import { useSearchParams } from "react-router";
 
 type SearchMeta = {
   total: number;
@@ -33,6 +35,8 @@ export default function ContactPage() {
   const [searchResults, setSearchResults] = useState<IJobAd[]>([]);
   const [searchMeta, setSearchMeta] = useState<SearchMeta | null>(null);
   const [loading, setLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  const q = searchParams.get("q") || "";
 
   async function handleSearch(e: CustomEvent<string>) {
     const searchQuery = e.detail;
@@ -64,6 +68,14 @@ export default function ContactPage() {
   }
   console.log(searchResults);
 
+  useEffect(() => {
+    if (q) {
+      // Simulate a CustomEvent for your handleSearch
+      handleSearch({ detail: q } as CustomEvent<string>);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q]);
+
   return (
     <DigiLayoutBlock
       // afMarginTop
@@ -82,6 +94,7 @@ export default function ContactPage() {
           afType={FormInputType.SEARCH}
           afButtonText="Sök"
           onAfOnSubmitSearch={handleSearch}
+          afValue={q}
         ></DigiFormInputSearch>
       </DigiLayoutContainer>
       <DigiLayoutContainer className="job-list">

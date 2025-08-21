@@ -32,7 +32,7 @@ const BASE_URL =
 export async function getOccupationsMatchedByEducationId(
   id: string
 ): Promise<OccupationMatchByEducationResponse> {
-  const url = `${BASE_URL}?education_id=${encodeURIComponent(id)}`;
+  const url = `${BASE_URL}?education_id=${encodeURIComponent(id)}&limit=20`;
   const data = await apiFetch<OccupationMatchByEducationResponse>(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

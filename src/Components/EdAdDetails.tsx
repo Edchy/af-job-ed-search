@@ -19,6 +19,7 @@ import {
 } from "../services/occupationService";
 import { useState } from "react";
 import { formatSwedishDate } from "../utils/helpers";
+import { Link } from "react-router";
 
 export default function EdAdDetails({ education }: { education: IEdAd }) {
   const [matchedOccupations, setMatchedOccupations] =
@@ -63,6 +64,7 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
           <div>Form: {education.education.form?.code}</div>
           <div>Typ: {education.education?.configuration?.code}</div>
           <div></div>
+          {/* ger tillbaka t.ex "grund" elelr "ISCED_3A" hitta ett sätt att mappa kod till andvändbar info */}
           <div>Nivå: {education.education?.educationLevel?.code}</div>
 
           <div>
@@ -140,7 +142,7 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
 
         <DigiExpandableAccordion
           onClick={handleClick}
-          afHeading="Huvud- och relaterade yrken"
+          afHeading="Vad kan jag jobba med?"
         >
           <div hidden={!loading}>
             <DigiLoaderSkeleton
@@ -157,9 +159,11 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
                   {matchedOccupations.identified_keywords_for_input.occupations.map(
                     (occupation, i) => (
                       <li key={i}>
-                        <span style={{ textTransform: "capitalize" }}>
-                          {occupation}
-                        </span>
+                        <Link to={`/jobb?q=${encodeURIComponent(occupation)}`}>
+                          <span style={{ textTransform: "capitalize" }}>
+                            {occupation}
+                          </span>
+                        </Link>
                       </li>
                     )
                   )}
@@ -170,7 +174,7 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
               <DigiTypography>
                 <h4>Relaterade yrken:</h4>
 
-                <DigiList afListType={ListType.NUMBERED}>
+                <DigiList afListType={ListType.BULLET}>
                   {matchedOccupations.related_occupations.map((occupation) => (
                     <li key={occupation.id}>{occupation?.occupation_label}</li>
                   ))}
