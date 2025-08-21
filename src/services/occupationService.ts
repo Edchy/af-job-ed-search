@@ -19,7 +19,7 @@ interface IdentifiedKeywordsForInput {
   occupations: string[];
 }
 
-export interface RelatedOccupationsResponse {
+export interface OccupationMatchByEducationResponse {
   hits_total: number;
   hits_returned: number;
   identified_keywords_for_input: IdentifiedKeywordsForInput;
@@ -29,11 +29,11 @@ export interface RelatedOccupationsResponse {
 const BASE_URL =
   "https://jobed-connect-api.jobtechdev.se/v1/occupations/match-by-education";
 
-export async function getRelatedOccupationsByEducationId(
+export async function getOccupationsMatchedByEducationId(
   id: string
-): Promise<RelatedOccupationsResponse> {
+): Promise<OccupationMatchByEducationResponse> {
   const url = `${BASE_URL}?education_id=${encodeURIComponent(id)}`;
-  const data = await apiFetch<RelatedOccupationsResponse>(url, {
+  const data = await apiFetch<OccupationMatchByEducationResponse>(url, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
   });

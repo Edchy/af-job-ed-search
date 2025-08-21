@@ -14,26 +14,27 @@ import {
 } from "@digi/arbetsformedlingen";
 import type { IEdAd } from "../Models/EdModel";
 import {
-  getRelatedOccupationsByEducationId,
-  type RelatedOccupation,
+  getOccupationsMatchedByEducationId,
+  type OccupationMatchByEducationResponse,
 } from "../services/occupationService";
 import { useState } from "react";
 import { formatSwedishDate } from "../utils/helpers";
 
 export default function EdAdDetails({ education }: { education: IEdAd }) {
-  const [relatedOccupations, setRelatedOccupations] = useState<
-    RelatedOccupation[]
-  >([]);
-  const [hits, setHits] = useState({ hits_returned: 0, hits_total: 0 });
+  const [matchedOccupations, setMatchedOccupations] =
+    useState<OccupationMatchByEducationResponse>({
+      hits_total: 0,
+      hits_returned: 0,
+      identified_keywords_for_input: { competencies: [], occupations: [] },
+      related_occupations: [],
+    });
   const [loading, setLoading] = useState(false);
 
   async function handleClick() {
-    if (relatedOccupations.length > 0) return;
     setLoading(true);
     try {
-      const res = await getRelatedOccupationsByEducationId(education.id);
-      setRelatedOccupations(res.related_occupations);
-      setHits({ hits_returned: res.hits_returned, hits_total: res.hits_total });
+      const res = await getOccupationsMatchedByEducationId(education.id);
+      setMatchedOccupations(res);
     } catch (error) {
       console.log(error);
     } finally {
@@ -102,9 +103,13 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
         <DigiExpandableAccordion afHeading="Ämnen">
           <DigiTypography>
             <DigiList afListType={ListType.BULLET}>
-              {education.education.subject.map((subject, index) => (
-                <li key={index}>{subject.name}</li>
-              ))}
+              {education.education?.subject?.some((subject) => subject.name) ? (
+                education.education.subject.map((subject, index) =>
+                  subject.name ? <li key={index}>{subject.name}</li> : null
+                )
+              ) : (
+                <li>Inga ämnen tillgängliga</li>
+              )}
             </DigiList>
           </DigiTypography>
         </DigiExpandableAccordion>
@@ -144,15 +149,16 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
             ></DigiLoaderSkeleton>
           </div>
           <div hidden={loading}>
-            {relatedOccupations?.length > 0 ? (
+            {matchedOccupations.related_occupations.length > 0 ? (
               <DigiTypography>
                 <p>
                   <em>
-                    Visar {hits.hits_returned || 0} av {hits.hits_total || 0}
+                    Visar {matchedOccupations.hits_returned || 0} av{" "}
+                    {matchedOccupations.hits_total || 0}
                   </em>
                 </p>
                 <DigiList afListType={ListType.BULLET}>
-                  {relatedOccupations.map((occupation) => (
+                  {matchedOccupations.related_occupations.map((occupation) => (
                     <li key={occupation.id}>{occupation?.occupation_label}</li>
                   ))}
                 </DigiList>
