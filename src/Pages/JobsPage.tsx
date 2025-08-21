@@ -72,12 +72,12 @@ export default function ContactPage() {
     >
       <DigiLayoutContainer>
         <DigiTypography>
-          <h1 style={{ fontWeight: 700 }}>Hitta ditt drömjobb</h1>
+          <h2 style={{ fontWeight: 700 }}>Sök jobb</h2>
         </DigiTypography>
       </DigiLayoutContainer>
       <DigiLayoutContainer>
         <DigiFormInputSearch
-          afLabel="Titel, beskrivning eller företag"
+          afLabel="Titel, beskrivning, plats eller företag"
           afVariation={FormInputSearchVariation.LARGE}
           afType={FormInputType.SEARCH}
           afButtonText="Sök"
