@@ -4,9 +4,12 @@ import {
   DigiTypography,
   DigiExpandableAccordion,
   DigiLoaderSkeleton,
+  DigiList,
+  DigiLinkExternal,
 } from "@digi/arbetsformedlingen-react";
 import {
   LayoutBlockVariation,
+  ListType,
   LoaderSkeletonVariation,
 } from "@digi/arbetsformedlingen";
 import type { IEdAd } from "../Models/EdModel";
@@ -47,24 +50,30 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
     >
       <DigiLayoutContainer afVerticalPadding>
         <DigiTypography>
-          <h1>{education.education?.title?.[0]?.content}</h1>
-          <div>{education.education?.code}</div>
-          <div>{education.education?.configuration?.code}</div>
-          <div>{education.education?.credits?.credits}</div>
-          <div>{education.education?.credits?.system?.code}</div>
-          <div>{education.education?.educationLevel?.code}</div>
+          <h1>
+            {education.education?.title?.[0]?.content} (
+            {education.education?.code})
+          </h1>
+          <h2>
+            {education.education?.credits?.credits}{" "}
+            {education.education?.credits?.system?.code?.toUpperCase()}
+          </h2>
+          {/* <div>{education.education?.code}</div> */}
+          <div>Form: {education.education.form?.code}</div>
+          <div>Typ: {education.education?.configuration?.code}</div>
+          <div></div>
+          <div>Nivå: {education.education?.educationLevel?.code}</div>
+
           <div>
-            {
-              education.education?.eligibility?.eligibilityDescription?.[0]?.[0]
-                ?.content
-            }
-          </div>
-          <div>
+            Utgår:{" "}
             {education.education?.expires
               ? formatSwedishDate(education.education.expires)
               : ""}
           </div>
-          <div>{}</div>
+          <div>
+            {education.education.isVocational ? "Yrkesmässig utbildning" : ""}
+          </div>
+
           <div>{}</div>
         </DigiTypography>
         <DigiExpandableAccordion afHeading="Om utbildningen">
@@ -74,23 +83,33 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
             }}
           />
         </DigiExpandableAccordion>
-        {/* <DigiExpandableAccordion afHeading="Behörighet">
+        <DigiExpandableAccordion afHeading="Behörighet">
           <DigiTypography>
-            {
-              education.education.eligibility.eligibilityDescription[0][0]
-                .content
-            }
+            <p>
+              {
+                education.education?.eligibility?.eligibilityDescription[0][0]
+                  ?.content
+              }
+            </p>
+            <DigiLinkExternal
+              afHref="https://www.antagning.se/sv/betyg-och-behorighet/behorighet/"
+              afTarget="_blank"
+            >
+              Läs mer om behörighet
+            </DigiLinkExternal>
           </DigiTypography>
         </DigiExpandableAccordion>
         <DigiExpandableAccordion afHeading="Ämnen">
           <DigiTypography>
-            <ul>
+            <DigiList afListType={ListType.BULLET}>
               {education.education.subject.map((subject, index) => (
                 <li key={index}>{subject.name}</li>
               ))}
-            </ul>
+            </DigiList>
           </DigiTypography>
         </DigiExpandableAccordion>
+        {/* 
+   
         <DigiExpandableAccordion afHeading="Utbildningsinformation">
           <DigiTypography>
             <p>
@@ -132,11 +151,11 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
                     Visar {hits.hits_returned || 0} av {hits.hits_total || 0}
                   </em>
                 </p>
-                <ul>
+                <DigiList afListType={ListType.BULLET}>
                   {relatedOccupations.map((occupation) => (
                     <li key={occupation.id}>{occupation?.occupation_label}</li>
                   ))}
-                </ul>
+                </DigiList>
               </DigiTypography>
             ) : (
               <DigiTypography>inga relaterade yrken</DigiTypography>

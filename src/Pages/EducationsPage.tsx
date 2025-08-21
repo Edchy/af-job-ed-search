@@ -83,8 +83,8 @@ export default function EducationPage() {
     <>
       <DigiLayoutBlock
         afVariation={LayoutBlockVariation.PROFILE}
-        afMarginBottom
-        afMarginTop
+        // afMarginBottom
+        // afMarginTop
         aria-busy={loading}
       >
         <DigiLayoutContainer afVerticalPadding className="search-container">
@@ -102,7 +102,7 @@ export default function EducationPage() {
         </DigiLayoutContainer>
       </DigiLayoutBlock>
       <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.SECONDARY}
+        afVariation={LayoutBlockVariation.PRIMARY}
         afMarginBottom
         afMarginTop
       >

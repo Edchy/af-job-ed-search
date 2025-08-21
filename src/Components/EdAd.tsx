@@ -17,7 +17,7 @@ const EdAd = ({ education }: { education: IEdAd }) => {
   return (
     <Link
       className="education-ad-wrapper-link"
-      to={`/education/${education.id}${location.search}`}
+      to={`/utbildningar/${education.id}${location.search}`}
       state={{ education: education }} // skicka hela objektet som state via router
     >
       <DigiInfoCardMulti
@@ -25,7 +25,7 @@ const EdAd = ({ education }: { education: IEdAd }) => {
         afHeading={`${education.education?.title?.[0]?.content || ""} `}
         afHeadingLevel={InfoCardMultiHeadingLevel.H3}
         afType={InfoCardMultiType.RELATED}
-        afLinkHref={`/education/${education.id}`} // måste fixas
+        afLinkHref={`/utbildningar/${education.id}`} // måste fixas
       >
         <DigiTypography>
           <div className="education-ad-details">

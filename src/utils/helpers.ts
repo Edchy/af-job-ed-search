@@ -1,7 +1,10 @@
 import municipalities from "../taxonomy/municipalities.json";
 import regions from "../taxonomy/regions.json";
 
-export const formatSwedishDate = (dateString: string): string => {
+export const formatSwedishDate = (
+  dateString: string,
+  includeTime: boolean = false
+): string => {
   const date = new Date(dateString);
 
   const dayMonthYear = date.toLocaleDateString("sv-SE", {
@@ -16,7 +19,7 @@ export const formatSwedishDate = (dateString: string): string => {
     hour12: false,
   });
 
-  return `${dayMonthYear}, kl. ${time}`;
+  return `${dayMonthYear}${includeTime ? `, kl. ${time}` : ""}`;
 };
 
 /**

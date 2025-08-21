@@ -28,7 +28,7 @@ export default function EdDetailsPage() {
     <>
       <DigiLayoutBlock afMarginTop>
         <DigiLayoutContainer>
-          <DigiLink afHref={`/education${search}`}>
+          <DigiLink afHref={`/utbildningar${search}`}>
             {React.createElement("digi-icon-chevron-left")}
             Sökresultat
           </DigiLink>

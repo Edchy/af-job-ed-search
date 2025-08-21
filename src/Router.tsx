@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router";
 import { Layout } from "./Pages/Layout";
 import HomePage from "./Pages/HomePage";
-import EducationPage from "./Pages/EducationPage";
-import ContactPage from "./Pages/ContactPage";
+import JobsPage from "./Pages/JobsPage";
+import EducationsPage from "./Pages/EducationsPage";
 import EdDetailsPage from "./Pages/EdDetailsPage";
 
 export const Router = createBrowserRouter([
@@ -11,19 +11,19 @@ export const Router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        index: true, // When path is exactly "/"
+        index: true,
         element: <HomePage />,
       },
       {
-        path: "education",
-        element: <EducationPage />,
+        path: "utbildningar",
+        element: <EducationsPage />,
       },
       {
-        path: "contact", // When path is "/contact"
-        element: <ContactPage />,
+        path: "jobb",
+        element: <JobsPage />,
       },
       {
-        path: "education/:id", // When path is "/education/:id"
+        path: "utbildningar/:id",
         element: <EdDetailsPage />,
       },
     ],

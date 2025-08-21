@@ -46,7 +46,7 @@ export default function ContactPage() {
     setSearchMeta(null); // reset meta while loading
     try {
       const res = await fetch(
-        `https://jobsearch.api.jobtechdev.se/search?q=${searchQuery}&region=CifL_Rzy_Mku&offset=0&limit=10`
+        `https://jobsearch.api.jobtechdev.se/search?q=${searchQuery}&offset=0&limit=10`
       );
       const data = await res.json();
       setSearchResults(data.hits);

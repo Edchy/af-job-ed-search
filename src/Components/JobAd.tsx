@@ -28,7 +28,7 @@ const JobAd = ({ job }: { job: IJobAd }) => {
         </p>
         <p>{job.number_of_vacancies}</p>
         <p>{job.workplace_address.municipality}</p>
-        <p>Publicerad {formatSwedishDate(job.publication_date)}</p>
+        <p>Publicerad {formatSwedishDate(job.publication_date, true)}</p>
       </DigiTypography>
     </DigiInfoCardMulti>
   );
