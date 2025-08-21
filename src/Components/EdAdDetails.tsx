@@ -140,7 +140,7 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
 
         <DigiExpandableAccordion
           onClick={handleClick}
-          afHeading="Relaterade yrken"
+          afHeading="Huvud- och relaterade yrken"
         >
           <div hidden={!loading}>
             <DigiLoaderSkeleton
@@ -149,19 +149,38 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
             ></DigiLoaderSkeleton>
           </div>
           <div hidden={loading}>
+            {matchedOccupations.identified_keywords_for_input.occupations
+              .length > 0 ? (
+              <DigiTypography>
+                <h4>Huvudyrke:</h4>
+                <DigiList afListType={ListType.BULLET}>
+                  {matchedOccupations.identified_keywords_for_input.occupations.map(
+                    (occupation, i) => (
+                      <li key={i}>
+                        <span style={{ textTransform: "capitalize" }}>
+                          {occupation}
+                        </span>
+                      </li>
+                    )
+                  )}
+                </DigiList>
+              </DigiTypography>
+            ) : null}
             {matchedOccupations.related_occupations.length > 0 ? (
               <DigiTypography>
+                <h4>Relaterade yrken:</h4>
+
+                <DigiList afListType={ListType.NUMBERED}>
+                  {matchedOccupations.related_occupations.map((occupation) => (
+                    <li key={occupation.id}>{occupation?.occupation_label}</li>
+                  ))}
+                </DigiList>
                 <p>
                   <em>
                     Visar {matchedOccupations.hits_returned || 0} av{" "}
                     {matchedOccupations.hits_total || 0}
                   </em>
                 </p>
-                <DigiList afListType={ListType.BULLET}>
-                  {matchedOccupations.related_occupations.map((occupation) => (
-                    <li key={occupation.id}>{occupation?.occupation_label}</li>
-                  ))}
-                </DigiList>
               </DigiTypography>
             ) : (
               <DigiTypography>inga relaterade yrken</DigiTypography>
