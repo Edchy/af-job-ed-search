@@ -1,13 +1,9 @@
 import { useLocation, Navigate } from "react-router";
-import {
-  DigiLayoutBlock,
-  DigiLayoutContainer,
-  DigiLink,
-} from "@digi/arbetsformedlingen-react";
+
 import type { IEdAd } from "../Models/EdModel";
-import React from "react";
 
 import EdAdDetails from "../Components/EdAdDetails";
+import DetailsPageHeader from "../Components/DetailsPageHeader";
 
 export default function EdDetailsPage() {
   const location = useLocation();
@@ -21,19 +17,12 @@ export default function EdDetailsPage() {
 
   // If no education data is passed via state, redirect back to search
   if (!education) {
-    return <Navigate to="/education" replace />;
+    return <Navigate to="/utbildningar" replace />;
   }
 
   return (
     <>
-      <DigiLayoutBlock afMarginTop>
-        <DigiLayoutContainer>
-          <DigiLink afHref={`/utbildningar${search}`}>
-            {React.createElement("digi-icon-chevron-left")}
-            Sökresultat
-          </DigiLink>
-        </DigiLayoutContainer>
-      </DigiLayoutBlock>
+      <DetailsPageHeader path="utbildningar" query={search} />
       <EdAdDetails education={education} />
     </>
   );

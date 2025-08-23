@@ -21,12 +21,18 @@ import {
   type EducationSearchResult,
 } from "../services/educationService";
 
-// todo maybe: cache search response in ls for faster acces when navigating back and forth
+import { useSessionStorage } from "../hooks/useSessionStorage";
+
 export default function EducationPage() {
-  const [educationAds, setEducationAds] = useState<EducationSearchResult>({
-    hits: 0,
-    result: [],
-  });
+  // const [educationAds, setEducationAds] = useState<EducationSearchResult>({
+  //   hits: 0,
+  //   result: [],
+  // });
+  const [educationAds, setEducationAds] =
+    useSessionStorage<EducationSearchResult>("educationAds", {
+      hits: 0,
+      result: [],
+    });
   // searchParams för att behålla sökningen vid navigering
   const [searchParams, setSearchParams] = useSearchParams();
   // searchQuery för att behålla sökfrågan
@@ -36,36 +42,45 @@ export default function EducationPage() {
 
   useEffect(() => {
     const q = searchParams.get("q");
-    if (q) {
-      let cancelled = false;
+    if (!q) return;
 
-      (async () => {
-        setLoading(true);
-        try {
-          const result = await fetchEducations(q);
-          if (!cancelled) {
-            setEducationAds(result);
-          }
-        } catch (error) {
-          if (!cancelled) {
-            console.error("Error fetching educations:", error);
-          }
-        } finally {
-          if (!cancelled) {
-            setLoading(false);
-          }
-        }
-      })();
-
-      return () => {
-        cancelled = true;
-      };
+    // Check if we already have results for this query
+    const lastQuery = sessionStorage.getItem("educationAdsQuery");
+    if (educationAds.result?.length && q === lastQuery) {
+      // Already have results for this query
+      return;
     }
+
+    let cancelled = false;
+
+    (async () => {
+      setLoading(true);
+      try {
+        const result = await fetchEducations(q);
+        if (!cancelled) {
+          setEducationAds(result);
+          sessionStorage.setItem("educationAdsQuery", q);
+        }
+      } catch (error) {
+        if (!cancelled) {
+          console.error("Error fetching educations:", error);
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
   }, [searchParams]);
 
   async function handleSearch(e: CustomEvent<string>) {
     const query = e.detail;
     if (!query) return;
+    // replace, för att inte gå bakåt till tidigare sökningar
     setSearchParams({ q: query }, { replace: true });
   }
 
@@ -82,17 +97,17 @@ export default function EducationPage() {
   return (
     <>
       <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.PROFILE}
+        afVariation={LayoutBlockVariation.TERTIARY}
         // afMarginBottom
         // afMarginTop
         aria-busy={loading}
       >
         <DigiLayoutContainer afVerticalPadding className="search-container">
           <DigiTypography>
-            <h2>Sök utbildning</h2>
+            <h1>Sök utbildning</h1>
           </DigiTypography>
           <DigiFormInputSearch
-            afLabel="Sök ett eller flera ord"
+            afLabel="Ett eller flera ord"
             afVariation={FormInputSearchVariation.LARGE}
             afType={FormInputType.SEARCH}
             afButtonText={(loading && "laddar...") || "Sök"}
@@ -128,7 +143,10 @@ export default function EducationPage() {
             {/* Results */}
             <div hidden={!(!loading && (educationAds.hits ?? 0) > 0)}>
               <DigiTypography>
-                <h2>{educationAds.hits} Annonser</h2>
+                <p>
+                  Visar <strong>{educationAds.hits} annonser</strong> för
+                  sökningen "{q}"
+                </p>
               </DigiTypography>
               {educationAds.result?.map((ed: IEdAd) => (
                 <EdAd key={ed.id} education={ed} />

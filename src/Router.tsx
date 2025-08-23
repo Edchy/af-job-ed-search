@@ -4,6 +4,7 @@ import HomePage from "./Pages/HomePage";
 import JobsPage from "./Pages/JobsPage";
 import EducationsPage from "./Pages/EducationsPage";
 import EdDetailsPage from "./Pages/EdDetailsPage";
+import JobDetailsPage from "./Pages/JobDetailsPage";
 
 export const Router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const Router = createBrowserRouter([
       {
         path: "utbildningar/:id",
         element: <EdDetailsPage />,
+      },
+      {
+        path: "jobb/:id",
+        element: <JobDetailsPage />,
       },
     ],
   },

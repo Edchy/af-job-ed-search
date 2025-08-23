@@ -8,29 +8,37 @@ import {
   InfoCardMultiHeadingLevel,
   InfoCardMultiType,
 } from "@digi/arbetsformedlingen";
+import { Link } from "react-router";
 
 const JobAd = ({ job }: { job: IJobAd }) => {
   return (
-    <DigiInfoCardMulti
-      className="x"
-      afHeading={
-        job.number_of_vacancies > 1
-          ? `${job.headline} (${job.number_of_vacancies} jobb)`
-          : job.headline
-      }
-      afHeadingLevel={InfoCardMultiHeadingLevel.H3}
-      afType={InfoCardMultiType.ENTRY}
-      afLinkHref="länk"
+    <Link
+      className="job-ad-wrapper-link"
+      to={`/jobb/${job.id}${location.search}`}
+      state={{ job: job }}
+      style={{ textDecoration: "none" }}
     >
-      <DigiTypography>
-        <p>
-          <strong>{job.occupation.label}</strong>
-        </p>
-        <p>{job.number_of_vacancies}</p>
-        <p>{job.workplace_address.municipality}</p>
-        <p>Publicerad {formatSwedishDate(job.publication_date, true)}</p>
-      </DigiTypography>
-    </DigiInfoCardMulti>
+      <DigiInfoCardMulti
+        className="x"
+        afHeading={
+          job.number_of_vacancies > 1
+            ? `${job.headline} (${job.number_of_vacancies} jobb)`
+            : job.headline
+        }
+        afHeadingLevel={InfoCardMultiHeadingLevel.H3}
+        afType={InfoCardMultiType.RELATED}
+        afLinkHref="länk"
+      >
+        <DigiTypography>
+          <div>{job.employer?.workplace}</div>
+          <div>
+            <strong>{job.occupation?.label}</strong>
+          </div>
+          <div>{job.workplace_address?.municipality}</div>
+          <div>Publicerad {formatSwedishDate(job.publication_date, true)}</div>
+        </DigiTypography>
+      </DigiInfoCardMulti>
+    </Link>
   );
 };
 
