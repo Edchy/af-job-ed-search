@@ -5,8 +5,9 @@ export const formatSwedishDate = (
   dateString: string,
   includeTime: boolean = false
 ): string => {
-  const date = new Date(dateString);
+  if (!dateString) return "Ingen data";
 
+  const date = new Date(dateString);
   const dayMonthYear = date.toLocaleDateString("sv-SE", {
     day: "numeric",
     month: "long",
@@ -18,7 +19,6 @@ export const formatSwedishDate = (
     minute: "2-digit",
     hour12: false,
   });
-
   return `${dayMonthYear}${includeTime ? `, kl. ${time}` : ""}`;
 };
 
@@ -28,12 +28,7 @@ export const formatSwedishDate = (
  * @param type - The taxonomy type: "municipality" | "region"
  * @returns The display name or undefined.
  */
-/**
- * Maps a code to its display name based on taxonomy type.
- * @param code - The code or value to look up.
- * @param type - The taxonomy type: "municipality" | "region"
- * @returns The display name or undefined.
- */
+
 export function taxonomyMap(
   code: string,
   type: "municipality" | "region"

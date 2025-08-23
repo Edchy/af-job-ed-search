@@ -9,7 +9,7 @@ import {
   InfoCardMultiType,
 } from "@digi/arbetsformedlingen";
 import type { IEdAd } from "../Models/EdModel";
-import { taxonomyMap } from "../utils/helpers";
+import { formatSwedishDate, taxonomyMap } from "../utils/helpers";
 import React from "react";
 import "./EdAd.css";
 
@@ -49,6 +49,24 @@ const EdAd = ({ education }: { education: IEdAd }) => {
                 </div>
               )}
             </div>
+            <div>
+              {education.eventSummary.executions?.length > 0 && (
+                <div className="education-executions">
+                  <div className="execution-start">
+                    Börjar:{" "}
+                    {formatSwedishDate(
+                      education.eventSummary.executions?.[0]?.start ?? ""
+                    )}
+                  </div>
+                  <div className="execution-end">
+                    Slutar:{" "}
+                    {formatSwedishDate(
+                      education.eventSummary.executions?.[0]?.end ?? ""
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
 
             <div className="education-ad-row">
               <span className="education-ad-icon">
@@ -68,7 +86,7 @@ const EdAd = ({ education }: { education: IEdAd }) => {
                 {React.createElement("digi-icon-book")}
               </span>
               <span className="education-ad-label">Typ:</span>
-              <span>{education.education?.configuration?.code}</span>
+              <span>{education.education?.configuration?.code || "-"}</span>
             </div>
             <div className="education-ad-row">
               <span className="education-ad-icon">

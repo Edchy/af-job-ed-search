@@ -30,7 +30,7 @@ export default function ContactPage() {
   const initialQ = searchParams.get("q") ?? "";
   const [query, setQuery] = useState<string>(initialQ);
 
-  // simple search handler that accepts either a CustomEvent<string> (from the component)
+  // search handler that accepts either a CustomEvent<string> (from the component)
   // or a plain string (when called programmatically)
   async function handleSearch(eOrQ: CustomEvent<string> | string) {
     const searchQuery =

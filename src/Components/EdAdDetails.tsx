@@ -18,7 +18,7 @@ import {
   type OccupationMatchByEducationResponse,
 } from "../services/occupationService";
 import { useState } from "react";
-import { formatSwedishDate } from "../utils/helpers";
+import { formatSwedishDate, taxonomyMap } from "../utils/helpers";
 import { Link } from "react-router";
 
 export default function EdAdDetails({ education }: { education: IEdAd }) {
@@ -68,18 +68,47 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
           <div></div>
           {/* ger tillbaka t.ex "grund" elelr "ISCED_3A" hitta ett sätt att mappa kod till andvändbar info */}
           <div>Nivå: {education.education?.educationLevel?.code}</div>
-
-          <div>
+          <div>{education.providerSummary.providers?.join(", ")}</div>
+          {/* <div>
             Utgår:{" "}
             {education.education?.expires
               ? formatSwedishDate(education.education.expires)
               : ""}
-          </div>
+          </div> */}
           <div>
             {education.education.isVocational ? "Yrkesmässig utbildning" : ""}
           </div>
+          <div>
+            {education.eventSummary.executions?.length > 0 && (
+              <div className="education-executions">
+                <div className="execution-start">
+                  Börjar:{" "}
+                  {formatSwedishDate(
+                    education.eventSummary.executions?.[0]?.start ?? ""
+                  )}
+                </div>
+                <div className="execution-end">
+                  Slutar:{" "}
+                  {formatSwedishDate(
+                    education.eventSummary.executions?.[0]?.end ?? ""
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
 
-          <div>{}</div>
+          {education.eventSummary?.municipalityCode?.[0] && (
+            <div className="education-ad-row">
+              <span>
+                {taxonomyMap(
+                  education.eventSummary?.municipalityCode?.[0],
+                  "municipality"
+                )}
+                ,{" "}
+                {taxonomyMap(education.eventSummary?.regionCode?.[0], "region")}
+              </span>
+            </div>
+          )}
         </DigiTypography>
         <DigiExpandableAccordion afHeading="Om utbildningen">
           <p
@@ -87,6 +116,20 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
               __html: education.education?.description?.[0]?.content,
             }}
           />
+
+          {education.text_enrichments_results?.enriched_candidates
+            ?.competencies && (
+            <div>
+              <p>Nyckelord:</p>
+              <DigiList afListType={ListType.BULLET}>
+                {education.text_enrichments_results.enriched_candidates.competencies.map(
+                  (competency, index) => (
+                    <li key={index}>{competency}</li>
+                  )
+                )}
+              </DigiList>
+            </div>
+          )}
         </DigiExpandableAccordion>
         <DigiExpandableAccordion afHeading="Behörighet">
           <DigiTypography>

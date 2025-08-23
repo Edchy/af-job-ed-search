@@ -2,9 +2,20 @@
 @import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css';
 @import "./customTheme.css";
 
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-underline-offset: 0.25em;
+}
+
 .app-layout {
-  display: grid;
-  grid-template-rows: auto 1fr auto;
+  /* display: grid;
+  grid-template-rows: auto 1fr auto; */
+  background-color: var(--color-primary);
 }
 
 .x>* {
@@ -24,4 +35,17 @@
 
 .digi-logo__system-name::before {
   display: none !important;
+}
+
+
+.digi-button[type="submit"] {
+  background-color: var(--color-primary) !important;
+
+  svg {
+    color: red;
+  }
+
+  .digi-button__text {
+    color: red !important;
+  }
 }
