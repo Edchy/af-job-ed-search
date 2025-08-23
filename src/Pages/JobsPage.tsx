@@ -18,11 +18,8 @@ import JobAd from "../Components/JobAd";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { useSessionStorage } from "../hooks";
+import { getJobAds, type JobAdsResponse } from "../services/occupationService";
 
-type SearchMeta = {
-  total: number;
-  positions: number;
-};
 const initialValues = {
   hits: [],
   total: {
@@ -30,21 +27,12 @@ const initialValues = {
   },
   positions: 0,
 };
-type ApiResponse = {
-  hits: IJobAd[];
-  total: {
-    value: number;
-  };
-  positions: number;
-};
 
 export default function JobsPage() {
-  // const [jobs, setJobs] = useState<IJobAd[]>([]);
-  const [jobs, setJobs] = useSessionStorage<ApiResponse>(
+  const [jobs, setJobs] = useSessionStorage<JobAdsResponse>(
     "jobAds",
     initialValues
   );
-  // const [searchMeta, setSearchMeta] = useState<SearchMeta | null>(null);
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialQ = searchParams.get("q") ?? "";
@@ -73,19 +61,14 @@ export default function JobsPage() {
     setLoading(true);
     // setSearchMeta(null);
     try {
-      const res = await fetch(
-        `https://jobsearch.api.jobtechdev.se/search?q=${encodeURIComponent(
-          searchQuery
-        )}&offset=0&limit=10`
-      );
-      const data = await res.json();
-      console.log("data", data);
+      const res = await getJobAds(searchQuery);
+      console.log("data", res);
       setJobs({
-        hits: data.hits ?? [],
+        hits: res.hits ?? [],
         total: {
-          value: data?.total?.value ?? 0,
+          value: res.total?.value ?? 0,
         },
-        positions: data?.positions ?? 0,
+        positions: res.positions ?? 0,
       });
       // setSearchMeta({
       //   total: data?.total?.value ?? 0,

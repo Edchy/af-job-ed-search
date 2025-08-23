@@ -37,8 +37,9 @@ export default function EducationPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   // searchQuery för att behålla sökfrågan
   // const [searchQuery, setSearchQuery] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [query, setQuery] = useSessionStorage<string>("educationAdsQuery", q);
   const q = searchParams.get("q") || "";
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const q = searchParams.get("q");
