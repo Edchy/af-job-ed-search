@@ -45,12 +45,7 @@ export default function JobsPage() {
         ? eventOrQuery
         : (eventOrQuery as CustomEvent<string>).detail;
 
-    if (!searchQuery) {
-      // clear results if empty search
-      setJobs(initialValues);
-      // setSearchMeta(null);
-      setSearchParams({});
-      setQuery("");
+    if (!searchQuery || searchQuery === query) {
       return;
     }
 

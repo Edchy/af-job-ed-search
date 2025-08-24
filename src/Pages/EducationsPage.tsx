@@ -24,10 +24,6 @@ import {
 import { useSessionStorage } from "../hooks/useSessionStorage";
 
 export default function EducationPage() {
-  // const [educationAds, setEducationAds] = useState<EducationSearchResult>({
-  //   hits: 0,
-  //   result: [],
-  // });
   const [educationAds, setEducationAds] =
     useSessionStorage<EducationSearchResult>("educationAds", {
       hits: 0,
@@ -35,65 +31,42 @@ export default function EducationPage() {
     });
   // searchParams för att behålla sökningen vid navigering
   const [searchParams, setSearchParams] = useSearchParams();
-  // searchQuery för att behålla sökfrågan
-  // const [searchQuery, setSearchQuery] = useState("");
-  // const [query, setQuery] = useSessionStorage<string>("educationAdsQuery", q);
   const q = searchParams.get("q") || "";
+  const [query, setQuery] = useSessionStorage<string>("educationAdsQuery", q);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const q = searchParams.get("q");
-    if (!q) return;
-
-    // Check if we already have results for this query
-    const lastQuery = sessionStorage.getItem("educationAdsQuery");
-    if (educationAds.result?.length && q === lastQuery) {
-      // Already have results for this query
+  async function search(queryToSearch: string) {
+    if (!queryToSearch || queryToSearch === query) {
+      // setEducationAds({ hits: 0, result: [] });
+      // setQuery("");
+      // setSearchParams({}, { replace: true });
       return;
     }
-
-    let cancelled = false;
-
-    (async () => {
-      setLoading(true);
-      try {
-        const result = await fetchEducations(q);
-        if (!cancelled) {
-          setEducationAds(result);
-          sessionStorage.setItem("educationAdsQuery", q);
-        }
-      } catch (error) {
-        if (!cancelled) {
-          console.error("Error fetching educations:", error);
-        }
-      } finally {
-        if (!cancelled) {
-          setLoading(false);
-        }
-      }
-    })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [searchParams]);
-
-  async function handleSearch(e: CustomEvent<string>) {
-    const query = e.detail;
-    if (!query) return;
-    // replace, för att inte gå bakåt till tidigare sökningar
-    setSearchParams({ q: query }, { replace: true });
+    console.log("Searching for:", queryToSearch);
+    setLoading(true);
+    setSearchParams({ q: queryToSearch }, { replace: true });
+    try {
+      const result = await fetchEducations(queryToSearch);
+      setEducationAds(result);
+      setQuery(queryToSearch);
+    } catch (error) {
+      console.error("Error fetching educations:", error);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  console.log(educationAds);
-
   useEffect(() => {
-    console.log("✅ Component mounted");
+    const qFromUrl = searchParams.get("q");
+    if (qFromUrl && qFromUrl !== query) {
+      search(qFromUrl);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
 
-    return () => {
-      console.log("❌ Component unmounted");
-    };
-  }, []);
+  function handleSearchEvent(e: CustomEvent<string>) {
+    search(e.detail);
+  }
 
   return (
     <>
@@ -112,7 +85,7 @@ export default function EducationPage() {
             afVariation={FormInputSearchVariation.LARGE}
             afType={FormInputType.SEARCH}
             afButtonText={(loading && "laddar...") || "Sök"}
-            onAfOnSubmitSearch={handleSearch}
+            onAfOnSubmitSearch={handleSearchEvent}
             afValue={q}
           ></DigiFormInputSearch>
         </DigiLayoutContainer>
@@ -146,7 +119,7 @@ export default function EducationPage() {
               <DigiTypography>
                 <p>
                   Visar <strong>{educationAds.hits} annonser</strong> för
-                  sökningen "{q}"
+                  sökningen "{query}"
                 </p>
               </DigiTypography>
               {educationAds.result?.map((ed: IEdAd) => (
