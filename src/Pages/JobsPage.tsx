@@ -97,7 +97,7 @@ export default function JobsPage() {
       >
         <DigiLayoutContainer className="search-container">
           <DigiTypography>
-            <h1>Sök jobb</h1>
+            <h1>Sök jobbs</h1>
           </DigiTypography>
 
           <DigiFormInputSearch
