@@ -27,7 +27,7 @@ a {
   background-color: var(--color-primary);
 }
 
-.x>* {
+.card>* {
   border: 1px solid black;
   margin-top: 1rem;
   border-radius: var(--digi--border-radius--tertiary);

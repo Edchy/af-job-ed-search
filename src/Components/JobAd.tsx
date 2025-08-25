@@ -19,7 +19,7 @@ const JobAd = ({ job }: { job: IJobAd }) => {
       style={{ textDecoration: "none" }}
     >
       <DigiInfoCardMulti
-        className="x"
+        className="card"
         afHeading={
           job.number_of_vacancies > 1
             ? `${job.headline} (${job.number_of_vacancies} jobb)`

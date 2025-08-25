@@ -45,8 +45,9 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
       setLoading(false);
       console.log(education.id);
     }
-    console.log(matchedOccupations);
   }
+  console.log(matchedOccupations);
+  console.log("education:", education);
   return (
     <DigiLayoutBlock
       afMarginTop
@@ -121,11 +122,27 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
           {education.text_enrichments_results?.enriched_candidates
             ?.competencies && (
             <div>
-              <p>Nyckelord:</p>
+              <h4>Yrke:</h4>
+              <DigiList afListType={ListType.BULLET}>
+                {education.text_enrichments_results.enriched_candidates.occupations.map(
+                  (occ, index) => (
+                    <li key={index}>{occ}</li>
+                  )
+                )}
+              </DigiList>
+              <h4>Kompetens:</h4>
               <DigiList afListType={ListType.BULLET}>
                 {education.text_enrichments_results.enriched_candidates.competencies.map(
                   (competency, index) => (
                     <li key={index}>{competency}</li>
+                  )
+                )}
+              </DigiList>
+              <h4>Egenskap:</h4>
+              <DigiList afListType={ListType.BULLET}>
+                {education.text_enrichments_results.enriched_candidates.traits.map(
+                  (trait, index) => (
+                    <li key={index}>{trait}</li>
                   )
                 )}
               </DigiList>

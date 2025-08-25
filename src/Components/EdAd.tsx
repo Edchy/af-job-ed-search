@@ -21,7 +21,7 @@ const EdAd = ({ education }: { education: IEdAd }) => {
       state={{ education: education }} // skicka hela objektet som state via router
     >
       <DigiInfoCardMulti
-        className="x"
+        className="card"
         afHeading={`${education.education?.title?.[0]?.content || ""} `}
         afHeadingLevel={InfoCardMultiHeadingLevel.H3}
         afType={InfoCardMultiType.RELATED}

@@ -7,6 +7,7 @@ import DetailsPageHeader from "../Components/DetailsPageHeader";
 
 export default function EdDetailsPage() {
   const location = useLocation();
+  console.log(location);
   const education = location.state?.education as IEdAd;
   const search = location.search || "";
 

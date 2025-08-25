@@ -123,7 +123,7 @@ export default function JobsPage() {
               hidden={!(!loading && query && (jobs.total?.value ?? 0) === 0)}
             >
               <DigiTypography>
-                <h3>Inga utbildningar hittades för "{query}".</h3>
+                <h3>Inga jobb hittades för "{query}".</h3>
                 <p>Menade du (förslag här)</p>
               </DigiTypography>
             </div>
