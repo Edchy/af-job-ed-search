@@ -65,13 +65,13 @@ export interface Execution {
 export interface EventSummary {
   regionCode: string[];
   paceOfStudyPercentage: number[];
-  tuitionFee: string[]; // Adjust
+  tuitionFee: string[];
   executions: Execution[];
   languageOfInstruction: string[];
   distance: boolean;
-  timeOfStudy: string[]; // Adjust
+  timeOfStudy: string[];
   municipalityCode: string[];
-  onlyAsPartOfProgram: string[]; // Adjust
+  onlyAsPartOfProgram: string[];
 }
 
 export interface EnrichedCandidates {

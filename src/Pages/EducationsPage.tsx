@@ -65,7 +65,8 @@ export default function EducationPage() {
   }, [searchParams]);
 
   function handleSearchEvent(e: CustomEvent<string>) {
-    search(e.detail);
+    const queryFromSearchInput = e.detail;
+    search(queryFromSearchInput);
   }
 
   return (
@@ -96,7 +97,7 @@ export default function EducationPage() {
         afMarginTop
       >
         <DigiLayoutContainer afVerticalPadding>
-          {/* Keep exactly ONE stable child for the web component to slot */}
+          {/* Problem med conditional rendering (webcomponents + react) -  */}
           <div className="results-slot">
             {/* Loading */}
             <div aria-live="polite" hidden={!loading}>

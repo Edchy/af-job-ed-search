@@ -7,6 +7,7 @@ export interface IJobAd {
   occupation: JobTechTaxonomyItem;
   publication_date: string;
   employer: Employer;
+  logo_url: string;
 }
 
 type Employer = {

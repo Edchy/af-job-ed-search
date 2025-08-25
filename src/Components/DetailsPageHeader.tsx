@@ -1,7 +1,6 @@
 import {
   DigiLayoutBlock,
   DigiLayoutContainer,
-  DigiLink,
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 import React from "react";

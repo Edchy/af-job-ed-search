@@ -22,6 +22,7 @@ import { formatSwedishDate, taxonomyMap } from "../utils/helpers";
 import { Link } from "react-router";
 
 export default function EdAdDetails({ education }: { education: IEdAd }) {
+  // ändra till useSessionStorage
   const [matchedOccupations, setMatchedOccupations] =
     useState<OccupationMatchByEducationResponse>({
       hits_total: 0,
@@ -44,8 +45,8 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
       setLoading(false);
       console.log(education.id);
     }
+    console.log(matchedOccupations);
   }
-
   return (
     <DigiLayoutBlock
       afMarginTop

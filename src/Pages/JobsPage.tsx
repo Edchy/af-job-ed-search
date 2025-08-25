@@ -37,8 +37,8 @@ export default function JobsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialQ = searchParams.get("q") ?? "";
   const [query, setQuery] = useSessionStorage<string>("jobAdsQuery", initialQ);
-  // search handler that accepts either a CustomEvent<string> (from the component)
-  // or a plain string (when called programmatically)
+
+  // tar emot en event(string) när anropas från sökfältet - tar emot en string när anropas programatiskt (från url, när man klickar sig hit från EdDetailsPage)
   async function handleSearch(eventOrQuery: CustomEvent<string> | string) {
     const searchQuery =
       typeof eventOrQuery === "string"
@@ -49,12 +49,10 @@ export default function JobsPage() {
       return;
     }
 
-    // keep input and URL in sync
     setQuery(searchQuery);
     setSearchParams({ q: searchQuery });
 
     setLoading(true);
-    // setSearchMeta(null);
     try {
       const res = await getJobAds(searchQuery);
       console.log("data", res);
@@ -65,14 +63,9 @@ export default function JobsPage() {
         },
         positions: res.positions ?? 0,
       });
-      // setSearchMeta({
-      //   total: data?.total?.value ?? 0,
-      //   positions: data?.positions ?? 0,
-      // });
     } catch (error) {
       console.error("Error fetching jobs:", error);
       setJobs(initialValues);
-      // setSearchMeta(null);
     } finally {
       setLoading(false);
     }
@@ -84,7 +77,7 @@ export default function JobsPage() {
       handleSearch(initialQ);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // run once
+  }, []);
 
   console.log(jobs);
 
@@ -97,7 +90,7 @@ export default function JobsPage() {
       >
         <DigiLayoutContainer className="search-container">
           <DigiTypography>
-            <h1>Sök jobbs</h1>
+            <h1>Sök jobb</h1>
           </DigiTypography>
 
           <DigiFormInputSearch
@@ -116,7 +109,6 @@ export default function JobsPage() {
         afMarginTop
       >
         <DigiLayoutContainer afVerticalPadding>
-          {/* Keep exactly ONE stable child for the web component to slot */}
           <div className="results-slot">
             {/* Loading */}
             <div aria-live="polite" hidden={!loading}>

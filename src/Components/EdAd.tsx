@@ -25,7 +25,7 @@ const EdAd = ({ education }: { education: IEdAd }) => {
         afHeading={`${education.education?.title?.[0]?.content || ""} `}
         afHeadingLevel={InfoCardMultiHeadingLevel.H3}
         afType={InfoCardMultiType.RELATED}
-        afLinkHref={`/utbildningar/${education.id}`} // måste fixas
+        afLinkHref={`/utbildningar/${education.id}`}
       >
         <DigiTypography>
           <div className="education-ad-details">

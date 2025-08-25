@@ -2,6 +2,11 @@
 @import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css';
 @import "./customTheme.css";
 
+
+:root {
+  --digi--stratos-400: red !important;
+}
+
 * {
   box-sizing: border-box;
   padding: 0;
