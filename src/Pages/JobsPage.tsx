@@ -45,9 +45,14 @@ export default function JobsPage() {
         ? eventOrQuery
         : (eventOrQuery as CustomEvent<string>).detail;
 
+    console.log("handleSearch called with:", searchQuery);
+
     if (!searchQuery || searchQuery === query) {
+      console.log("Searching for:", query);
       return;
     }
+
+
 
     setQuery(searchQuery);
     setSearchParams({ q: searchQuery });
