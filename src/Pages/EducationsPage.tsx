@@ -31,24 +31,24 @@ export default function EducationPage() {
     });
   // searchParams för att behålla sökningen vid navigering
   const [searchParams, setSearchParams] = useSearchParams();
+  // det som finns i url:en. börjar som en tom sträng och sätts sedan till det som skrivs in i search funktionen (setSearchParams({ q: queryToSearch })
   const q = searchParams.get("q") || "";
-  const [query, setQuery] = useSessionStorage<string>("educationAdsQuery", q);
+
+  const [activeQuery, setActiveQuery] = useSessionStorage<string>(
+    "educationAdsQuery",
+    q
+  );
   const [loading, setLoading] = useState(false);
 
   async function search(queryToSearch: string) {
-    if (!queryToSearch || queryToSearch === query) {
-      // setEducationAds({ hits: 0, result: [] });
-      // setQuery("");
-      // setSearchParams({}, { replace: true });
-      return;
-    }
+    if (!queryToSearch) return;
     console.log("Searching for:", queryToSearch);
     setLoading(true);
-    setSearchParams({ q: queryToSearch }, { replace: true });
+    setSearchParams({ q: queryToSearch }, { replace: true }); // sätter sökparameter i URL:en
     try {
       const result = await fetchEducations(queryToSearch);
       setEducationAds(result);
-      setQuery(queryToSearch);
+      setActiveQuery(queryToSearch); // sätter den aktiva sökningen till det som söks
     } catch (error) {
       console.error("Error fetching educations:", error);
     } finally {
@@ -56,9 +56,13 @@ export default function EducationPage() {
     }
   }
 
+  // håller resultat i sync med url parametern
+  // så att användaren alltid ser samma resultat som i URL:en
+  //
   useEffect(() => {
     const qFromUrl = searchParams.get("q");
-    if (qFromUrl && qFromUrl !== query) {
+    console.log("qFromUrl:", qFromUrl, "current activeQuery:", activeQuery);
+    if (qFromUrl && qFromUrl !== activeQuery) {
       search(qFromUrl);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -68,6 +72,11 @@ export default function EducationPage() {
     const queryFromSearchInput = e.detail;
     search(queryFromSearchInput);
   }
+
+  // Conditions for rendering different states
+  const showLoading = loading;
+  const showEmptyState = !loading && q && (educationAds.hits ?? 0) === 0;
+  const showResults = !loading && (educationAds.hits ?? 0) > 0;
 
   return (
     <>
@@ -100,7 +109,7 @@ export default function EducationPage() {
           {/* Problem med conditional rendering (webcomponents + react) -  */}
           <div className="results-slot">
             {/* Loading */}
-            <div aria-live="polite" hidden={!loading}>
+            <div aria-live="polite" hidden={!showLoading}>
               <DigiLoaderSkeleton
                 afVariation={LoaderSkeletonVariation.SECTION}
                 afCount={10}
@@ -108,7 +117,7 @@ export default function EducationPage() {
             </div>
 
             {/* Empty state */}
-            <div hidden={!(!loading && q && (educationAds.hits ?? 0) === 0)}>
+            <div hidden={!showEmptyState}>
               <DigiTypography>
                 <h3>Inga utbildningar hittades för "{q}".</h3>
                 <p>Menade du (förslag här)</p>
@@ -116,11 +125,11 @@ export default function EducationPage() {
             </div>
 
             {/* Results */}
-            <div hidden={!(!loading && (educationAds.hits ?? 0) > 0)}>
+            <div hidden={!showResults}>
               <DigiTypography>
                 <p>
                   Visar <strong>{educationAds.hits} annonser</strong> för
-                  sökningen "{query}"
+                  sökningen "{activeQuery}"
                 </p>
               </DigiTypography>
               {educationAds.result?.map((ed: IEdAd) => (

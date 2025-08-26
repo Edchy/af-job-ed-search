@@ -36,7 +36,10 @@ export default function JobsPage() {
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const initialQ = searchParams.get("q") ?? "";
-  const [query, setQuery] = useSessionStorage<string>("jobAdsQuery", initialQ);
+  const [activeQuery, setActiveQuery] = useSessionStorage<string>(
+    "jobAdsQuery",
+    initialQ
+  );
 
   // tar emot en event(string) när anropas från sökfältet - tar emot en string när anropas programatiskt (från url, när man klickar sig hit från EdDetailsPage)
   async function handleSearch(eventOrQuery: CustomEvent<string> | string) {
@@ -47,16 +50,10 @@ export default function JobsPage() {
 
     console.log("handleSearch called with:", searchQuery);
 
-    if (!searchQuery || searchQuery === query) {
-      console.log("Searching for:", query);
-      return;
-    }
+    if (!searchQuery) return;
 
-
-
-    setQuery(searchQuery);
+    setActiveQuery(searchQuery);
     setSearchParams({ q: searchQuery });
-
     setLoading(true);
     try {
       const res = await getJobAds(searchQuery);
@@ -78,7 +75,7 @@ export default function JobsPage() {
 
   // run search once on mount if URL has q
   useEffect(() => {
-    if (initialQ && (jobs.hits.length === 0 || query !== initialQ)) {
+    if (initialQ && (jobs.hits.length === 0 || activeQuery !== initialQ)) {
       handleSearch(initialQ);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -104,7 +101,7 @@ export default function JobsPage() {
             afType={FormInputType.SEARCH}
             afButtonText="Sök"
             onAfOnSubmitSearch={handleSearch}
-            afValue={query}
+            afValue={activeQuery}
           ></DigiFormInputSearch>
         </DigiLayoutContainer>
       </DigiLayoutBlock>
@@ -125,10 +122,12 @@ export default function JobsPage() {
 
             {/* Empty state */}
             <div
-              hidden={!(!loading && query && (jobs.total?.value ?? 0) === 0)}
+              hidden={
+                !(!loading && activeQuery && (jobs.total?.value ?? 0) === 0)
+              }
             >
               <DigiTypography>
-                <h3>Inga jobb hittades för "{query}".</h3>
+                <h3>Inga jobb hittades för "{activeQuery}".</h3>
                 <p>Menade du (förslag här)</p>
               </DigiTypography>
             </div>
@@ -138,7 +137,7 @@ export default function JobsPage() {
               <DigiTypography>
                 <p>
                   <strong>Visar {jobs.total.value ?? 0} Annonser</strong> med{" "}
-                  {jobs.positions ?? 0} jobb för sökningen "{query}"
+                  {jobs.positions ?? 0} jobb för sökningen "{activeQuery}"
                 </p>
               </DigiTypography>
               {jobs.hits.map((job: IJobAd) => (
