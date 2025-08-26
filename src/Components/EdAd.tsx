@@ -1,6 +1,8 @@
 import {
   DigiExpandableAccordion,
   DigiLayoutBlock,
+  DigiList,
+  DigiLoaderSkeleton,
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 import { Link } from "react-router";
@@ -10,6 +12,7 @@ import { formatSwedishDate, taxonomyMap } from "../utils/helpers";
 import React, { useState } from "react";
 import "./EdAd.css";
 import { getOccupationsMatchedByEducationId, type OccupationMatchByEducationResponse } from "../services/occupationService";
+import { LoaderSkeletonVariation, ListType } from "@digi/arbetsformedlingen";
 
 
 
@@ -168,6 +171,58 @@ const EdAd = ({ education }: { education: IEdAd }) => {
               {/* {matchedOccupations.related_occupations.map((occupation, i) => (
                 <p key={i}>{occupation.occupation_label}</p>
               ))} */}
+              <div hidden={!loading}>
+                <DigiLoaderSkeleton
+                  afVariation={LoaderSkeletonVariation.TEXT}
+                  afCount={6}
+                />
+              </div>
+
+              {/* Content hidden while loading */}
+              <div hidden={loading}>
+                {matchedOccupations.identified_keywords_for_input.occupations.length > 0 && (
+                  <DigiTypography>
+                    <h4>Huvudyrke:</h4>
+                    <DigiList afListType={ListType.BULLET}>
+                      {matchedOccupations.identified_keywords_for_input.occupations.map((occupation, i) => (
+                        <li key={i}>
+                          <Link to={`/jobb?q=${encodeURIComponent(occupation)}`}>
+                            <span style={{ textTransform: "capitalize" }}>{occupation}</span>
+                          </Link>
+                        </li>
+                      ))}
+                    </DigiList>
+                  </DigiTypography>
+                )}
+
+                {/* CHANGED: Enhanced related occupations section */}
+                {matchedOccupations.related_occupations?.length > 0 ? (
+                  <DigiTypography>
+                    <h4>Relaterade yrken:</h4>
+                    <DigiList afListType={ListType.BULLET}>
+                      {matchedOccupations.related_occupations.map((occupation, i) => (
+                        <li key={i}>
+                          <Link
+                            to={`/jobb?q=${encodeURIComponent(
+                              occupation.occupation_label
+                            )}`}
+                          >
+                            {occupation.occupation_label}
+                          </Link>
+                        </li>
+                      ))}
+                    </DigiList>
+                    <p>
+                      <em>
+                        Visar {matchedOccupations.hits_returned || 0} av {matchedOccupations.hits_total || 0}
+                      </em>
+                    </p>
+                  </DigiTypography>
+                ) : (
+                  /* NEW: Fallback when no related occupations and not loading */
+                  !loading && <DigiTypography>inga relaterade yrken</DigiTypography>
+                )}
+              </div>
             </DigiExpandableAccordion>
           </div>
         </DigiTypography>
