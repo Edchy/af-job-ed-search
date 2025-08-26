@@ -23,57 +23,48 @@ import {
 
 import { useSessionStorage } from "../hooks/useSessionStorage";
 
+// last query är till för att kunna skippa att fetcha data igen när man navigerar tillbaka, om lastQuery är samma som nuvarande query så skippar vi fetch och använder cached data i session storage istället.
 export default function EducationPage() {
-  const [educationAds, setEducationAds] =
-    useSessionStorage<EducationSearchResult>("educationAds", {
-      hits: 0,
-      result: [],
-    });
-  // searchParams för att behålla sökningen vid navigering
+  const [educationAds, setEducationAds] = useSessionStorage<
+    EducationSearchResult & { lastQuery?: string }
+  >("edAds", {
+    hits: 0,
+    result: [],
+    lastQuery: "",
+  });
+
   const [searchParams, setSearchParams] = useSearchParams();
-  // det som finns i url:en. börjar som en tom sträng och sätts sedan till det som skrivs in i search funktionen (setSearchParams({ q: queryToSearch })
   const q = searchParams.get("q") || "";
-
-  const [activeQuery, setActiveQuery] = useSessionStorage<string>(
-    "educationAdsQuery",
-    q
-  );
   const [loading, setLoading] = useState(false);
-
-  async function search(queryToSearch: string) {
-    if (!queryToSearch) return;
-    console.log("Searching for:", queryToSearch);
-    setLoading(true);
-    setSearchParams({ q: queryToSearch }, { replace: true }); // sätter sökparameter i URL:en
-    try {
-      const result = await fetchEducations(queryToSearch);
-      setEducationAds(result);
-      setActiveQuery(queryToSearch); // sätter den aktiva sökningen till det som söks
-    } catch (error) {
-      console.error("Error fetching educations:", error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  // håller resultat i sync med url parametern
-  // så att användaren alltid ser samma resultat som i URL:en
-  //
-  useEffect(() => {
-    const qFromUrl = searchParams.get("q");
-    console.log("qFromUrl:", qFromUrl, "current activeQuery:", activeQuery);
-    if (qFromUrl && qFromUrl !== activeQuery) {
-      search(qFromUrl);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
 
   function handleSearchEvent(e: CustomEvent<string>) {
     const queryFromSearchInput = e.detail;
-    search(queryFromSearchInput);
+    setSearchParams({ q: queryFromSearchInput });
   }
 
-  // Conditions for rendering different states
+  useEffect(() => {
+    if (!q) return;
+
+    if (educationAds.lastQuery === q && educationAds.hits > 0) {
+      return;
+    }
+
+    setLoading(true);
+    const fetchData = async () => {
+      try {
+        const result = await fetchEducations(q);
+        setEducationAds({ ...result, lastQuery: q });
+      } catch (error) {
+        console.error("Error fetching educations:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q]);
+
   const showLoading = loading;
   const showEmptyState = !loading && q && (educationAds.hits ?? 0) === 0;
   const showResults = !loading && (educationAds.hits ?? 0) > 0;
@@ -129,7 +120,7 @@ export default function EducationPage() {
               <DigiTypography>
                 <p>
                   Visar <strong>{educationAds.hits} annonser</strong> för
-                  sökningen "{activeQuery}"
+                  sökningen "{q}"
                 </p>
               </DigiTypography>
               {educationAds.result?.map((ed: IEdAd) => (

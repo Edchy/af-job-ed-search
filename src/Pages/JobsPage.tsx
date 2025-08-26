@@ -26,60 +26,44 @@ const initialValues = {
     value: 0,
   },
   positions: 0,
+  lastQuery: "",
 };
 
 export default function JobsPage() {
-  const [jobs, setJobs] = useSessionStorage<JobAdsResponse>(
-    "jobAds",
-    initialValues
-  );
+  const [jobs, setJobs] = useSessionStorage<
+    JobAdsResponse & { lastQuery?: string }
+  >("jobAds", initialValues);
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q") ?? "";
-  const [activeQuery, setActiveQuery] = useSessionStorage<string>(
-    "jobAdsQuery",
-    q
-  );
 
-  async function search(queryToSearch: string) {
-    if (!queryToSearch) return;
+  function handleSearchEvent(e: CustomEvent<string>) {
+    const queryFromSearchInput = e.detail;
+    setSearchParams({ q: queryFromSearchInput }, { replace: true });
+  }
+
+  useEffect(() => {
+    if (!q) return;
+
+    // denna lilla gobit preventar onödiga refetchar när man navigerar tillbaka till en tidigare sökning från en jobDetails sida
+    if (jobs.lastQuery === q && jobs.hits.length > 0) {
+      return;
+    }
 
     setLoading(true);
-    setSearchParams({ q: queryToSearch }, { replace: true });
-    try {
-      const res = await getJobAds(queryToSearch);
-      console.log("data", res);
-      setJobs({
-        hits: res.hits ?? [],
-        total: {
-          value: res.total?.value ?? 0,
-        },
-        positions: res.positions ?? 0,
-      });
-      setActiveQuery(queryToSearch);
-    } catch (error) {
-      console.error("Error fetching jobs:", error);
-      setJobs(initialValues);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  function handleSearchEvent(event: CustomEvent<string>) {
-    const searchQuery = event.detail;
-    search(searchQuery);
-  }
-
-  // This effect syncs the page state with the URL (e.g., for back/forward navigation)
-  useEffect(() => {
-    const qFromUrl = searchParams.get("q");
-    if (qFromUrl && qFromUrl !== activeQuery) {
-      search(qFromUrl);
-    }
+    const fetchData = async () => {
+      try {
+        const result = await getJobAds(q);
+        setJobs({ ...result, lastQuery: q });
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
-
-  console.log(jobs);
+  }, [q]);
 
   const showLoading = loading;
   const showEmptyState = !loading && q && (jobs.total?.value ?? 0) === 0;
@@ -125,7 +109,7 @@ export default function JobsPage() {
             {/* Empty state */}
             <div hidden={!showEmptyState}>
               <DigiTypography>
-                <h3>Inga jobb hittades för "{activeQuery}".</h3>
+                <h3>Inga jobb hittades för "{q}".</h3>
                 <p>Menade du (förslag här)</p>
               </DigiTypography>
             </div>
@@ -135,7 +119,7 @@ export default function JobsPage() {
               <DigiTypography>
                 <p>
                   <strong>Visar {jobs.total.value ?? 0} Annonser</strong> med{" "}
-                  {jobs.positions ?? 0} jobb för sökningen "{activeQuery}"
+                  {jobs.positions ?? 0} jobb för sökningen "{q}"
                 </p>
               </DigiTypography>
               {jobs.hits.map((job: IJobAd) => (
