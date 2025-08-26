@@ -1,0 +1,90 @@
+:root {
+  /* Text */
+  --digi--color--text--primary: #333333;
+  --digi--color--text--secondary: #00005A;
+  --digi--color--text--inverted: #FFFFFF;
+  --digi--color--text--link: #1616B2;
+  --digi--color--text--link-hover: #424AE0;
+  --digi--color--text--link-visited: #822998;
+  --digi--color--text--neutral: #5C5C5C;
+  --digi--color--text--danger: #DA0000;
+
+  /* Background */
+  --digi--color--background--primary: #FFFFFF;
+  --digi--color--background--secondary: #F4F4F4;
+  --digi--color--background--tertiary: #FFFFFF;
+  --digi--color--background--inverted-1: #00005A;
+  --digi--color--background--inverted-2: #1616B2;
+  --digi--color--background--inverted-3: #333333;
+  --digi--color--background--inverted-4: #B7EE4A;
+  --digi--color--background--complementary-1: #058470;
+  --digi--color--background--complementary-2: #D43372;
+  --digi--color--background--neutral-1: #F1F8FE;
+  --digi--color--background--neutral-2: #9FD33C;
+  --digi--color--background--neutral-3: #D5D5D5;
+  --digi--color--background--neutral-4: #5C5C5C;
+  --digi--color--background--neutral-5: #F1F7E5;
+  --digi--color--background--neutral-6: #EDEDED;
+  --digi--color--background--neutral-7: #DDEBC1;
+  --digi--color--background--informative: #0000FF;
+  --digi--color--background--success-1: #009322;
+  --digi--color--background--success-2: #E9F6EC;
+  --digi--color--background--success-3: #7DC88D;
+  --digi--color--background--warning-1: #FFE200;
+  --digi--color--background--warning-2: #FFFBDD;
+  --digi--color--background--warning-3: #FFFDED;
+  --digi--color--background--danger-1: #DA0000;
+  --digi--color--background--danger-2: #FDEDED;
+  --digi--color--background--danger-3: #F09797;
+  --digi--color--background--input: #FFFFFF;
+  --digi--color--background--input-empty: #FFFFFF;
+  --digi--color--background--radio-primary: #009322;
+  --digi--color--background--radio-secondary: #00005A;
+  --digi--color--background--radio-marker: #FFFFFF;
+  --digi--color--background--checkbox-primary: #009322;
+  --digi--color--background--checkbox-secondary: #00005A;
+  --digi--color--background--checkbox-marker: #FFFFFF;
+  --digi--color--background--inverted-5: #BDD3E7;
+  --digi--color--background--inverted-6: #0058A3;
+  --digi--color--background--neutral-8: #FAFAFA;
+  --digi--color--background--danger-4: #C7311A;
+
+  /* Border */
+  --digi--color--border--primary: #333333;
+  --digi--color--border--secondary: #00005A;
+  --digi--color--border--tertiary: #95C23E;
+  --digi--color--border--quaternary: #95C23E;
+  --digi--color--border--focus: #95C23E;
+  --digi--color--border--success: #009322;
+  --digi--color--border--warning: #FFE200;
+  --digi--color--border--danger: #DA0000;
+  --digi--color--border--informative: #1616B2;
+  --digi--color--border--inverted: #FFFFFF;
+  --digi--color--border--neutral-1: #F1F7E5;
+  --digi--color--border--neutral-2: #DDDDDD;
+  --digi--color--border--neutral-3: #5C5C5C;
+  --digi--color--border--neutral-4: #EDEDED;
+  --digi--color--border--neutral-5: #757575;
+  --digi--color--border--radio-primary: #058470;
+  --digi--color--border--radio-secondary: #333333;
+  --digi--color--border--radio-focus: #FFFFFF;
+  --digi--color--border--checkbox-primary: #009322;
+  --digi--color--border--checkbox-secondary: #333333;
+  --digi--color--border--checkbox-focus: #1616B2;
+  --digi--color--border--warning-2: #827400;
+  --digi--color--border--warning-3: #8A7A00;
+  --digi--color--border--inverted-2: #0058A3;
+  --digi--color--border--inverted-3: #33337B;
+
+  /* Icons */
+  --digi--color--icons--primary: #333333;
+  --digi--color--icons--secondary: #00005A;
+  --digi--color--icons--inverted: #FFFFFF;
+  --digi--color--icons--complementary-1: #1616B2;
+  --digi--color--icons--complementary-2: #424AE0;
+  --digi--color--icons--complementary-3: #822998;
+  --digi--color--icons--success: #009322;
+  --digi--color--icons--warning: #FFE200;
+  --digi--color--icons--danger: #DA0000;
+  --digi--color--icons--informative: #0000FF;
+}

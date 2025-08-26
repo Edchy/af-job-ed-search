@@ -1,0 +1,60 @@
+@import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/digi-arbetsformedlingen.css';
+@import '@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/fonts/src/fonts.css';
+@import "./customTheme.css";
+
+
+:root {
+  --digi--stratos-400: red !important;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  text-underline-offset: 0.25em;
+
+  &:active {
+    color: inherit;
+  }
+}
+
+.app-layout {
+  /* display: grid;
+  grid-template-rows: auto 1fr auto; */
+  background-color: var(--color-primary);
+}
+
+.card>* {
+  border: 1px solid black;
+  margin-top: 1rem;
+  border-radius: var(--digi--border-radius--tertiary);
+
+}
+
+.search-container :is(h1, span) {
+  color: var(--digi--color--text--inverted) !important;
+}
+
+.digi-logo__img {
+  display: none !important;
+}
+
+.digi-logo__system-name::before {
+  display: none !important;
+}
+
+
+.digi-button[type="submit"] {
+  background-color: var(--color-primary) !important;
+
+  svg {
+    color: red;
+  }
+
+  .digi-button__text {
+    color: red !important;
+  }
+}

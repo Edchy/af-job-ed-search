@@ -1,0 +1,38 @@
+.education-ad-wrapper-link {
+  text-decoration: none;
+  /* color: inherit; */
+}
+
+.education-ad-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 1rem;
+
+
+  text-transform: capitalize;
+
+}
+
+.education-ad-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &:first-child {
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.education-ad-label {
+  font-weight: 500;
+  color: #555;
+  min-width: 90px;
+}
+
+.education-ad-icon {
+  display: flex;
+  align-items: center;
+}

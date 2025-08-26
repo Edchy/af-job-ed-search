@@ -1,0 +1,922 @@
+[
+  {
+    "key": "1489",
+    "value": "Alingsås"
+  },
+  {
+    "key": "0764",
+    "value": "Alvesta"
+  },
+  {
+    "key": "1984",
+    "value": "Arboga"
+  },
+  {
+    "key": "2506",
+    "value": "Arjeplog"
+  },
+  {
+    "key": "2505",
+    "value": "Arvidsjaur"
+  },
+  {
+    "key": "1784",
+    "value": "Arvika"
+  },
+  {
+    "key": "1882",
+    "value": "Askersund"
+  },
+  {
+    "key": "2084",
+    "value": "Avesta"
+  },
+  {
+    "key": "1460",
+    "value": "Bengtsfors"
+  },
+  {
+    "key": "1260",
+    "value": "Bjuv"
+  },
+  {
+    "key": "2582",
+    "value": "Boden"
+  },
+  {
+    "key": "2183",
+    "value": "Bollnäs"
+  },
+  {
+    "key": "0885",
+    "value": "Borgholm"
+  },
+  {
+    "key": "2081",
+    "value": "Borlänge"
+  },
+  {
+    "key": "1490",
+    "value": "Borås"
+  },
+  {
+    "key": "0127",
+    "value": "Botkyrka"
+  },
+  {
+    "key": "1231",
+    "value": "Burlöv"
+  },
+  {
+    "key": "1278",
+    "value": "Båstad"
+  },
+  {
+    "key": "0162",
+    "value": "Danderyd"
+  },
+  {
+    "key": "2425",
+    "value": "Dorotea"
+  },
+  {
+    "key": "0125",
+    "value": "Ekerö"
+  },
+  {
+    "key": "0686",
+    "value": "Eksjö"
+  },
+  {
+    "key": "0862",
+    "value": "Emmaboda"
+  },
+  {
+    "key": "0381",
+    "value": "Enköping"
+  },
+  {
+    "key": "0484",
+    "value": "Eskilstuna"
+  },
+  {
+    "key": "1285",
+    "value": "Eslöv"
+  },
+  {
+    "key": "1982",
+    "value": "Fagersta"
+  },
+  {
+    "key": "1382",
+    "value": "Falkenberg"
+  },
+  {
+    "key": "1499",
+    "value": "Falköping"
+  },
+  {
+    "key": "2080",
+    "value": "Falun"
+  },
+  {
+    "key": "1782",
+    "value": "Filipstad"
+  },
+  {
+    "key": "0562",
+    "value": "Finspång"
+  },
+  {
+    "key": "0482",
+    "value": "Flen"
+  },
+  {
+    "key": "1763",
+    "value": "Forshaga"
+  },
+  {
+    "key": "1439",
+    "value": "Färgelanda"
+  },
+  {
+    "key": "0662",
+    "value": "Gislaved"
+  },
+  {
+    "key": "0980",
+    "value": "Gotland"
+  },
+  {
+    "key": "1444",
+    "value": "Grästorp"
+  },
+  {
+    "key": "2523",
+    "value": "Gällivare"
+  },
+  {
+    "key": "2180",
+    "value": "Gävle"
+  },
+  {
+    "key": "1480",
+    "value": "Göteborg"
+  },
+  {
+    "key": "1471",
+    "value": "Götene"
+  },
+  {
+    "key": "0643",
+    "value": "Habo"
+  },
+  {
+    "key": "1783",
+    "value": "Hagfors"
+  },
+  {
+    "key": "1861",
+    "value": "Hallsberg"
+  },
+  {
+    "key": "1961",
+    "value": "Hallstahammar"
+  },
+  {
+    "key": "1380",
+    "value": "Halmstad"
+  },
+  {
+    "key": "1761",
+    "value": "Hammarö"
+  },
+  {
+    "key": "0136",
+    "value": "Haninge"
+  },
+  {
+    "key": "2583",
+    "value": "Haparanda"
+  },
+  {
+    "key": "0331",
+    "value": "Heby"
+  },
+  {
+    "key": "1283",
+    "value": "Helsingborg"
+  },
+  {
+    "key": "1497",
+    "value": "Hjo"
+  },
+  {
+    "key": "2104",
+    "value": "Hofors"
+  },
+  {
+    "key": "0126",
+    "value": "Huddinge"
+  },
+  {
+    "key": "2184",
+    "value": "Hudiksvall"
+  },
+  {
+    "key": "0860",
+    "value": "Hultsfred"
+  },
+  {
+    "key": "1863",
+    "value": "Hällefors"
+  },
+  {
+    "key": "2361",
+    "value": "Härjedalen"
+  },
+  {
+    "key": "2280",
+    "value": "Härnösand"
+  },
+  {
+    "key": "1401",
+    "value": "Härryda"
+  },
+  {
+    "key": "1293",
+    "value": "Hässleholm"
+  },
+  {
+    "key": "0305",
+    "value": "Håbo"
+  },
+  {
+    "key": "1266",
+    "value": "Hörby"
+  },
+  {
+    "key": "1267",
+    "value": "Höör"
+  },
+  {
+    "key": "2510",
+    "value": "Jokkmokk"
+  },
+  {
+    "key": "0123",
+    "value": "Järfälla"
+  },
+  {
+    "key": "0680",
+    "value": "Jönköping"
+  },
+  {
+    "key": "2514",
+    "value": "Kalix"
+  },
+  {
+    "key": "0880",
+    "value": "Kalmar"
+  },
+  {
+    "key": "1082",
+    "value": "Karlshamn"
+  },
+  {
+    "key": "1883",
+    "value": "Karlskoga"
+  },
+  {
+    "key": "1080",
+    "value": "Karlskrona"
+  },
+  {
+    "key": "1780",
+    "value": "Karlstad"
+  },
+  {
+    "key": "0483",
+    "value": "Katrineholm"
+  },
+  {
+    "key": "0513",
+    "value": "Kinda"
+  },
+  {
+    "key": "2584",
+    "value": "Kiruna"
+  },
+  {
+    "key": "1276",
+    "value": "Klippan"
+  },
+  {
+    "key": "0330",
+    "value": "Knivsta"
+  },
+  {
+    "key": "2282",
+    "value": "Kramfors"
+  },
+  {
+    "key": "1290",
+    "value": "Kristianstad"
+  },
+  {
+    "key": "1781",
+    "value": "Kristinehamn"
+  },
+  {
+    "key": "2309",
+    "value": "Krokom"
+  },
+  {
+    "key": "1384",
+    "value": "Kungsbacka"
+  },
+  {
+    "key": "1960",
+    "value": "Kungsör"
+  },
+  {
+    "key": "1482",
+    "value": "Kungälv"
+  },
+  {
+    "key": "1261",
+    "value": "Kävlinge"
+  },
+  {
+    "key": "1983",
+    "value": "Köping"
+  },
+  {
+    "key": "1381",
+    "value": "Laholm"
+  },
+  {
+    "key": "1282",
+    "value": "Landskrona"
+  },
+  {
+    "key": "2029",
+    "value": "Leksand"
+  },
+  {
+    "key": "1441",
+    "value": "Lerum"
+  },
+  {
+    "key": "0186",
+    "value": "Lidingö"
+  },
+  {
+    "key": "1494",
+    "value": "Lidköping"
+  },
+  {
+    "key": "1885",
+    "value": "Lindesberg"
+  },
+  {
+    "key": "0580",
+    "value": "Linköping"
+  },
+  {
+    "key": "0781",
+    "value": "Ljungby"
+  },
+  {
+    "key": "2161",
+    "value": "Ljusdal"
+  },
+  {
+    "key": "1262",
+    "value": "Lomma"
+  },
+  {
+    "key": "2085",
+    "value": "Ludvika"
+  },
+  {
+    "key": "2580",
+    "value": "Luleå"
+  },
+  {
+    "key": "1281",
+    "value": "Lund"
+  },
+  {
+    "key": "2481",
+    "value": "Lycksele"
+  },
+  {
+    "key": "1484",
+    "value": "Lysekil"
+  },
+  {
+    "key": "1280",
+    "value": "Malmö"
+  },
+  {
+    "key": "2023",
+    "value": "Malung-Sälen"
+  },
+  {
+    "key": "1493",
+    "value": "Mariestad"
+  },
+  {
+    "key": "1463",
+    "value": "Mark"
+  },
+  {
+    "key": "0767",
+    "value": "Markaryd"
+  },
+  {
+    "key": "0586",
+    "value": "Mjölby"
+  },
+  {
+    "key": "2062",
+    "value": "Mora"
+  },
+  {
+    "key": "0583",
+    "value": "Motala"
+  },
+  {
+    "key": "0642",
+    "value": "Mullsjö"
+  },
+  {
+    "key": "1762",
+    "value": "Munkfors"
+  },
+  {
+    "key": "1481",
+    "value": "Mölndal"
+  },
+  {
+    "key": "0840",
+    "value": "Mörbylånga"
+  },
+  {
+    "key": "0182",
+    "value": "Nacka"
+  },
+  {
+    "key": "2401",
+    "value": "Nordmaling"
+  },
+  {
+    "key": "0581",
+    "value": "Norrköping"
+  },
+  {
+    "key": "0188",
+    "value": "Norrtälje"
+  },
+  {
+    "key": "0881",
+    "value": "Nybro"
+  },
+  {
+    "key": "0140",
+    "value": "Nykvarn"
+  },
+  {
+    "key": "0480",
+    "value": "Nyköping"
+  },
+  {
+    "key": "0192",
+    "value": "Nynäshamn"
+  },
+  {
+    "key": "0682",
+    "value": "Nässjö"
+  },
+  {
+    "key": "1060",
+    "value": "Olofström"
+  },
+  {
+    "key": "1421",
+    "value": "Orust"
+  },
+  {
+    "key": "1273",
+    "value": "Osby"
+  },
+  {
+    "key": "0882",
+    "value": "Oskarshamn"
+  },
+  {
+    "key": "2121",
+    "value": "Ovanåker"
+  },
+  {
+    "key": "0481",
+    "value": "Oxelösund"
+  },
+  {
+    "key": "2521",
+    "value": "Pajala"
+  },
+  {
+    "key": "1402",
+    "value": "Partille"
+  },
+  {
+    "key": "1275",
+    "value": "Perstorp"
+  },
+  {
+    "key": "2581",
+    "value": "Piteå"
+  },
+  {
+    "key": "2409",
+    "value": "Robertsfors"
+  },
+  {
+    "key": "1081",
+    "value": "Ronneby"
+  },
+  {
+    "key": "2031",
+    "value": "Rättvik"
+  },
+  {
+    "key": "1981",
+    "value": "Sala"
+  },
+  {
+    "key": "2181",
+    "value": "Sandviken"
+  },
+  {
+    "key": "0191",
+    "value": "Sigtuna"
+  },
+  {
+    "key": "1291",
+    "value": "Simrishamn"
+  },
+  {
+    "key": "1495",
+    "value": "Skara"
+  },
+  {
+    "key": "2482",
+    "value": "Skellefteå"
+  },
+  {
+    "key": "1904",
+    "value": "Skinnskatteberg"
+  },
+  {
+    "key": "1264",
+    "value": "Skurup"
+  },
+  {
+    "key": "1496",
+    "value": "Skövde"
+  },
+  {
+    "key": "2061",
+    "value": "Smedjebacken"
+  },
+  {
+    "key": "2283",
+    "value": "Sollefteå"
+  },
+  {
+    "key": "0163",
+    "value": "Sollentuna"
+  },
+  {
+    "key": "0184",
+    "value": "Solna"
+  },
+  {
+    "key": "2422",
+    "value": "Sorsele"
+  },
+  {
+    "key": "1427",
+    "value": "Sotenäs"
+  },
+  {
+    "key": "1230",
+    "value": "Staffanstorp"
+  },
+  {
+    "key": "1415",
+    "value": "Stenungsund"
+  },
+  {
+    "key": "0180",
+    "value": "Stockholm"
+  },
+  {
+    "key": "2421",
+    "value": "Storuman"
+  },
+  {
+    "key": "0486",
+    "value": "Strängnäs"
+  },
+  {
+    "key": "1486",
+    "value": "Strömstad"
+  },
+  {
+    "key": "2313",
+    "value": "Strömsund"
+  },
+  {
+    "key": "0183",
+    "value": "Sundbyberg"
+  },
+  {
+    "key": "2281",
+    "value": "Sundsvall"
+  },
+  {
+    "key": "1766",
+    "value": "Sunne"
+  },
+  {
+    "key": "1907",
+    "value": "Surahammar"
+  },
+  {
+    "key": "1214",
+    "value": "Svalöv"
+  },
+  {
+    "key": "1263",
+    "value": "Svedala"
+  },
+  {
+    "key": "1465",
+    "value": "Svenljunga"
+  },
+  {
+    "key": "1785",
+    "value": "Säffle"
+  },
+  {
+    "key": "2082",
+    "value": "Säter"
+  },
+  {
+    "key": "2182",
+    "value": "Söderhamn"
+  },
+  {
+    "key": "0582",
+    "value": "Söderköping"
+  },
+  {
+    "key": "0181",
+    "value": "Södertälje"
+  },
+  {
+    "key": "1083",
+    "value": "Sölvesborg"
+  },
+  {
+    "key": "1435",
+    "value": "Tanum"
+  },
+  {
+    "key": "1472",
+    "value": "Tibro"
+  },
+  {
+    "key": "1498",
+    "value": "Tidaholm"
+  },
+  {
+    "key": "0360",
+    "value": "Tierp"
+  },
+  {
+    "key": "2262",
+    "value": "Timrå"
+  },
+  {
+    "key": "1419",
+    "value": "Tjörn"
+  },
+  {
+    "key": "1270",
+    "value": "Tomelilla"
+  },
+  {
+    "key": "1737",
+    "value": "Torsby"
+  },
+  {
+    "key": "0687",
+    "value": "Tranås"
+  },
+  {
+    "key": "1287",
+    "value": "Trelleborg"
+  },
+  {
+    "key": "1488",
+    "value": "Trollhättan"
+  },
+  {
+    "key": "0488",
+    "value": "Trosa"
+  },
+  {
+    "key": "0138",
+    "value": "Tyresö"
+  },
+  {
+    "key": "0160",
+    "value": "Täby"
+  },
+  {
+    "key": "1485",
+    "value": "Uddevalla"
+  },
+  {
+    "key": "1491",
+    "value": "Ulricehamn"
+  },
+  {
+    "key": "2480",
+    "value": "Umeå"
+  },
+  {
+    "key": "0114",
+    "value": "Upplands Väsby"
+  },
+  {
+    "key": "0139",
+    "value": "Upplands-Bro"
+  },
+  {
+    "key": "0380",
+    "value": "Uppsala"
+  },
+  {
+    "key": "0760",
+    "value": "Uppvidinge"
+  },
+  {
+    "key": "0584",
+    "value": "Vadstena"
+  },
+  {
+    "key": "0665",
+    "value": "Vaggeryd"
+  },
+  {
+    "key": "0115",
+    "value": "Vallentuna"
+  },
+  {
+    "key": "2021",
+    "value": "Vansbro"
+  },
+  {
+    "key": "1470",
+    "value": "Vara"
+  },
+  {
+    "key": "1383",
+    "value": "Varberg"
+  },
+  {
+    "key": "0187",
+    "value": "Vaxholm"
+  },
+  {
+    "key": "1233",
+    "value": "Vellinge"
+  },
+  {
+    "key": "0685",
+    "value": "Vetlanda"
+  },
+  {
+    "key": "2462",
+    "value": "Vilhelmina"
+  },
+  {
+    "key": "0884",
+    "value": "Vimmerby"
+  },
+  {
+    "key": "2404",
+    "value": "Vindeln"
+  },
+  {
+    "key": "0428",
+    "value": "Vingåker"
+  },
+  {
+    "key": "1487",
+    "value": "Vänersborg"
+  },
+  {
+    "key": "2460",
+    "value": "Vännäs"
+  },
+  {
+    "key": "0120",
+    "value": "Värmdö"
+  },
+  {
+    "key": "0683",
+    "value": "Värnamo"
+  },
+  {
+    "key": "0883",
+    "value": "Västervik"
+  },
+  {
+    "key": "1980",
+    "value": "Västerås"
+  },
+  {
+    "key": "0780",
+    "value": "Växjö"
+  },
+  {
+    "key": "1286",
+    "value": "Ystad"
+  },
+  {
+    "key": "0765",
+    "value": "Älmhult"
+  },
+  {
+    "key": "2039",
+    "value": "Älvdalen"
+  },
+  {
+    "key": "2560",
+    "value": "Älvsbyn"
+  },
+  {
+    "key": "1292",
+    "value": "Ängelholm"
+  },
+  {
+    "key": "1492",
+    "value": "Åmål"
+  },
+  {
+    "key": "2260",
+    "value": "Ånge"
+  },
+  {
+    "key": "2321",
+    "value": "Åre"
+  },
+  {
+    "key": "1765",
+    "value": "Årjäng"
+  },
+  {
+    "key": "1407",
+    "value": "Öckerö"
+  },
+  {
+    "key": "1880",
+    "value": "Örebro"
+  },
+  {
+    "key": "2284",
+    "value": "Örnsköldsvik"
+  },
+  {
+    "key": "2380",
+    "value": "Östersund"
+  },
+  {
+    "key": "0117",
+    "value": "Österåker"
+  },
+  {
+    "key": "1256",
+    "value": "Östra Göinge"
+  },
+  {
+    "key": "2518",
+    "value": "Övertorneå"
+  }
+]

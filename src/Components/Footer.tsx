@@ -4,7 +4,7 @@ import { DigiFooterCard } from "@digi/arbetsformedlingen-react";
 import { FooterCardVariation } from "@digi/arbetsformedlingen";
 import { DigiIconAccessibilityUniversal } from "@digi/arbetsformedlingen-react";
 import { DigiIconSign } from "@digi/arbetsformedlingen-react";
-import { Link } from "react-router";
+// import { Link } from "react-router";
 import { DigiIconGlobe } from "@digi/arbetsformedlingen-react";
 import { DigiIconEnvelope } from "@digi/arbetsformedlingen-react";
 import { FooterVariation } from "@digi/arbetsformedlingen";
@@ -44,6 +44,7 @@ export const Footer = () => {
               </ul>
             </DigiFooterCard>
           </div>
+
           <div>
             <DigiFooterCard afType={FooterCardVariation.BORDER}>
               <a href="#">Om tjänsten dolores</a>
@@ -51,6 +52,7 @@ export const Footer = () => {
                 Systemversion: 1.4.0 <br /> Ansvarig: Jenny Svensson
               </p>
             </DigiFooterCard>
+
           </div>
           <div>
             <DigiFooterCard afType={FooterCardVariation.BORDER}>
@@ -60,6 +62,10 @@ export const Footer = () => {
               </p>
             </DigiFooterCard>
           </div>
+
+        </DigiFooter>
+      </footer>
+
         </div>
         <div slot="content-bottom-left">
           <Link to="/">
@@ -91,6 +97,7 @@ export const Footer = () => {
           <a href="#">Instagram</a>
         </div>
       </DigiFooter>
+
     </>
   );
 };
