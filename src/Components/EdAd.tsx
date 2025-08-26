@@ -1,5 +1,6 @@
 import {
   DigiInfoCardMulti,
+  DigiLayoutBlock,
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 import { Link } from "react-router";
@@ -15,19 +16,25 @@ import "./EdAd.css";
 
 const EdAd = ({ education }: { education: IEdAd }) => {
   return (
-    <Link
-      className="education-ad-wrapper-link"
-      to={`/utbildningar/${education.id}${location.search}`}
-      state={{ education: education }} // skicka hela objektet som state via router
-    >
-      <DigiInfoCardMulti
-        className="card"
-        afHeading={`${education.education?.title?.[0]?.content || ""} `}
-        afHeadingLevel={InfoCardMultiHeadingLevel.H3}
-        afType={InfoCardMultiType.RELATED}
-        afLinkHref={`/utbildningar/${education.id}`}
+    <div className="education-ad-wrapper">
+      <DigiLayoutBlock
+        style={{
+          border: "1px solid #ccc",
+          borderRadius: "8px",
+          padding: "1.5rem",
+          marginBottom: "2rem",
+          backgroundColor: "#ffffff",
+          boxShadow: "0 2px 6px rgba(0, 0, 0, 0.08)",
+        }}
       >
+
+
         <DigiTypography>
+          <Link
+            className="education-ad-wrapper-link"
+            to={`/utbildningar/${education.id}${location.search}`}
+            state={{ education: education }} // skicka hela objektet som state via router
+          > <h2>{education.education.title[0].content}</h2></Link>
           <div className="education-ad-details">
             <div>{education.id}</div>
             <div className="education-ad-row">
@@ -76,8 +83,8 @@ const EdAd = ({ education }: { education: IEdAd }) => {
               <span>
                 {education.eventSummary?.paceOfStudyPercentage?.length > 0
                   ? `${education.eventSummary.paceOfStudyPercentage.join(
-                      ", "
-                    )}%`
+                    ", "
+                  )}%`
                   : "-"}
               </span>
             </div>
@@ -116,8 +123,9 @@ const EdAd = ({ education }: { education: IEdAd }) => {
             )}
           </div>
         </DigiTypography>
-      </DigiInfoCardMulti>
-    </Link>
+      </DigiLayoutBlock>
+
+    </div>
   );
 };
 
