@@ -75,6 +75,7 @@ export default function JobsPage() {
   useEffect(() => {
     if (initialQ && (jobs.hits.length === 0 || query !== initialQ)) {
       handleSearch(initialQ);
+      console.log("Searching jobs for:", initialQ);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

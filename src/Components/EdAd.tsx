@@ -1,20 +1,40 @@
 import {
-  DigiInfoCardMulti,
+  DigiExpandableAccordion,
   DigiLayoutBlock,
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 import { Link } from "react-router";
 
-import {
-  InfoCardMultiHeadingLevel,
-  InfoCardMultiType,
-} from "@digi/arbetsformedlingen";
 import type { IEdAd } from "../Models/EdModel";
 import { formatSwedishDate, taxonomyMap } from "../utils/helpers";
-import React from "react";
+import React, { useState } from "react";
 import "./EdAd.css";
+import { getOccupationsMatchedByEducationId, type OccupationMatchByEducationResponse } from "../services/occupationService";
+
+
 
 const EdAd = ({ education }: { education: IEdAd }) => {
+
+  const [matchedOccupations, setMatchedOccupations] =
+    useState<OccupationMatchByEducationResponse>({
+      hits_total: 0,
+      hits_returned: 0,
+      identified_keywords_for_input: { competencies: [], occupations: [] },
+      related_occupations: [],
+    });
+
+  async function handleClick(id: string) {
+    console.log("Clicked on accordion for education ID:", id);
+    const result = await getOccupationsMatchedByEducationId(id);
+    console.log("Fetched occupations:", result);
+
+    setMatchedOccupations(result);
+
+
+  };
+
+
+
   return (
     <div className="education-ad-wrapper">
       <DigiLayoutBlock
@@ -119,6 +139,12 @@ const EdAd = ({ education }: { education: IEdAd }) => {
                 </span>
               </div>
             )}
+            <DigiExpandableAccordion afHeading="Releterade Yrken" onAfOnClick={() => { handleClick(education.id) }}>
+
+              {matchedOccupations.related_occupations.map((occupation, i) => (
+                <p key={i}>{occupation.occupation_label}</p>
+              ))}
+            </DigiExpandableAccordion>
           </div>
         </DigiTypography>
       </DigiLayoutBlock>
