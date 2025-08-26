@@ -23,14 +23,38 @@ const EdAd = ({ education }: { education: IEdAd }) => {
       related_occupations: [],
     });
 
+  const [loading, setLoading] = useState(false); // NY loading state accordion
+
+  // async function handleClick(id: string) {
+  //   console.log("Clicked on accordion for education ID:", id);
+  //   const result = await getOccupationsMatchedByEducationId(id);
+  //   console.log("Fetched occupations:", result);
+
+  //   setMatchedOccupations(result);
+
+
+  // };
   async function handleClick(id: string) {
     console.log("Clicked on accordion for education ID:", id);
-    const result = await getOccupationsMatchedByEducationId(id);
-    console.log("Fetched occupations:", result);
+    // NEW: avoid refetch if already loaded (optional - remove if always refetch)
+    if (matchedOccupations.hits_total > 0 || loading) return;
 
-    setMatchedOccupations(result);
-
-
+    setLoading(true);
+    try {
+      const result = await getOccupationsMatchedByEducationId(id);
+      console.log("Fetched occupations:", result);
+      setMatchedOccupations(result);
+    } catch (e) {
+      console.error("Failed fetching occupations", e);
+      setMatchedOccupations({
+        hits_total: 0,
+        hits_returned: 0,
+        identified_keywords_for_input: { competencies: [], occupations: [] },
+        related_occupations: [],
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
 
@@ -141,9 +165,9 @@ const EdAd = ({ education }: { education: IEdAd }) => {
             )}
             <DigiExpandableAccordion afHeading="Releterade Yrken" onAfOnClick={() => { handleClick(education.id) }}>
 
-              {matchedOccupations.related_occupations.map((occupation, i) => (
+              {/* {matchedOccupations.related_occupations.map((occupation, i) => (
                 <p key={i}>{occupation.occupation_label}</p>
-              ))}
+              ))} */}
             </DigiExpandableAccordion>
           </div>
         </DigiTypography>
