@@ -35,28 +35,19 @@ export default function JobsPage() {
   );
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialQ = searchParams.get("q") ?? "";
+  const q = searchParams.get("q") ?? "";
   const [activeQuery, setActiveQuery] = useSessionStorage<string>(
     "jobAdsQuery",
-    initialQ
+    q
   );
 
-  // tar emot en event(string) när anropas från sökfältet - tar emot en string när anropas programatiskt (från url, när man klickar sig hit från EdDetailsPage)
-  async function handleSearch(eventOrQuery: CustomEvent<string> | string) {
-    const searchQuery =
-      typeof eventOrQuery === "string"
-        ? eventOrQuery
-        : (eventOrQuery as CustomEvent<string>).detail;
+  async function search(queryToSearch: string) {
+    if (!queryToSearch) return;
 
-    console.log("handleSearch called with:", searchQuery);
-
-    if (!searchQuery) return;
-
-    setActiveQuery(searchQuery);
-    setSearchParams({ q: searchQuery });
     setLoading(true);
+    setSearchParams({ q: queryToSearch }, { replace: true });
     try {
-      const res = await getJobAds(searchQuery);
+      const res = await getJobAds(queryToSearch);
       console.log("data", res);
       setJobs({
         hits: res.hits ?? [],
@@ -65,6 +56,7 @@ export default function JobsPage() {
         },
         positions: res.positions ?? 0,
       });
+      setActiveQuery(queryToSearch);
     } catch (error) {
       console.error("Error fetching jobs:", error);
       setJobs(initialValues);
@@ -73,15 +65,25 @@ export default function JobsPage() {
     }
   }
 
-  // run search once on mount if URL has q
+  function handleSearchEvent(event: CustomEvent<string>) {
+    const searchQuery = event.detail;
+    search(searchQuery);
+  }
+
+  // This effect syncs the page state with the URL (e.g., for back/forward navigation)
   useEffect(() => {
-    if (initialQ && (jobs.hits.length === 0 || activeQuery !== initialQ)) {
-      handleSearch(initialQ);
+    const qFromUrl = searchParams.get("q");
+    if (qFromUrl && qFromUrl !== activeQuery) {
+      search(qFromUrl);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchParams]);
 
   console.log(jobs);
+
+  const showLoading = loading;
+  const showEmptyState = !loading && q && (jobs.total?.value ?? 0) === 0;
+  const showResults = !loading && (jobs.total?.value ?? 0) > 0;
 
   return (
     <>
@@ -100,8 +102,8 @@ export default function JobsPage() {
             afVariation={FormInputSearchVariation.LARGE}
             afType={FormInputType.SEARCH}
             afButtonText="Sök"
-            onAfOnSubmitSearch={handleSearch}
-            afValue={activeQuery}
+            onAfOnSubmitSearch={handleSearchEvent}
+            afValue={q}
           ></DigiFormInputSearch>
         </DigiLayoutContainer>
       </DigiLayoutBlock>
@@ -113,7 +115,7 @@ export default function JobsPage() {
         <DigiLayoutContainer afVerticalPadding>
           <div className="results-slot">
             {/* Loading */}
-            <div aria-live="polite" hidden={!loading}>
+            <div aria-live="polite" hidden={!showLoading}>
               <DigiLoaderSkeleton
                 afVariation={LoaderSkeletonVariation.SECTION}
                 afCount={10}
@@ -121,11 +123,7 @@ export default function JobsPage() {
             </div>
 
             {/* Empty state */}
-            <div
-              hidden={
-                !(!loading && activeQuery && (jobs.total?.value ?? 0) === 0)
-              }
-            >
+            <div hidden={!showEmptyState}>
               <DigiTypography>
                 <h3>Inga jobb hittades för "{activeQuery}".</h3>
                 <p>Menade du (förslag här)</p>
@@ -133,7 +131,7 @@ export default function JobsPage() {
             </div>
 
             {/* Results */}
-            <div hidden={!(!loading && (jobs.total?.value ?? 0) > 0)}>
+            <div hidden={!showResults}>
               <DigiTypography>
                 <p>
                   <strong>Visar {jobs.total.value ?? 0} Annonser</strong> med{" "}

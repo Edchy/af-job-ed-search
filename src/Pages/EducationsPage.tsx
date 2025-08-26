@@ -94,7 +94,7 @@ export default function EducationPage() {
             afLabel="Ett eller flera ord"
             afVariation={FormInputSearchVariation.LARGE}
             afType={FormInputType.SEARCH}
-            afButtonText={(loading && "laddar...") || "Sök"}
+            afButtonText="Sök"
             onAfOnSubmitSearch={handleSearchEvent}
             afValue={q}
           ></DigiFormInputSearch>
