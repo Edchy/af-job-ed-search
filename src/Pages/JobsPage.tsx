@@ -51,6 +51,7 @@ export default function JobsPage() {
     }
 
     setLoading(true);
+
     const fetchData = async () => {
       try {
         const result = await getJobAds(q);
