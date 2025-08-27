@@ -171,6 +171,7 @@ const EdAd = ({ education }: { education: IEdAd }) => {
               {/* {matchedOccupations.related_occupations.map((occupation, i) => (
                 <p key={i}>{occupation.occupation_label}</p>
               ))} */}
+
               <div hidden={!loading}>
                 <DigiLoaderSkeleton
                   afVariation={LoaderSkeletonVariation.TEXT}
@@ -178,7 +179,6 @@ const EdAd = ({ education }: { education: IEdAd }) => {
                 />
               </div>
 
-              {/* Content hidden while loading */}
               <div hidden={loading}>
                 {matchedOccupations.identified_keywords_for_input.occupations.length > 0 && (
                   <DigiTypography>
@@ -195,7 +195,6 @@ const EdAd = ({ education }: { education: IEdAd }) => {
                   </DigiTypography>
                 )}
 
-                {/* CHANGED: Enhanced related occupations section */}
                 {matchedOccupations.related_occupations?.length > 0 ? (
                   <DigiTypography>
                     <h4>Relaterade yrken:</h4>
@@ -219,7 +218,6 @@ const EdAd = ({ education }: { education: IEdAd }) => {
                     </p>
                   </DigiTypography>
                 ) : (
-                  /* NEW: Fallback when no related occupations and not loading */
                   !loading && <DigiTypography>inga relaterade yrken</DigiTypography>
                 )}
               </div>
