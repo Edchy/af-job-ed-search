@@ -8,10 +8,11 @@ export interface EducationSearchResult {
 const BASE_URL = "https://jobed-connect-api.jobtechdev.se/v1/educations";
 
 export async function fetchEducations(
-  query: string
+  query: string,
+  offset: number = 0
 ): Promise<EducationSearchResult> {
   const data = await apiFetch<EducationSearchResult>(
-    `${BASE_URL}?query=${encodeURIComponent(query)}`
+    `${BASE_URL}?query=${encodeURIComponent(query)}&limit=10&offset=${offset}`
   );
 
   return { hits: data.hits, result: data.result || [] };
