@@ -1,0 +1,40 @@
+.bg-homepage {
+    background-image: url('/Images/pexels-fauxels-3183183.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.section-bg-color{
+    background-color: rgba(18, 18, 18, 0.796);
+    border-radius: 4px;
+    height: 20rem;
+    width: 35rem;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    flex-direction: column;
+    color: whitesmoke;
+    font-size: 2rem;
+}
+
+.btn-group {
+display: flex;           
+  flex-direction: row;
+  gap: 1rem;    
+
+}
+.btn-homepage{
+    display: block;
+    height: 5rem;
+    width: 10rem;
+    border-radius: 4px;
+    font-size: 20px;
+}
