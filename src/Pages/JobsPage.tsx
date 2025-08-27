@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { useSessionStorage } from "../hooks";
 import { getJobAds, type JobAdsResponse } from "../services/occupationService";
+import CompetenceBox from "../Components/CompetenceBox";
 
 const initialValues = {
   hits: [],
@@ -51,8 +52,6 @@ export default function JobsPage() {
       console.log("Searching for:", query);
       return;
     }
-
-
 
     setQuery(searchQuery);
     setSearchParams({ q: searchQuery });
@@ -141,6 +140,17 @@ export default function JobsPage() {
                   {jobs.positions ?? 0} jobb för sökningen "{query}"
                 </p>
               </DigiTypography>
+              {jobs.hits.length > 0 && (
+                <>
+                  {/* Visa kompetenser för första annonsens yrke */}
+                  <CompetenceBox job={jobs.hits[0]} />
+
+                  {/* Visa alla jobbannonser */}
+                  {jobs.hits.map((job) => (
+                    <JobAd key={job.id} job={job} />
+                  ))}
+                </>
+              )}
               {jobs.hits.map((job: IJobAd) => (
                 <JobAd key={job.id} job={job} />
               ))}
