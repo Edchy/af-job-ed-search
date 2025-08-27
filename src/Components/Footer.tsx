@@ -62,10 +62,11 @@ export const Footer = () => {
               </p>
             </DigiFooterCard>
           </div>
+        </div>
 
-        </DigiFooter>
-      </footer>
 
+      </DigiFooter>
+      {/* </footer>
         </div>
         <div slot="content-bottom-left">
           <Link to="/">
@@ -97,7 +98,8 @@ export const Footer = () => {
           <a href="#">Instagram</a>
         </div>
       </DigiFooter>
-
+  );
+}; */}
     </>
   );
-};
+}
