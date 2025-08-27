@@ -9,6 +9,7 @@ import {
   DigiLayoutBlock,
   DigiLayoutContainer,
   DigiLoaderSkeleton,
+  DigiNavigationPagination,
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 
@@ -23,51 +24,73 @@ import {
 
 import { useSessionStorage } from "../hooks/useSessionStorage";
 
+type CachedData = EducationSearchResult & {
+  lastQuery?: string;
+  lastPage?: number;
+};
+const initialValues = {
+  hits: 0,
+  result: [],
+  lastQuery: "",
+  lastPage: 1,
+};
+
+// last query & lastpage är till för att kunna skippa att fetcha data igen när man navigerar tillbaka, om lastQuery är samma som nuvarande query så skippar vi fetch och använder cached data i session storage istället genom att göra return innan fetch anropas i useEffect.
 export default function EducationPage() {
-  const [educationAds, setEducationAds] =
-    useSessionStorage<EducationSearchResult>("educationAds", {
-      hits: 0,
-      result: [],
-    });
-  // searchParams för att behålla sökningen vid navigering
+  const [educationAds, setEducationAds] = useSessionStorage<CachedData>(
+    "edAds",
+    initialValues
+  );
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q") || "";
-  const [query, setQuery] = useSessionStorage<string>("educationAdsQuery", q);
   const [loading, setLoading] = useState(false);
-
-  async function search(queryToSearch: string) {
-    if (!queryToSearch || queryToSearch === query) {
-      // setEducationAds({ hits: 0, result: [] });
-      // setQuery("");
-      // setSearchParams({}, { replace: true });
-      return;
-    }
-    console.log("Searching for:", queryToSearch);
-    setLoading(true);
-    setSearchParams({ q: queryToSearch }, { replace: true });
-    try {
-      const result = await fetchEducations(queryToSearch);
-      setEducationAds(result);
-      setQuery(queryToSearch);
-    } catch (error) {
-      console.error("Error fetching educations:", error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  useEffect(() => {
-    const qFromUrl = searchParams.get("q");
-    if (qFromUrl && qFromUrl !== query) {
-      search(qFromUrl);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchParams]);
 
   function handleSearchEvent(e: CustomEvent<string>) {
     const queryFromSearchInput = e.detail;
-    search(queryFromSearchInput);
+    // trigger a new search
+    setSearchParams({ q: queryFromSearchInput });
   }
+
+  useEffect(() => {
+    // If no query in URL, but we have a cached lastQuery, restore it
+    if (!q && educationAds.lastQuery) {
+      setSearchParams({
+        q: educationAds.lastQuery,
+        page: currentPage.toString(),
+      });
+      return;
+    }
+    if (!q) return;
+
+    if (
+      educationAds.lastQuery === q &&
+      educationAds.lastPage === currentPage &&
+      educationAds.hits > 0
+    ) {
+      return;
+    }
+
+    setLoading(true);
+    const fetchData = async () => {
+      try {
+        const offset = (currentPage - 1) * 10;
+        const result = await fetchEducations(q, offset);
+        setEducationAds({ ...result, lastQuery: q, lastPage: currentPage });
+      } catch (error) {
+        console.error("Error fetching educations:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q, currentPage]);
+
+  const showLoading = loading;
+  const showEmptyState = !loading && q && (educationAds.hits ?? 0) === 0;
+  const showResults = !loading && (educationAds.hits ?? 0) > 0;
 
   return (
     <>
@@ -85,7 +108,7 @@ export default function EducationPage() {
             afLabel="Ett eller flera ord"
             afVariation={FormInputSearchVariation.LARGE}
             afType={FormInputType.SEARCH}
-            afButtonText={(loading && "laddar...") || "Sök"}
+            afButtonText="Sök"
             onAfOnSubmitSearch={handleSearchEvent}
             afValue={q}
           ></DigiFormInputSearch>
@@ -100,7 +123,7 @@ export default function EducationPage() {
           {/* Problem med conditional rendering (webcomponents + react) -  */}
           <div className="results-slot">
             {/* Loading */}
-            <div aria-live="polite" hidden={!loading}>
+            <div aria-live="polite" hidden={!showLoading}>
               <DigiLoaderSkeleton
                 afVariation={LoaderSkeletonVariation.SECTION}
                 afCount={10}
@@ -108,26 +131,42 @@ export default function EducationPage() {
             </div>
 
             {/* Empty state */}
-            <div hidden={!(!loading && q && (educationAds.hits ?? 0) === 0)}>
+            <div hidden={!showEmptyState}>
               <DigiTypography>
-                <h3>Inga utbildningar hittades för "{q}".</h3>
+                <h3>
+                  Inga utbildningar hittades för "{educationAds.lastQuery}".
+                </h3>
                 <p>Menade du (förslag här)</p>
               </DigiTypography>
             </div>
 
             {/* Results */}
-            <div hidden={!(!loading && (educationAds.hits ?? 0) > 0)}>
+            <div hidden={!showResults}>
               <DigiTypography>
                 <p>
                   Visar <strong>{educationAds.hits} annonser</strong> för
-                  sökningen "{query}"
+                  sökningen "{q}"
                 </p>
               </DigiTypography>
               {educationAds.result?.map((ed: IEdAd) => (
                 <EdAd key={ed.id} education={ed} />
               ))}
               <DigiLayoutContainer afVerticalPadding>
-                <DigiTypography>lägg till paginering</DigiTypography>
+                <DigiNavigationPagination
+                  afTotalPages={Math.ceil(educationAds.hits / 10)}
+                  afInitActive-page={1}
+                  afCurrentResultStart={currentPage * 10 - 9}
+                  afCurrentResultEnd={Math.min(
+                    currentPage * 10,
+                    educationAds.hits
+                  )}
+                  afTotalResults={educationAds.hits}
+                  afResultName="utbildningar"
+                  onAfOnPageChange={(page) => {
+                    setCurrentPage(page.detail);
+                    setSearchParams({ q, page: `${page.detail}` });
+                  }}
+                ></DigiNavigationPagination>
               </DigiLayoutContainer>
             </div>
           </div>
