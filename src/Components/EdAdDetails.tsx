@@ -50,8 +50,8 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
   console.log("education:", education);
   return (
     <DigiLayoutBlock
-      afMarginTop
-      afMarginBottom
+      // afMarginTop
+      // afMarginBottom
       afVariation={LayoutBlockVariation.SECONDARY}
     >
       <DigiLayoutContainer afVerticalPadding>
