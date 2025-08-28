@@ -78,6 +78,7 @@ const EdAd = ({ education }: { education: IEdAd }) => {
               </strong>
             </div>
           )}
+
           {/* <div>{education.id}</div> */}
           <div className="education-ad-row">
             <div>
