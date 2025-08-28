@@ -3,7 +3,6 @@ import {
   DigiHeaderNavigation,
   DigiHeaderNavigationItem,
 } from "@digi/arbetsformedlingen-react";
-import React from "react";
 import { Link } from "react-router";
 // import { Logo } from "./Logo";
 export default function Header() {
