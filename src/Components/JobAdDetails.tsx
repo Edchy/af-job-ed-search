@@ -2,9 +2,21 @@ import {
   DigiLayoutBlock,
   DigiLayoutContainer,
   DigiTypography,
+  DigiExpandableAccordion,
+  DigiLoaderSkeleton,
+  DigiList,
+  DigiLinkExternal,
+  DigiInfoCard,
 } from "@digi/arbetsformedlingen-react";
 import {
-  LayoutBlockVariation
+  InfoCardHeadingLevel,
+  InfoCardSize,
+  InfoCardType,
+  InfoCardVariation,
+  LayoutBlockVariation,
+  LinkVariation,
+  ListType,
+  LoaderSkeletonVariation,
 } from "@digi/arbetsformedlingen";
 import type { IJobAd } from "../Models/JobModel";
 import { formatSwedishDate } from "../utils/helpers";
@@ -39,10 +51,35 @@ export default function JobAdDetails({ job }: { job: IJobAd }) {
           </div>
           <div>{job.workplace_address?.municipality}</div>
           <div>Publicerad {formatSwedishDate(job.publication_date, true)}</div>
+          <div>hallååååå - {job.occupation_field?.label}</div>
+          <div style={{ marginBlock: "1rem" }}>
+            <DigiInfoCard
+              afHeading={job.employer?.name || "Arbetsgivare"}
+              afHeadingLevel={InfoCardHeadingLevel.H3}
+              afType={InfoCardType.TIP}
+              afLinkHref={job.employer?.email}
+              afLinkText={job.employer?.email}
+              afVariation={InfoCardVariation.PRIMARY}
+              afSize={InfoCardSize.STANDARD}
+            >
+              <p>{job.employer?.workplace || ""}</p>
+              <p>{job.employer?.organization_number || ""}</p>
+              {job.employer?.url && (
+                <DigiLinkExternal afHref={job.employer?.url} afTarget="_blank">
+                  {job.employer?.url}
+                </DigiLinkExternal>
+              )}
+            </DigiInfoCard>
+          </div>
           <div>
-            <p style={{ whiteSpace: "pre-wrap" }}>
+            {/* <p style={{ whiteSpace: "pre-wrap" }}>
               {job.description.text_formatted || job.description.text}
-            </p>
+            </p> */}
+            <p
+              dangerouslySetInnerHTML={{
+                __html: job.description.text_formatted || job.description.text,
+              }}
+            ></p>
           </div>
         </DigiTypography>
       </DigiLayoutContainer>

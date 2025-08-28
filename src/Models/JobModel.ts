@@ -5,12 +5,17 @@ export interface IJobAd {
   description: JobAdDescription;
   workplace_address: JobAdWorkplaceAddress;
   occupation: JobTechTaxonomyItem;
+  occupation_field: JobTechTaxonomyItem;
   publication_date: string;
   employer: Employer;
   logo_url: string;
   working_hours_type?: JobTechTaxonomyItem;
   salary_description?: string;
   salary_type?: JobTechTaxonomyItem;
+  working_hours_type: {
+    concept_id: string;
+    label: string;
+  };
 }
 
 type Employer = {
@@ -18,6 +23,8 @@ type Employer = {
   workplace: string;
   email: string;
   url: string;
+  organization_number: string;
+  phone_number: string | number;
 };
 type JobAdWorkplaceAddress = {
   municipality: string;
