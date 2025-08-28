@@ -10,7 +10,7 @@ export default function EdDetailsPage() {
   console.log(location);
   const education = location.state?.education as IEdAd;
   const search = location.search || "";
-
+  console.log(search);
   if (!education) {
     return <Navigate to="/utbildningar" replace />;
   }

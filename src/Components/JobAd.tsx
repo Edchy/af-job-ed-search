@@ -37,6 +37,24 @@ const JobAd = ({ job }: { job: IJobAd }) => {
           <div>{job.workplace_address?.municipality}</div>
           <div>Publicerad {formatSwedishDate(job.publication_date, true)}</div>
         </DigiTypography>
+        {/* <DigiExpandableAccordion afHeading="Efterfrågade Kompetenser">
+          <ResponsiveContainer width="100%" height={250}>
+            <BarChart
+              data={chartData}
+              layout="vertical"
+              margin={{ top: 10, right: 10, bottom: 10, left: 100 }}
+            >
+              <XAxis
+                type="number"
+                domain={[0, 100]}
+                tickFormatter={(v) => `${v}%`}
+              />
+              <YAxis dataKey="name" type="category" width={150} />
+              <Tooltip formatter={(value) => `${value}%`} />
+              <Bar dataKey="value" fill="#005FCC" />
+            </BarChart>
+          </ResponsiveContainer>
+        </DigiExpandableAccordion> */}
       </DigiInfoCardMulti>
     </Link>
   );

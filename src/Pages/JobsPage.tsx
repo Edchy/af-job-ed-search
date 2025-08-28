@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { useSessionStorage } from "../hooks";
 import { getJobAds, type JobAdsResponse } from "../services/occupationService";
+import CompetenceBox from "../Components/CompetenceBox";
 
 const initialValues = {
   hits: [],
@@ -26,65 +27,50 @@ const initialValues = {
     value: 0,
   },
   positions: 0,
+  lastQuery: "",
 };
 
 export default function JobsPage() {
-  const [jobs, setJobs] = useSessionStorage<JobAdsResponse>(
-    "jobAds",
-    initialValues
-  );
+  const [jobs, setJobs] = useSessionStorage<
+    JobAdsResponse & { lastQuery?: string }
+  >("jobAds", initialValues);
   const [loading, setLoading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const initialQ = searchParams.get("q") ?? "";
-  const [query, setQuery] = useSessionStorage<string>("jobAdsQuery", initialQ);
+  const q = searchParams.get("q") ?? "";
 
-  // tar emot en event(string) när anropas från sökfältet - tar emot en string när anropas programatiskt (från url, när man klickar sig hit från EdDetailsPage)
-  async function handleSearch(eventOrQuery: CustomEvent<string> | string) {
-    const searchQuery =
-      typeof eventOrQuery === "string"
-        ? eventOrQuery
-        : (eventOrQuery as CustomEvent<string>).detail;
+  function handleSearchEvent(e: CustomEvent<string>) {
+    const queryFromSearchInput = e.detail;
+    setSearchParams({ q: queryFromSearchInput }, { replace: true });
+  }
 
-    console.log("handleSearch called with:", searchQuery);
+  useEffect(() => {
+    if (!q) return;
 
-    if (!searchQuery || searchQuery === query) {
-      console.log("Searching for:", query);
+    // denna lilla gobit preventar onödiga refetchar när man navigerar tillbaka till en tidigare sökning från en jobDetails sida
+    if (jobs.lastQuery === q && jobs.hits.length > 0) {
       return;
     }
 
 
-
-    setQuery(searchQuery);
-    setSearchParams({ q: searchQuery });
-
     setLoading(true);
-    try {
-      const res = await getJobAds(searchQuery);
-      console.log("data", res);
-      setJobs({
-        hits: res.hits ?? [],
-        total: {
-          value: res.total?.value ?? 0,
-        },
-        positions: res.positions ?? 0,
-      });
-    } catch (error) {
-      console.error("Error fetching jobs:", error);
-      setJobs(initialValues);
-    } finally {
-      setLoading(false);
-    }
-  }
 
-  // run search once on mount if URL has q
-  useEffect(() => {
-    if (initialQ && (jobs.hits.length === 0 || query !== initialQ)) {
-      handleSearch(initialQ);
-    }
+    const fetchData = async () => {
+      try {
+        const result = await getJobAds(q);
+        setJobs({ ...result, lastQuery: q });
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [q]);
 
-  console.log(jobs);
+  const showLoading = loading;
+  const showEmptyState = !loading && q && (jobs.total?.value ?? 0) === 0;
+  const showResults = !loading && (jobs.total?.value ?? 0) > 0;
 
   return (
     <>
@@ -103,20 +89,20 @@ export default function JobsPage() {
             afVariation={FormInputSearchVariation.LARGE}
             afType={FormInputType.SEARCH}
             afButtonText="Sök"
-            onAfOnSubmitSearch={handleSearch}
-            afValue={query}
+            onAfOnSubmitSearch={handleSearchEvent}
+            afValue={q}
           ></DigiFormInputSearch>
         </DigiLayoutContainer>
       </DigiLayoutBlock>
       <DigiLayoutBlock
         afVariation={LayoutBlockVariation.PRIMARY}
         afMarginBottom
-        afMarginTop
+        // afMarginTop
       >
         <DigiLayoutContainer afVerticalPadding>
           <div className="results-slot">
             {/* Loading */}
-            <div aria-live="polite" hidden={!loading}>
+            <div aria-live="polite" hidden={!showLoading}>
               <DigiLoaderSkeleton
                 afVariation={LoaderSkeletonVariation.SECTION}
                 afCount={10}
@@ -124,23 +110,32 @@ export default function JobsPage() {
             </div>
 
             {/* Empty state */}
-            <div
-              hidden={!(!loading && query && (jobs.total?.value ?? 0) === 0)}
-            >
+            <div hidden={!showEmptyState}>
               <DigiTypography>
-                <h3>Inga jobb hittades för "{query}".</h3>
+                <h3>Inga jobb hittades för "{q}".</h3>
                 <p>Menade du (förslag här)</p>
               </DigiTypography>
             </div>
 
             {/* Results */}
-            <div hidden={!(!loading && (jobs.total?.value ?? 0) > 0)}>
+            <div hidden={!showResults}>
               <DigiTypography>
-                <p>
-                  <strong>Visar {jobs.total.value ?? 0} Annonser</strong> med{" "}
-                  {jobs.positions ?? 0} jobb för sökningen "{query}"
+                <p style={{ marginBottom: "1rem" }}>
+                  <strong>{jobs.total.value ?? 0} Annonser</strong> med{" "}
+                  {jobs.positions ?? 0} jobb för sökningen "{jobs.lastQuery}"
                 </p>
               </DigiTypography>
+              {jobs.hits.length > 0 && (
+                <>
+                  {/* Visa kompetenser för första annonsens yrke */}
+                  <CompetenceBox job={jobs.hits[0]} />
+
+                  {/* Visa alla jobbannonser */}
+                  {jobs.hits.map((job) => (
+                    <JobAd key={job.id} job={job} />
+                  ))}
+                </>
+              )}
               {jobs.hits.map((job: IJobAd) => (
                 <JobAd key={job.id} job={job} />
               ))}

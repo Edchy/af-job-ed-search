@@ -1,3 +1,4 @@
+
 import {
   DigiLayoutBlock,
   DigiLayoutContainer,
@@ -8,6 +9,7 @@ import {
 import "./HomePage.css";
 import { Link } from "react-router";
 import { ButtonSize, ButtonVariation } from "@digi/arbetsformedlingen";
+
 
 export default function HomePage() {
   return (

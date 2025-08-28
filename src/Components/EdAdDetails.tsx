@@ -66,8 +66,8 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
   console.log("Relaterade yrken:", matchedOccupations.related_occupations[0]);
   return (
     <DigiLayoutBlock
-      afMarginTop
-      afMarginBottom
+      // afMarginTop
+      // afMarginBottom
       afVariation={LayoutBlockVariation.SECONDARY}
     >
       <DigiLayoutContainer afVerticalPadding>
