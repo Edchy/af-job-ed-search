@@ -8,10 +8,11 @@ import {
 import type { IJobAd } from "../Models/JobModel";
 import { ListType, LoaderSkeletonVariation } from "@digi/arbetsformedlingen";
 import { fetchCompetencies } from "../services/competencesService";
+
 type CompetenceBoxProps = {
   job: IJobAd;
 };
-
+// todo - fixa så att man inte refetchar för samma jobb
 export default function CompetenceBox({ job }: CompetenceBoxProps) {
   const [competencies, setCompetencies] = useState<
     { term: string; percent_for_occupation: number }[]
