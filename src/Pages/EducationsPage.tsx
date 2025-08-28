@@ -23,6 +23,7 @@ import {
 } from "../services/educationService";
 
 import { useSessionStorage } from "../hooks/useSessionStorage";
+import SearchFilters from "../Components/SearchFilters";
 
 type CachedData = EducationSearchResult & {
   lastQuery?: string;
@@ -128,6 +129,7 @@ export default function EducationPage() {
             onAfOnSubmitSearch={handleSearchEvent}
             afValue={q}
           ></DigiFormInputSearch>
+          <SearchFilters />
         </DigiLayoutContainer>
       </DigiLayoutBlock>
       <DigiLayoutBlock
