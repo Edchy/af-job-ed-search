@@ -57,9 +57,9 @@ export default function CompetenceBox({ job }: CompetenceBoxProps) {
               paddingLeft: 0,
             }}
           >
-            {chartData.map((item) => (
+            {chartData.map((item, i) => (
               <li
-                key={item.name}
+                key={i}
                 style={{
                   backgroundColor: "#e0e0e0",
                   borderRadius: "16px",
