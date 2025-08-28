@@ -1,6 +1,24 @@
-.education-ad-wrapper-link {
-  text-decoration: none;
-  /* color: inherit; */
+.education-ad-wrapper {
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: .5rem;
+  background-color: var(--digi--color--background--primary)
+}
+
+.education-ad-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.education-ad-credits {
+  background-color: var(--digi--color--background--inverted-1);
+  padding-inline: var(--digi--padding--large);
+  padding-block: var(--digi--padding--smaller);
+  border-radius: var(--digi--border-radius--secondary);
+  color: var(--digi--color--text--inverted);
 }
 
 .education-ad-details {
@@ -20,9 +38,9 @@
   gap: 0.5rem;
 
   &:first-child {
-    margin-bottom: 1rem;
+    /* margin-bottom: 1rem; */
     display: flex;
-    /* justify-content: space-between; */
+    justify-content: space-between;
   }
 }
 
