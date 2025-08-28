@@ -55,14 +55,14 @@ a {
   }
 
   .digi-button__text {
-    color: #FFF !important;
+    /* color: #FFF !important; */
   }
 }
 
 .sc-digi-button {
   /* color: black !important; */
 
-  background-color: transparent !important;
+  /* background-color: transparent !important; */
 
 
 }
