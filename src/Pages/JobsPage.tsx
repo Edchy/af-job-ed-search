@@ -51,7 +51,6 @@ export default function JobsPage() {
       return;
     }
 
-
     setLoading(true);
 
     const fetchData = async () => {
@@ -128,7 +127,7 @@ export default function JobsPage() {
               {jobs.hits.length > 0 && (
                 <>
                   {/* Visa kompetenser för första annonsens yrke */}
-                  <CompetenceBox job={jobs.hits[0]} />
+                  {/* <CompetenceBox job={jobs.hits[0]} /> */}
 
                   {/* Visa alla jobbannonser */}
                   {jobs.hits.map((job) => (
