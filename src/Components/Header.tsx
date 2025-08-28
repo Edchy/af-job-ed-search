@@ -3,6 +3,7 @@ import {
   DigiHeaderNavigation,
   DigiHeaderNavigationItem,
 } from "@digi/arbetsformedlingen-react";
+import React from "react";
 import { Link } from "react-router";
 // import { Logo } from "./Logo";
 export default function Header() {
@@ -19,6 +20,9 @@ export default function Header() {
           afCloseButtonAriaLabel="Stäng meny"
           afNavAriaLabel="Huvudmeny"
         >
+          <DigiHeaderNavigationItem>
+            <Link to="/">Hem</Link>
+          </DigiHeaderNavigationItem>
           <DigiHeaderNavigationItem>
             <Link to="/utbildningar">Utbildningar</Link>
           </DigiHeaderNavigationItem>

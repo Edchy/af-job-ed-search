@@ -3,11 +3,7 @@
 @import "./customTheme.css";
 
 
-:root {
-  --clr-primary: #276983;
-  --clr-secondary: rgb(118, 1, 176);
-  --clr-neutral: #fff;
-}
+
 
 body {
   min-height: 100vh;
@@ -50,7 +46,7 @@ a {
   display: none !important;
 }
 
-/* 
+
 .digi-button[type="submit"] {
   background-color: var(--clr-secondary) !important;
 
@@ -61,4 +57,4 @@ a {
   .digi-button__text {
     color: #FFF !important;
   }
-} */
+}

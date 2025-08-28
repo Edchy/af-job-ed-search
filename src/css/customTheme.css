@@ -1,4 +1,8 @@
 :root {
+  --clr-primary: #d1e91c !important;
+  --clr-secondary: #0871cd !important;
+  --clr-inverted: #FFFFFF !important;
+
   /* Text */
   --digi--color--text--primary: #1D2327 !important;
   --digi--color--text--secondary: #5A6772 !important;
@@ -13,7 +17,7 @@
   --digi--color--background--primary: #F8F9FA !important;
   --digi--color--background--secondary: #E9ECEF !important;
   --digi--color--background--tertiary: #D1D9E0 !important;
-  --digi--color--background--inverted-1: #004085 !important;
+  --digi--color--background--inverted-1: var(--clr-primary) !important;
   --digi--color--background--inverted-2: #343A40 !important;
   --digi--color--background--inverted-3: #212529 !important;
   --digi--color--background--inverted-4: #CED4DA !important;
