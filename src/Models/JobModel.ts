@@ -9,6 +9,13 @@ export interface IJobAd {
   publication_date: string;
   employer: Employer;
   logo_url: string;
+  working_hours_type?: JobTechTaxonomyItem;
+  salary_description?: string;
+  salary_type?: JobTechTaxonomyItem;
+  working_hours_type: {
+    concept_id: string;
+    label: string;
+  };
 }
 
 type Employer = {

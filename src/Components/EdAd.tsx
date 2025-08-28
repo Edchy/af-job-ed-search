@@ -137,12 +137,30 @@ const EdAd = ({ education }: { education: IEdAd }) => {
                 {React.createElement("digi-icon-globe")}
               </span>
               <span>
+
                 {taxonomyMap(
                   education.eventSummary?.municipalityCode?.[0],
                   "municipality"
                 )}
                 ,{" "}
-                {taxonomyMap(education.eventSummary?.regionCode?.[0], "region")}
+
+                {education.eventSummary?.paceOfStudyPercentage?.length > 0
+                  ? `${education.eventSummary.paceOfStudyPercentage.join(
+                    ", "
+                  )}%`
+                  : "-"}
+              </span>
+            </div>
+            <div className="education-ad-row">
+              <span className="education-ad-icon">
+                {React.createElement("digi-icon-book")}
+              </span>
+              <span className="education-ad-label">Typ:</span>
+              <span>{education.education?.configuration?.code || "-"}</span>
+            </div>
+            <div className="education-ad-row">
+              <span className="education-ad-icon">
+
               </span>
             </div>
           )}
