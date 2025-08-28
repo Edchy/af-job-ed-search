@@ -25,7 +25,7 @@ export default function JobAdDetails({ job }: { job: IJobAd }) {
   console.log(job);
   return (
     <DigiLayoutBlock
-      afMarginTop
+      // afMarginTop
       afMarginBottom
       afVariation={LayoutBlockVariation.PRIMARY}
     >

@@ -1,20 +1,23 @@
+import { apiFetch } from "./baseService";
+
 export type Competence = {
   term: string;
   percent_for_occupation: number;
 };
 
+const BASE_URL =
+  "https://jobed-connect-api.jobtechdev.se/v1/enriched_occupations";
+
 export async function fetchCompetencies(
   occupationId: string
 ): Promise<Competence[]> {
-  const res = await fetch(
-    `https://jobed-connect-api.jobtechdev.se/v1/enriched_occupations?occupation_id=${occupationId}&include_metadata=true&metadata_type=COMPETENCE`
+  const data = await apiFetch<{
+    metadata?: {
+      enriched_candidates_term_frequency?: { competencies?: Competence[] };
+    };
+  }>(
+    `${BASE_URL}?occupation_id=${occupationId}&include_metadata=true&metadata_type=COMPETENCE`
   );
-
-  if (!res.ok) {
-    throw new Error("Kunde inte hämta kompetenser");
-  }
-
-  const data = await res.json();
 
   const competencies =
     data.metadata?.enriched_candidates_term_frequency?.competencies || [];

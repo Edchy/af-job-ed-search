@@ -1,4 +1,3 @@
-
 import {
   DigiLayoutBlock,
   DigiLayoutContainer,
@@ -9,7 +8,6 @@ import {
 import "./HomePage.css";
 import { Link } from "react-router";
 import { ButtonSize, ButtonVariation } from "@digi/arbetsformedlingen";
-
 
 export default function HomePage() {
   return (
@@ -24,14 +22,24 @@ export default function HomePage() {
               afFullWidth={false}
               style={{ marginRight: "1rem" }}
             >
-              <Link to="/utbildningar">Hitta Utbildning</Link>
+              <Link
+                style={{ textDecoration: "none", color: "inherit" }}
+                to="/utbildningar"
+              >
+                Hitta Utbildning
+              </Link>
             </DigiButton>
             <DigiButton
               afSize={ButtonSize.LARGE}
               afVariation={ButtonVariation.PRIMARY}
               afFullWidth={false}
             >
-              <Link to="/utbildningar">Hitta Jobb</Link>
+              <Link
+                style={{ textDecoration: "none", color: "inherit" }}
+                to="/utbildningar"
+              >
+                Hitta Jobb
+              </Link>
             </DigiButton>
           </DigiLayoutContainer>
         </DigiTypography>

@@ -20,6 +20,9 @@ export default function Header() {
           afNavAriaLabel="Huvudmeny"
         >
           <DigiHeaderNavigationItem>
+            <Link to="/">Hem</Link>
+          </DigiHeaderNavigationItem>
+          <DigiHeaderNavigationItem>
             <Link to="/utbildningar">Utbildningar</Link>
           </DigiHeaderNavigationItem>
           <DigiHeaderNavigationItem>

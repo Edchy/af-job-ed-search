@@ -131,7 +131,7 @@ export default function EducationPage() {
         </DigiLayoutContainer>
       </DigiLayoutBlock>
       <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.PRIMARY}
+        afVariation={LayoutBlockVariation.SECONDARY}
         // afMarginBottom
         // afMarginTop
       >
