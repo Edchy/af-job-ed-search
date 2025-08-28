@@ -2,15 +2,9 @@ import {
   DigiLayoutBlock,
   DigiLayoutContainer,
   DigiTypography,
-  DigiExpandableAccordion,
-  DigiLoaderSkeleton,
-  DigiList,
-  DigiLinkExternal,
 } from "@digi/arbetsformedlingen-react";
 import {
-  LayoutBlockVariation,
-  ListType,
-  LoaderSkeletonVariation,
+  LayoutBlockVariation
 } from "@digi/arbetsformedlingen";
 import type { IJobAd } from "../Models/JobModel";
 import { formatSwedishDate } from "../utils/helpers";
