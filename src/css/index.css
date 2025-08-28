@@ -4,7 +4,13 @@
 
 
 :root {
-  --digi--stratos-400: red !important;
+  --clr-primary: #276983;
+  --clr-secondary: rgb(118, 1, 176);
+  --clr-neutral: #fff;
+}
+
+body {
+  min-height: 100vh;
 }
 
 * {
@@ -22,17 +28,15 @@ a {
 }
 
 .app-layout {
-  /* display: grid;
-  grid-template-rows: auto 1fr auto; */
-  background-color: var(--color-primary);
+  min-height: 100dvh;
 }
 
-.card>* {
+/* .card>* {
   border: 1px solid black;
   margin-top: 1rem;
   border-radius: var(--digi--border-radius--tertiary);
 
-}
+} */
 
 .search-container :is(h1, span) {
   color: var(--digi--color--text--inverted) !important;
@@ -46,15 +50,15 @@ a {
   display: none !important;
 }
 
-
+/* 
 .digi-button[type="submit"] {
-  background-color: var(--color-primary) !important;
+  background-color: var(--clr-secondary) !important;
 
   svg {
-    color: red;
+    color: #FFF;
   }
 
   .digi-button__text {
-    color: red !important;
+    color: #FFF !important;
   }
-}
+} */

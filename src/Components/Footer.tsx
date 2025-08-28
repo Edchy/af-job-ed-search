@@ -1,5 +1,12 @@
 import "@digi/arbetsformedlingen/dist/digi-arbetsformedlingen/digi-arbetsformedlingen.css";
-import { DigiFooter, DigiFooterCard, DigiIconAccessibilityUniversal, DigiIconSign, DigiIconGlobe, DigiIconEnvelope } from "@digi/arbetsformedlingen-react";
+import {
+  DigiFooter,
+  DigiFooterCard,
+  DigiIconAccessibilityUniversal,
+  DigiIconSign,
+  DigiIconGlobe,
+  DigiIconEnvelope,
+} from "@digi/arbetsformedlingen-react";
 import { FooterCardVariation, FooterVariation } from "@digi/arbetsformedlingen";
 import { Link } from "react-router";
 
@@ -42,7 +49,7 @@ export const Footer = () => {
           <DigiFooterCard afType={FooterCardVariation.BORDER}>
             <a href="#">Om tjänsten dolores</a>
             <p>
-              Systemversion: 1.4.0 <br /> Ansvarig: Jenny Svensson
+              Systemversion: 1.4.0 <br /> Ansvarig: CJ
             </p>
           </DigiFooterCard>
         </div>
@@ -57,7 +64,7 @@ export const Footer = () => {
       </div>
 
       {/* Bottom left slot */}
-      <div slot="content-bottom-left">
+      {/* <div slot="content-bottom-left">
         <Link to="/" aria-label="Startsida">
           <svg
             width="40"
@@ -80,7 +87,7 @@ export const Footer = () => {
             />
           </svg>
         </Link>
-      </div>
+      </div> */}
 
       {/* Bottom right slot */}
       <div slot="content-bottom-right">

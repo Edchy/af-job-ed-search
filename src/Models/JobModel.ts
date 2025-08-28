@@ -5,6 +5,7 @@ export interface IJobAd {
   description: JobAdDescription;
   workplace_address: JobAdWorkplaceAddress;
   occupation: JobTechTaxonomyItem;
+  occupation_field: JobTechTaxonomyItem;
   publication_date: string;
   employer: Employer;
   logo_url: string;
@@ -15,6 +16,8 @@ type Employer = {
   workplace: string;
   email: string;
   url: string;
+  organization_number: string;
+  phone_number: string | number;
 };
 type JobAdWorkplaceAddress = {
   municipality: string;
