@@ -13,8 +13,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import type { JobAd } from "../Models/Models";
-
+import type { IJobAd } from "../Models/JobModel";
 // Funktion för att hämta traits för ett yrke
 async function fetchCompetencies(occupationId: string) {
   const res = await fetch(
@@ -37,7 +36,7 @@ async function fetchCompetencies(occupationId: string) {
 }
 
 type Props = {
-  job: JobAd;
+  job: IJobAd;
 };
 
 export default function JobCard({ job }: Props) {
