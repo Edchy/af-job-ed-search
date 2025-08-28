@@ -33,13 +33,7 @@ export default function CompetenceBox({ job }: CompetenceBoxProps) {
   if (chartData.length === 0) return null;
 
   return (
-    <DigiLayoutContainer
-      style={{
-        margin: "1.5rem",
-        backgroundColor: "#f3f3f3",
-        borderRadius: "4px",
-      }}
-    >
+    <div>
       <DigiTypography>
         <DigiExpandableAccordion
           afHeading={`Vanligt efterfrågade kompetenser för yrkesgrupp ${
@@ -73,6 +67,6 @@ export default function CompetenceBox({ job }: CompetenceBoxProps) {
           </DigiList>
         </DigiExpandableAccordion>
       </DigiTypography>
-    </DigiLayoutContainer>
+    </div>
   );
 }
