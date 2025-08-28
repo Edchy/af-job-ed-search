@@ -95,7 +95,7 @@ export default function JobsPage() {
       <DigiLayoutBlock
         afVariation={LayoutBlockVariation.PRIMARY}
         afMarginBottom
-        afMarginTop
+        // afMarginTop
       >
         <DigiLayoutContainer afVerticalPadding>
           <div className="results-slot">
@@ -118,9 +118,9 @@ export default function JobsPage() {
             {/* Results */}
             <div hidden={!showResults}>
               <DigiTypography>
-                <p>
-                  <strong>Visar {jobs.total.value ?? 0} Annonser</strong> med{" "}
-                  {jobs.positions ?? 0} jobb för sökningen "{q}"
+                <p style={{ marginBottom: "1rem" }}>
+                  <strong>{jobs.total.value ?? 0} Annonser</strong> med{" "}
+                  {jobs.positions ?? 0} jobb för sökningen "{jobs.lastQuery}"
                 </p>
               </DigiTypography>
               {jobs.hits.map((job: IJobAd) => (

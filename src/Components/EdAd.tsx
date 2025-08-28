@@ -1,6 +1,7 @@
 import {
   DigiExpandableAccordion,
   DigiLayoutBlock,
+  DigiLayoutContainer,
   DigiList,
   DigiLoaderSkeleton,
   DigiTypography,
@@ -49,16 +50,17 @@ const EdAd = ({ education }: { education: IEdAd }) => {
   }
 
   return (
-    <div className="education-ad-wrapper">
-      <DigiLayoutBlock
-        style={{
-          border: "1px solid #ccc",
-          borderRadius: "8px",
-          padding: "1.5rem",
-          marginBottom: "2rem",
-          backgroundColor: "#ffffff",
-        }}
-      >
+    <div
+      style={{
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        padding: "1.5rem",
+        marginBottom: "2rem",
+        backgroundColor: "#fff",
+      }}
+      className="education-ad-wrapper"
+    >
+      <DigiLayoutContainer>
         <DigiTypography>
           <Link
             className="education-ad-wrapper-link"
@@ -69,26 +71,24 @@ const EdAd = ({ education }: { education: IEdAd }) => {
             <h2>{education.education.title[0].content}</h2>
           </Link>
           <div className="education-ad-details">
-            <div>{education.id}</div>
+            {education.education?.credits?.credits && (
+              <div>
+                <strong>
+                  {education.education?.credits?.credits}{" "}
+                  {education.education?.credits?.system?.code?.toUpperCase()}
+                </strong>
+              </div>
+            )}
+            {/* <div>{education.id}</div> */}
             <div className="education-ad-row">
               <div>
                 <em>{education.providerSummary?.providers?.join(", ")}</em>
-                {education.eventSummary?.distance && <span> - Distans</span>}
+                {education.eventSummary?.distance && (
+                  <strong> - Distans</strong>
+                )}
               </div>
-              {education.education?.credits?.credits && (
-                <div>
-                  <span className="education-ad-icon">
-                    {React.createElement("digi-icon-education")}
-                  </span>
-                  <span>
-                    <strong>
-                      {education.education?.credits?.credits}{" "}
-                      {education.education?.credits?.system?.code?.toUpperCase()}
-                    </strong>
-                  </span>
-                </div>
-              )}
             </div>
+
             <div>
               {education.eventSummary.executions?.length > 0 && (
                 <div className="education-executions">
@@ -228,7 +228,7 @@ const EdAd = ({ education }: { education: IEdAd }) => {
             </DigiExpandableAccordion>
           </div>
         </DigiTypography>
-      </DigiLayoutBlock>
+      </DigiLayoutContainer>
     </div>
   );
 };

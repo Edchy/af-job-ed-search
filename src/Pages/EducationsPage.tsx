@@ -67,13 +67,13 @@ export default function EducationPage() {
 
   useEffect(() => {
     // If no query in URL, but we have a cached lastQuery, restore it
-    // if (!q && educationAds.lastQuery) {
-    //   setSearchParams({
-    //     q: educationAds.lastQuery,
-    //     page: `${educationAds.lastPage || 1}`,
-    //   });
-    //   return;
-    // }
+    if (!q && educationAds.lastQuery) {
+      setSearchParams({
+        q: educationAds.lastQuery,
+        page: `${educationAds.lastPage || 1}`,
+      });
+      return;
+    }
     console.log(q);
     if (!q) return;
 
@@ -131,7 +131,7 @@ export default function EducationPage() {
         </DigiLayoutContainer>
       </DigiLayoutBlock>
       <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.SECONDARY}
+        afVariation={LayoutBlockVariation.PRIMARY}
         // afMarginBottom
         // afMarginTop
       >
@@ -160,8 +160,8 @@ export default function EducationPage() {
             <div hidden={!showResults}>
               <DigiTypography>
                 <p style={{ marginBottom: "1rem" }}>
-                  Visar <strong>{educationAds.hits} annonser</strong> för
-                  sökningen "{educationAds.lastQuery}"
+                  <strong>{educationAds.hits} annonser</strong> för sökningen "
+                  {educationAds.lastQuery}"
                 </p>
               </DigiTypography>
               {educationAds.result?.map((ed: IEdAd) => (
