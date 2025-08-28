@@ -19,7 +19,6 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { useSessionStorage } from "../hooks";
 import { getJobAds, type JobAdsResponse } from "../services/occupationService";
-import CompetenceBox from "../Components/CompetenceBox";
 
 const initialValues = {
   hits: [],
@@ -94,7 +93,7 @@ export default function JobsPage() {
         </DigiLayoutContainer>
       </DigiLayoutBlock>
       <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.PRIMARY}
+        afVariation={LayoutBlockVariation.SECONDARY}
         afMarginBottom
         // afMarginTop
       >
@@ -126,10 +125,6 @@ export default function JobsPage() {
               </DigiTypography>
               {jobs.hits.length > 0 && (
                 <>
-                  {/* Visa kompetenser för första annonsens yrke */}
-                  {/* <CompetenceBox job={jobs.hits[0]} /> */}
-
-                  {/* Visa alla jobbannonser */}
                   {jobs.hits.map((job) => (
                     <JobAd key={job.id} job={job} />
                   ))}

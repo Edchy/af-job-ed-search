@@ -111,7 +111,7 @@ export default function EducationPage() {
   return (
     <>
       <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.TERTIARY}
+        afVariation={LayoutBlockVariation.PROFILE}
         // afMarginBottom
         // afMarginTop
         aria-busy={loading}
@@ -131,7 +131,7 @@ export default function EducationPage() {
         </DigiLayoutContainer>
       </DigiLayoutBlock>
       <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.PRIMARY}
+        afVariation={LayoutBlockVariation.SECONDARY}
         // afMarginBottom
         // afMarginTop
       >

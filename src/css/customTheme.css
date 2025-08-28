@@ -1,56 +1,60 @@
 :root {
-  --clr-primary: #d1e91c !important;
-  --clr-secondary: #0871cd !important;
+  --clr-primary: #380367 !important;
+  --clr-secondary: #08cd8f !important;
   --clr-inverted: #FFFFFF !important;
 
   /* Text */
   --digi--color--text--primary: #1D2327 !important;
   --digi--color--text--secondary: #5A6772 !important;
-  --digi--color--text--inverted: #FFFFFF !important;
-  --digi--color--text--link: #007BFF !important;
-  --digi--color--text--link-hover: #0056b3 !important;
-  --digi--color--text--link-visited: #6f42c1 !important;
+  --digi--color--text--inverted: var(--clr-inverted) !important;
+  --digi--color--text--link: var(--clr-primary) !important;
+  --digi--color--text--link-hover: #069c6c !important;
+  /* A slightly darker shade of secondary */
+  --digi--color--text--link-visited: var(--clr-secondary) !important;
   --digi--color--text--neutral: #8A95A1 !important;
   --digi--color--text--danger: #DC3545 !important;
 
   /* Background */
-  --digi--color--background--primary: #F8F9FA !important;
-  --digi--color--background--secondary: #E9ECEF !important;
+  --digi--color--background--primary: #ffffff !important;
+  --digi--color--background--secondary: #f9f9f9 !important;
   --digi--color--background--tertiary: #D1D9E0 !important;
   --digi--color--background--inverted-1: var(--clr-primary) !important;
-  --digi--color--background--inverted-2: #343A40 !important;
-  --digi--color--background--inverted-3: #212529 !important;
+  --digi--color--background--inverted-2: #2a024f !important;
+  /* A slightly darker shade of primary */
+  --digi--color--background--inverted-3: #1c0135 !important;
+  /* An even darker shade of primary */
   --digi--color--background--inverted-4: #CED4DA !important;
-  --digi--color--background--complementary-1: #17A2B8 !important;
+  --digi--color--background--complementary-1: var(--clr-secondary) !important;
   --digi--color--background--complementary-2: #FD7E14 !important;
   --digi--color--background--neutral-1: #F8F9FA !important;
   --digi--color--background--neutral-2: #CED4DA !important;
   --digi--color--background--neutral-3: #AAB5C1 !important;
   --digi--color--background--neutral-4: #8A95A1 !important;
-  --digi--color--background--neutral-5: #D4EDDA !important;
+  --digi--color--background--neutral-5: #d4edda !important;
   --digi--color--background--neutral-6: #DAE0E5 !important;
-  --digi--color--background--neutral-7: #D1ECF1 !important;
-  --digi--color--background--informative: #007BFF !important;
-  --digi--color--background--success-1: #28A745 !important;
-  --digi--color--background--success-2: #D4EDDA !important;
-  --digi--color--background--success-3: #A3D9B1 !important;
+  --digi--color--background--neutral-7: #d1ecf1 !important;
+  --digi--color--background--informative: var(--clr-secondary) !important;
+  --digi--color--background--success-1: var(--clr-secondary) !important;
+  --digi--color--background--success-2: #d4edda !important;
+  --digi--color--background--success-3: #a3d9b1 !important;
   --digi--color--background--warning-1: #FFC107 !important;
   --digi--color--background--warning-2: #FFF3CD !important;
   --digi--color--background--warning-3: #FFEBA5 !important;
   --digi--color--background--danger-1: #DC3545 !important;
   --digi--color--background--danger-2: #F8D7DA !important;
   --digi--color--background--danger-3: #F1B0B7 !important;
-  --digi--color--background--input: #FFFFFF !important;
+  --digi--color--background--input: var(--clr-inverted) !important;
   --digi--color--background--input-empty: #F8F9FA !important;
-  --digi--color--background--radio-primary: #28A745 !important;
-  --digi--color--background--radio-secondary: #007BFF !important;
-  --digi--color--background--radio-marker: #FFFFFF !important;
-  --digi--color--background--checkbox-primary: #28A745 !important;
-  --digi--color--background--checkbox-secondary: #007BFF !important;
-  --digi--color--background--checkbox-marker: #FFFFFF !important;
+  --digi--color--background--radio-primary: var(--clr-primary) !important;
+  --digi--color--background--radio-secondary: var(--clr-secondary) !important;
+  --digi--color--background--radio-marker: var(--clr-inverted) !important;
+  --digi--color--background--checkbox-primary: var(--clr-primary) !important;
+  --digi--color--background--checkbox-secondary: var(--clr-secondary) !important;
+  --digi--color--background--checkbox-marker: var(--clr-inverted) !important;
   --digi--color--background--inverted-5: #CED4DA !important;
-  --digi--color--background--inverted-6: #0056b3 !important;
-  --digi--color--background--neutral-8: #FFFFFF !important;
+  --digi--color--background--inverted-6: #069c6c !important;
+  /* A slightly darker shade of secondary */
+  --digi--color--background--neutral-8: var(--clr-inverted) !important;
   --digi--color--background--danger-4: #C82333 !important;
 
   /* Border */
@@ -58,37 +62,40 @@
   --digi--color--border--secondary: #CED4DA !important;
   --digi--color--border--tertiary: #CED4DA !important;
   --digi--color--border--quaternary: #CED4DA !important;
-  --digi--color--border--focus: #007BFF !important;
-  --digi--color--border--success: #28A745 !important;
+  --digi--color--border--focus: var(--clr-secondary) !important;
+  --digi--color--border--success: var(--clr-secondary) !important;
   --digi--color--border--warning: #FFC107 !important;
   --digi--color--border--danger: #DC3545 !important;
-  --digi--color--border--informative: #007BFF !important;
-  --digi--color--border--inverted: #FFFFFF !important;
-  --digi--color--border--neutral-1: #D4EDDA !important;
+  --digi--color--border--informative: var(--clr-secondary) !important;
+  --digi--color--border--inverted: var(--clr-inverted) !important;
+  --digi--color--border--neutral-1: #d4edda !important;
   --digi--color--border--neutral-2: #D1D9E0 !important;
   --digi--color--border--neutral-3: #8A95A1 !important;
   --digi--color--border--neutral-4: #DAE0E5 !important;
   --digi--color--border--neutral-5: #AAB5C1 !important;
-  --digi--color--border--radio-primary: #17A2B8 !important;
+  --digi--color--border--radio-primary: var(--clr-primary) !important;
   --digi--color--border--radio-secondary: #5A6772 !important;
-  --digi--color--border--radio-focus: #007BFF !important;
-  --digi--color--border--checkbox-primary: #28A745 !important;
+  --digi--color--border--radio-focus: var(--clr-secondary) !important;
+  --digi--color--border--checkbox-primary: var(--clr-primary) !important;
   --digi--color--border--checkbox-secondary: #5A6772 !important;
-  --digi--color--border--checkbox-focus: #007BFF !important;
+  --digi--color--border--checkbox-focus: var(--clr-secondary) !important;
   --digi--color--border--warning-2: #FFC107 !important;
   --digi--color--border--warning-3: #FFC107 !important;
-  --digi--color--border--inverted-2: #0056b3 !important;
-  --digi--color--border--inverted-3: #343A40 !important;
+  --digi--color--border--inverted-2: #069c6c !important;
+  /* A slightly darker shade of secondary */
+  --digi--color--border--inverted-3: #2a024f !important;
+  /* A slightly darker shade of primary */
 
   /* Icons */
   --digi--color--icons--primary: #5A6772 !important;
   --digi--color--icons--secondary: #AAB5C1 !important;
-  --digi--color--icons--inverted: #FFFFFF !important;
-  --digi--color--icons--complementary-1: #007BFF !important;
-  --digi--color--icons--complementary-2: #0056b3 !important;
-  --digi--color--icons--complementary-3: #6f42c1 !important;
-  --digi--color--icons--success: #28A745 !important;
+  --digi--color--icons--inverted: var(--clr-inverted) !important;
+  --digi--color--icons--complementary-1: var(--clr-secondary) !important;
+  --digi--color--icons--complementary-2: #069c6c !important;
+  /* A slightly darker shade of secondary */
+  --digi--color--icons--complementary-3: var(--clr-primary) !important;
+  --digi--color--icons--success: var(--clr-secondary) !important;
   --digi--color--icons--warning: #FFC107 !important;
   --digi--color--icons--danger: #DC3545 !important;
-  --digi--color--icons--informative: #007BFF !important;
+  --digi--color--icons--informative: var(--clr-secondary) !important;
 }

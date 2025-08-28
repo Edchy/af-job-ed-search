@@ -22,6 +22,7 @@ const JobAd = ({ job }: { job: IJobAd }) => {
         padding: "1rem",
         border: "1px solid #eee",
         borderRadius: "4px",
+        backgroundColor: "#fff",
       }}
     >
       <DigiTypography>
@@ -29,7 +30,6 @@ const JobAd = ({ job }: { job: IJobAd }) => {
           className="job-ad-wrapper-link"
           to={`/jobb/${job.id}${location.search}`}
           state={{ job: job }}
-          style={{ textDecoration: "none" }}
         >
           <h2>{job.headline}</h2>
         </Link>
