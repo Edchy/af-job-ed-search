@@ -116,8 +116,8 @@ const EdAd = ({ education }: { education: IEdAd }) => {
               <span>
                 {education.eventSummary?.paceOfStudyPercentage?.length > 0
                   ? `${education.eventSummary.paceOfStudyPercentage.join(
-                      ", "
-                    )}%`
+                    ", "
+                  )}%`
                   : "-"}
               </span>
             </div>

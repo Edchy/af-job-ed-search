@@ -39,6 +39,11 @@ const JobAd = ({ job }: { job: IJobAd }) => {
         </div>
         <div>{job.workplace_address?.municipality}</div>
         <div>Publicerad {formatSwedishDate(job.publication_date, true)}</div>
+        <div>{job.working_hours_type?.label || "-"}{" "}</div>
+          <div>{job.salary_description ? `  ${job.salary_description}` : ""}{" "}</div>
+          <div>{job.salary_type?.label
+            ? ` Löneform: ${job.salary_type.label}`
+            : ""}</div>
         <CompetenceBox job={job} />
       </DigiTypography>
     </div>
