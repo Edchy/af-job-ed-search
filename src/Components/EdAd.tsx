@@ -72,6 +72,7 @@ const EdAd = ({ education }: { education: IEdAd }) => {
               {education.education?.credits?.system?.code?.toUpperCase()}
             </strong>
           )}
+
           {/* <div>{education.id}</div> */}
 
           <div>
