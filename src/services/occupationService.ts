@@ -8,6 +8,7 @@ interface OccupationGroup {
 }
 
 export interface RelatedOccupation {
+  concept_id: any;
   id: string;
   occupation_label: string;
   concept_taxonomy_id: string;
