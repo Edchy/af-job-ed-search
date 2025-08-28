@@ -20,6 +20,8 @@ import {
 import { useState } from "react";
 import { formatSwedishDate, taxonomyMap } from "../utils/helpers";
 import { Link } from "react-router";
+import { fetchCompetencies } from "../services/competenceService";
+// import type { Competence } from "../services/competenceService";
 
 export default function EdAdDetails({ education }: { education: IEdAd }) {
   // ändra till useSessionStorage
@@ -30,6 +32,9 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
       identified_keywords_for_input: { competencies: [], occupations: [] },
       related_occupations: [],
     });
+  const [competenceMap, setCompetenceMap] = useState<Record<string, string[]>>(
+    {}
+  );
   const [loading, setLoading] = useState(false);
 
   async function handleClick() {
@@ -39,6 +44,16 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
     try {
       const res = await getOccupationsMatchedByEducationId(education.id);
       setMatchedOccupations(res);
+      const map: Record<string, string[]> = {};
+
+      for (const related of res.related_occupations ?? []) {
+        if (!related.concept_id || !related.occupation_label) continue;
+
+        const comps = await fetchCompetencies(related.concept_id);
+        map[related.occupation_label] = comps.slice(0, 3).map((c) => c.term);
+      }
+
+      setCompetenceMap(map);
     } catch (error) {
       console.log(error);
     } finally {
@@ -48,6 +63,7 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
   }
   console.log(matchedOccupations);
   console.log("education:", education);
+  console.log("Relaterade yrken:", matchedOccupations.related_occupations[0]);
   return (
     <DigiLayoutBlock
       // afMarginTop
@@ -227,6 +243,13 @@ export default function EdAdDetails({ education }: { education: IEdAd }) {
                             {occupation}
                           </span>
                         </Link>
+                        {competenceMap[occupation]?.length > 0 && (
+                          <ul>
+                            {competenceMap[occupation[0]].map((comp, j) => (
+                              <li key={j}>{comp}</li>
+                            ))}
+                          </ul>
+                        )}
                       </li>
                     )
                   )}
