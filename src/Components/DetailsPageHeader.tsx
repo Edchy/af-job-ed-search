@@ -1,3 +1,4 @@
+import { LayoutBlockVariation } from "@digi/arbetsformedlingen";
 import {
   DigiLayoutBlock,
   DigiLayoutContainer,
@@ -13,7 +14,10 @@ interface Props {
 
 function DetailsPageHeader({ path, query }: Props) {
   return (
-    <DigiLayoutBlock afMarginTop>
+    <DigiLayoutBlock
+      afVerticalPadding
+      afVariation={LayoutBlockVariation.SECONDARY}
+    >
       <DigiLayoutContainer>
         <Link
           style={{ textDecoration: "none", color: "inherit" }}

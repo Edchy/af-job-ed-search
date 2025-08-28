@@ -13,7 +13,7 @@ import {
   DigiTypography,
 } from "@digi/arbetsformedlingen-react";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router";
 import EdAd from "../Components/EdAd";
 import type { IEdAd } from "../Models/EdModel";
@@ -41,33 +41,49 @@ export default function EducationPage() {
     "edAds",
     initialValues
   );
-  const [currentPage, setCurrentPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q") || "";
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
   const [loading, setLoading] = useState(false);
+
+  const paginationRef = useRef<any>(null);
 
   function handleSearchEvent(e: CustomEvent<string>) {
     const queryFromSearchInput = e.detail;
     // trigger a new search
-    setSearchParams({ q: queryFromSearchInput });
+    setSearchParams({ q: queryFromSearchInput, page: "1" });
   }
+
+  const handlePageChange = (newPage: number) => {
+    setSearchParams({ q, page: `${newPage}` });
+  };
+
+  useEffect(() => {
+    if (paginationRef.current?.afMSetCurrentPage) {
+      paginationRef.current.afMSetCurrentPage(currentPage);
+    }
+    console.log("REF UPDATED");
+  }, [currentPage]);
 
   useEffect(() => {
     // If no query in URL, but we have a cached lastQuery, restore it
-    if (!q && educationAds.lastQuery) {
-      setSearchParams({
-        q: educationAds.lastQuery,
-        page: currentPage.toString(),
-      });
-      return;
-    }
+    // if (!q && educationAds.lastQuery) {
+    //   setSearchParams({
+    //     q: educationAds.lastQuery,
+    //     page: `${educationAds.lastPage || 1}`,
+    //   });
+    //   return;
+    // }
+    console.log(q);
     if (!q) return;
 
+    // om senaste query är samma som nuvarande query och senaste sidan är samma som nuvarande sidan och vi har ett resultat = behöver vi inte fetcha igen
     if (
       educationAds.lastQuery === q &&
       educationAds.lastPage === currentPage &&
       educationAds.hits > 0
     ) {
+      console.log("no need to fetch");
       return;
     }
 
@@ -95,7 +111,7 @@ export default function EducationPage() {
   return (
     <>
       <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.TERTIARY}
+        afVariation={LayoutBlockVariation.PROFILE}
         // afMarginBottom
         // afMarginTop
         aria-busy={loading}
@@ -115,9 +131,9 @@ export default function EducationPage() {
         </DigiLayoutContainer>
       </DigiLayoutBlock>
       <DigiLayoutBlock
-        afVariation={LayoutBlockVariation.PRIMARY}
-        afMarginBottom
-        afMarginTop
+        afVariation={LayoutBlockVariation.SECONDARY}
+        // afMarginBottom
+        // afMarginTop
       >
         <DigiLayoutContainer afVerticalPadding>
           {/* Problem med conditional rendering (webcomponents + react) -  */}
@@ -143,9 +159,9 @@ export default function EducationPage() {
             {/* Results */}
             <div hidden={!showResults}>
               <DigiTypography>
-                <p>
+                <p style={{ marginBottom: "1rem" }}>
                   Visar <strong>{educationAds.hits} annonser</strong> för
-                  sökningen "{q}"
+                  sökningen "{educationAds.lastQuery}"
                 </p>
               </DigiTypography>
               {educationAds.result?.map((ed: IEdAd) => (
@@ -153,8 +169,9 @@ export default function EducationPage() {
               ))}
               <DigiLayoutContainer afVerticalPadding>
                 <DigiNavigationPagination
+                  ref={paginationRef}
                   afTotalPages={Math.ceil(educationAds.hits / 10)}
-                  afInitActive-page={1}
+                  afInitActivePage={currentPage}
                   afCurrentResultStart={currentPage * 10 - 9}
                   afCurrentResultEnd={Math.min(
                     currentPage * 10,
@@ -162,10 +179,7 @@ export default function EducationPage() {
                   )}
                   afTotalResults={educationAds.hits}
                   afResultName="utbildningar"
-                  onAfOnPageChange={(page) => {
-                    setCurrentPage(page.detail);
-                    setSearchParams({ q, page: `${page.detail}` });
-                  }}
+                  onAfOnPageChange={(e) => handlePageChange(e.detail)}
                 ></DigiNavigationPagination>
               </DigiLayoutContainer>
             </div>
