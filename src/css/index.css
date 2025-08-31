@@ -34,7 +34,7 @@ a {
 
 } */
 
-.search-container :is(h1, span) {
+.search-container :is(h1, .sc-digi-form-label) {
   color: var(--digi--color--text--inverted) !important;
 }
 
@@ -51,7 +51,7 @@ a {
   background-color: var(--clr-secondary) !important;
 
   svg {
-    color: #FFF;
+    /* color: #FFF; */
   }
 
   .digi-button__text {

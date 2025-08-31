@@ -3,7 +3,7 @@
   padding-block: 1rem;
   margin-bottom: 2rem;
   background-color: var(--clr-inverted);
-  background-color: var(--digi--color--background--secondary);
+  background-color: var(--digi--color--background--primary);
   border-radius: var(--digi--border-radius--secondary);
   border: 1px solid var(--digi--color--border--secondary);
 

@@ -9,11 +9,23 @@ const BASE_URL = "https://jobed-connect-api.jobtechdev.se/v1/educations";
 
 export async function fetchEducations(
   query: string,
-  offset: number = 0
+  offset: number = 0,
+  searchFilters: string[] = []
 ): Promise<EducationSearchResult> {
-  const data = await apiFetch<EducationSearchResult>(
-    `${BASE_URL}?query=${encodeURIComponent(query)}&limit=10&offset=${offset}`
-  );
+  //////////////////////////////////////////////////
+  /////////////////////////////////////////////////
+  let url = `${BASE_URL}?query=${encodeURIComponent(
+    query
+  )}&limit=10&offset=${offset}`;
+
+  if (searchFilters.length > 0) {
+    const filterParams = searchFilters
+      .map((filter) => `education_form=${encodeURIComponent(filter)}`)
+      .join("&");
+    url += `&${filterParams}`;
+  }
+
+  const data = await apiFetch<EducationSearchResult>(url);
 
   return { hits: data.hits, result: data.result || [] };
 }

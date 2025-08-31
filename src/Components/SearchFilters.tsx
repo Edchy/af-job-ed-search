@@ -1,8 +1,11 @@
 import {
+  ButtonSize,
+  ButtonVariation,
   FormRadiobuttonVariation,
   LayoutBlockVariation,
 } from "@digi/arbetsformedlingen";
 import {
+  DigiButton,
   DigiFormCategoryFilter,
   DigiFormFilter,
   DigiFormRadiobutton,
@@ -46,7 +49,11 @@ const educationForms = [
   },
 ];
 
-const SearchFilters = () => {
+const SearchFilters = ({
+  handleSearchFiltersChange,
+}: {
+  handleSearchFiltersChange: (filters: string[]) => void;
+}) => {
   return (
     <section>
       <DigiTypography>
@@ -56,8 +63,16 @@ const SearchFilters = () => {
             gap: "1rem",
             justifyContent: "end",
             alignItems: "center",
+            marginTop: "1rem",
           }}
         >
+          <DigiButton
+            afSize={ButtonSize.MEDIUM}
+            afVariation={ButtonVariation.PRIMARY}
+            afFullWidth={false}
+          >
+            Rensa
+          </DigiButton>
           <DigiFormFilter
             afFilterButtonText="Utbildningsform"
             afSubmitButtonText="Filtrera"
@@ -66,7 +81,11 @@ const SearchFilters = () => {
               id: form.key,
               label: form.value,
             }))}
+            onAfSubmitFilter={(e) =>
+              handleSearchFiltersChange(e.detail.checked)
+            }
           />
+
           {/* <DigiFormCategoryFilter
             afCategories={[
               {

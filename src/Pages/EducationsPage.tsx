@@ -42,10 +42,12 @@ export default function EducationPage() {
     "edAds",
     initialValues
   );
+
   const [searchParams, setSearchParams] = useSearchParams();
   const q = searchParams.get("q") || "";
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
   const [loading, setLoading] = useState(false);
+  const [searchFilters, setSearchFilters] = useState<string[]>([]);
 
   const paginationRef = useRef<any>(null);
 
@@ -92,7 +94,7 @@ export default function EducationPage() {
     const fetchData = async () => {
       try {
         const offset = (currentPage - 1) * 10;
-        const result = await fetchEducations(q, offset);
+        const result = await fetchEducations(q, offset, searchFilters);
         setEducationAds({ ...result, lastQuery: q, lastPage: currentPage });
       } catch (error) {
         console.error("Error fetching educations:", error);
@@ -103,12 +105,16 @@ export default function EducationPage() {
 
     fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [q, currentPage]);
+  }, [q, currentPage, searchFilters]);
+
+  const handleSearchFiltersChange = (filters: string[]) => {
+    setSearchFilters(filters);
+  };
 
   const showLoading = loading;
   const showEmptyState = !loading && q && (educationAds.hits ?? 0) === 0;
   const showResults = !loading && (educationAds.hits ?? 0) > 0;
-
+  console.log(searchFilters);
   return (
     <>
       <DigiLayoutBlock
@@ -129,7 +135,9 @@ export default function EducationPage() {
             onAfOnSubmitSearch={handleSearchEvent}
             afValue={q}
           ></DigiFormInputSearch>
-          <SearchFilters />
+          <SearchFilters
+            handleSearchFiltersChange={handleSearchFiltersChange}
+          />
         </DigiLayoutContainer>
       </DigiLayoutBlock>
       <DigiLayoutBlock

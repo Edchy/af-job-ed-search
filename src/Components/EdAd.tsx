@@ -29,9 +29,10 @@ const EdAd = ({ education }: { education: IEdAd }) => {
   const [loading, setLoading] = useState(false);
 
   async function handleClick(id: string) {
-    console.log("Clicked on accordion for education ID:", id);
     if (matchedOccupations.hits_total > 0 || loading) return;
+
     setLoading(true);
+
     try {
       const result = await getOccupationsMatchedByEducationId(id);
       console.log("Fetched occupations:", result);

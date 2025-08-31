@@ -82,7 +82,8 @@ export default function CompetenceBox({ job }: CompetenceBoxProps) {
                       fontSize: "0.875rem",
                     }}
                   >
-                    {item.name} ({item.value}%) (ska vi ta bort % kanske ?)
+                    {item.name}
+                    {/* ({item.value}%)  */}
                   </li>
                 ))}
               </DigiList>
